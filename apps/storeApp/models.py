@@ -1,4 +1,5 @@
 from django.db import models
+from djmoney.models.fields import MoneyField
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -21,8 +22,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='productImages/', height_field=600, width_field=800)
     # need to create a place for images - see FieldFile in django docs.
     # need proper placement of MEDIA_ROOT/productImages
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-    # plan to replace this with moneyField - just roughing in for now.
+    price = MoneyField(max_digits=14, decimal_places=2, default_currency='USD')
     brand = models.ForeignKey(Brand, related_name="products", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -30,7 +30,7 @@ class Product(models.Model):
 
 class Order(models.Model):
     user = models.ForeignKey(User, related_name="orders", on_delete=models.CASCADE)
-    total = models.DecimalField(max_digits=8, decimal_places=2)
+    total = MoneyField(max_digits=14, decimal_places=2, default_currency='USD')
     products_ordered = models.ManyToManyField(Product, related_name="orders")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
