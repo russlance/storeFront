@@ -20,8 +20,7 @@ class Product(models.Model):
     name = models.CharField(max_length=256)
     description = models.TextField()
     image = models.ImageField(upload_to='productImages/', height_field=600, width_field=800)
-    # need to create a place for images - see FieldFile in django docs.
-    # need proper placement of MEDIA_ROOT/productImages
+    # access image details: productObject.image.name  /  productObject.image.path
     price = MoneyField(max_digits=14, decimal_places=2, default_currency='USD')
     brand = models.ForeignKey(Brand, related_name="products", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
