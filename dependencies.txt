@@ -1,5 +1,5 @@
 My current installed packages:
-(dojoDjango) C:\Users\toast\Documents\CodingDojo\python_stack\storeFront [stephen ≡ +1 ~0 -0 !]> pip list
+(dojoDjango) C:\Users\toast\Documents\CodingDojo\python_stack\storeFront [stephen ↑3]> pip list
 Package              Version
 -------------------- -------
 asgiref              3.2.10
@@ -16,6 +16,7 @@ ipython-genutils     0.2.0
 jedi                 0.17.2
 parso                0.7.1
 pickleshare          0.7.5
+Pillow               8.0.1
 pip                  20.2.3
 prompt-toolkit       3.0.7
 py-moneyed           0.8.0
