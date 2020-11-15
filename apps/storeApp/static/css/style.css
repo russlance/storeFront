@@ -5,3 +5,8 @@
 .main_area {
     height: 800px;
 }
+
+.feature_box {
+    width: 100px;
+    height: 100px;
+}
