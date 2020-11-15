@@ -2,8 +2,31 @@
     background-color: #252422;
 }
 
+.container-fluid
+{
+    background-color: #FFFCF2;
+}
+
+.btn-secondary
+{
+    background-color: #403d39;
+    color: #FFFCF2;
+    border: solid 0px, 0px, 1px, 0px;
+    border-bottom: #FFFCF2 solid 1px;
+}
+
+.btn-secondary:hover, .btn-secondary:active, .btn-secondary.active, .btn-secondary::selection, .btn-secondary:target
+{
+    background-color: #CCC5B9;
+    color: #252422;
+}
+
 .main_area {
     height: 800px;
+}
+.border
+{
+    border-color: #403d39;
 }
 
 .feature_box {
