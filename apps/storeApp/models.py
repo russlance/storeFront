@@ -23,6 +23,7 @@ class Product(models.Model):
     # access image details: productObject.image.name  /  productObject.image.path
     price = MoneyField(max_digits=14, decimal_places=2, default_currency='USD')
     brand = models.ForeignKey(Brand, related_name="products", on_delete=models.CASCADE)
+    is_featured = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     # orders = List of Orders containing this product.
