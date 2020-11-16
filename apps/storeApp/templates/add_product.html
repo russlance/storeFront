@@ -71,26 +71,65 @@
 
     <div class="row m-5">
         <div class="col-6">
-            <form action="" method="POST">
+            <form action="/create_product" method="POST">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="product_name">Enter a description</label>
-                    <input class="form-control" type="text" placeholder="description" id="product_name">
-                    <label for="product_description">Enter a description</label>
-                    <textarea class="form-control" id="product_description" rows="3"></textarea>
-                    <label for="product_image">Upload an image</label>
-                    <input type="image" class="form-control-file" id="product_image">
-                    <label for="product_price">Product price</label>
-                    <input type="text" class="form-control" aria-label="product_price">
-                    <label for="product_brand">Product brand</label>
-                    <input type="text" class="form-control" aria-label="product_brand">
-                    <label for="product_category">Product category</label>
-                    <input type="text" class="form-control" aria-label="product_category">
+                    <label for="product_name">Product Name:</label>
+                    <input class="form-control" type="text" placeholder="description" id="product_name" name="product_name">
                 </div>
-                <button type="button" class="btn">Save</button>
+                <div class="form-group">
+                    <label for="product_description">Enter a description:</label>
+                    <textarea class="form-control" id="product_description" name="product_description" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="product_image">Upload an image</label>
+                    <input type="file" class="form-control-file" id="product_image" name="product_image">
+                </div>
+                <div class="form-group">
+                    <label for="product_price">Product price</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input class="form-control" type="number" id="product_price" name="product_price" aria-label="product_price" step="0.01">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="product_category">Product category</label>
+                    <select class="form-control" name="product_category" id="product_category" aria-label="product_category">
+                        {% for category in all_categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="product_brand">Product brand</label>
+                    <select class="form-control" name="product_brand" id="product_brand" aria-label="product_brand">
+                        {% for brand in all_brands %}
+                        <option value="{{ brand.id }}">{{ brand.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="justify-content-center">
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
             </form>
         </div>
-
+        <div class="col-6">
+            <h4>Last Product Created:</h4>
+            <h5>Name:</h5>
+            <p>{{last_product.name}}</p>
+            <h5>Description:</h5>
+            <p>{{last_product.description}}</p>
+            <h5>Image:</h5>
+            <img src="{{last_product.image.url}}" alt="product_image"/>
+            <h5>Price:</h5>
+            <p>{{last_product.price}}</p>
+            <h5>Category</h5>
+            <p>{{last_product.category.name}}</p>
+            <h5>Brand</h5>
+            <p>{{last_product.brand.name}}</p>
+        </div>
     </div>
 
 </body>
