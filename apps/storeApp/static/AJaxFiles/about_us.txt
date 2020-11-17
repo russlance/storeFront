@@ -1,59 +1,3 @@
-<<<<<<< HEAD
-
-<div class="col-md-12">
-    <div class="border main_area">
-        <div class="p-1 border-bottom m-2">
-            <h1 class="dark_text">About Us:</h1>
-            <p class="dark_text">Let's be clear, we are a FAKE hobby shop. The products, in most cases are real, but THIS STORE IS FAKE! If you add things to your cart, and try to purchase them, it will fail, because... We are a Fake Website.</p>
-            <p class="dark_text">If you like these products and would like to purchase them, please visit these fine retailers who were the inspiration for this project:</p>
-            <ul class="nav">
-                <li class="nav-item"><a href="http://www.criticalhitgames.net/" class="dark_text nav-link active">Critical Hit Games</a></li>
-                <li class="nav-item"><a href="https://www.hobbycorner.net/" class="dark_text nav-link active">Hobby Corner</a></li>
-                <li class="nav-item"><a href="https://www.redraccoongames.com/" class="dark_text nav-link active">Red Raccoon Games</a></li>
-                <li class="nav-item"><a href="https://www.games-workshop.com/en-US/Home?_requestid=20851971" class="dark_text nav-link active">Games Workshop</a></li>
-                <li class="nav-item"><a href="https://meeplesgames.com/" class="dark_text nav-link active">Meeple Games</a></li>
-            </ul>
-        </div>
-
-        <div class="p-1 m-2">
-            <h1 class="dark_text">Contact Us</h1>
-            <p class="dark_text">If you like this site, and would like to know more about the creators, you can check us out here:</p>
-            <div class="border-bottom m-2">
-                <h3 class="dark_text">Russ Lance</h3>
-                <p class="dark_text">picture</p>
-                <p class="dark_text">bio</p>
-                <ul class="nav">
-                    <li class="nav-item"><a href="https://www.linkedin.com/in/russ-lance-0a03a563/" class="dark_text nav-link active">LinkedIn</a></li>
-                    <li class="nav-item"><a href="https://github.com/DaddyO93" class="dark_text nav-link active">GitHub</a></li>
-                    <li class="nav-item"><a href="http://3.23.85.93/" class="dark_text nav-link active">Portfolio Site</a></li>
-                </ul>
-            </div>
-
-            <div class="border-bottom m-2">
-                <h3 class="dark_text">Ben Lance</h3>
-                <p class="dark_text">picture</p>
-                <p class="dark_text">bio</p>
-                <ul class="nav">
-                    <li class="nav-item"><a href="https://www.linkedin.com/in/ben-lance-6795111a2/" class="dark_text nav-link active">LinkedIn</a></li>
-                    <li class="nav-item"><a href="https://github.com/Harryonismyname" class="dark_text nav-link active">GitHub</a></li>
-                    <li class="nav-item"><a href="#" class="dark_text nav-link active">Portfolio Site</a></li>
-                </ul>
-            </div>
-
-            <div class="border-bottom m-2">
-                <h3 class="dark_text">Stephen Graham</h3>
-                <p class="dark_text">picture</p>
-                <p class="dark_text">bio</p>
-                <ul class="nav">
-                    <li class="nav-item"><a href="https://www.linkedin.com/in/stephen-a-graham/" class="dark_text nav-link active">LinkedIn</a></li>
-                    <li class="nav-item"><a href="https://github.com/s-graham42" class="dark_text nav-link active">GitHub</a></li>
-                    <li class="nav-item"><a href="#" class="dark_text nav-link active">Portfolio Site</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-=======
 <div class="p-1 border-bottom ml-4 mr-4 mb-4 mt-2">
                     <h1 class="dark_text">About Us:</h1>
                     <p class="dark_text">Let's be clear, we are a FAKE hobby shop. The products, in most cases are real, but THIS STORE IS FAKE! If you add things to your cart, and try to purchase them, it will fail, because... We are a Fake Website.</p>
@@ -120,4 +64,3 @@
                         </span>
                     </div>
                 </div>
->>>>>>> 1e89d3a78276197af1dda9ac5815d488f8302275
