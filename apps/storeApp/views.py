@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Category, Brand, Product
+from .models import Category, Brand, Product, Order, Article
+from django.contrib import messages
 
 # Create your views here.
 def index (request):
@@ -34,9 +35,6 @@ def about_us(request):
 def contact_us(request):
     return render(request, 'contact_us.html')
 
-
-
-
 def add_product(request):
     context = {
         'all_categories': Category.objects.all(),
@@ -47,7 +45,41 @@ def add_product(request):
 
 def create_product(request):
     if request.method == "POST":
-        category_to_add = Category.objects.get(id=request.POST['product_category'])
-        brand_to_add = Brand.objects.get(id=request.POST['product_brand'])
-        Product.objects.create(name=request.POST['product_name'], description=request.POST['product_description'], image=request.POST['product_image'], price=request.POST['product_price'], category=category_to_add, brand=brand_to_add)
+        errors = Product.objects.create_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/add_product')
+        else:
+            category_to_add = Category.objects.get(id=request.POST['product_category'])
+            brand_to_add = Brand.objects.get(id=request.POST['product_brand'])
+            image_to_add = request.FILES['product_image']
+            Product.objects.create(name=request.POST['product_name'], description=request.POST['product_description'], image=image_to_add, price=request.POST['product_price'], category=category_to_add, brand=brand_to_add)
+            brand_to_add.categories.add(category_to_add)
         return redirect('/add_product')
+
+def create_category(request):
+    if request.method == "POST":
+        errors = Category.objects.create_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/add_product')
+        else:
+            Category.objects.create(name=request.POST['new_category'])
+            return redirect('/add_product')
+    return redirect('/add_product')
+
+def create_brand(request):
+    if request.method == "POST":
+        errors = Brand.objects.create_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/add_product')
+        else:
+            category_to_add = Category.objects.get(id=request.POST['brand_category'])
+            new_brand = Brand.objects.create(name=request.POST['new_brand'])
+            new_brand.categories.add(category_to_add)
+            return redirect('/add_product')
+    return redirect('/add_product')
