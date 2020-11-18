@@ -1,25 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project: Hobby - About Us</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'storeApp/css/style.css' %}">
 </head>
+
 <body>
-    <h1>Project: Hobby</h1>
-    <a href="/store">Home</a>
-    <h2>About Us:</h2>
-    <p>Let's be clear, we are a FAKE hobby shop.</p>
-    <p>The products, in most cases are real, but THIS STORE IS FAKE!</p>
-    <p>If you add things to your cart, and try to purchase them, it will fail, because...</p>
-    <p>We are a Fake Website.</p>
-    <p>If you like these products and would like to purchase them, please visit these fine retailers who were the inspiration for this project:</p>
+    <div class="p-1 border-bottom ml-4 mr-4 mb-4 mt-2">
+        <h1 class="dark_text">About Us:</h1>
+        <p class="dark_text">Let's be clear, we are a FAKE hobby shop. The products, in most cases are real, but THIS STORE IS FAKE! If you add things to your cart, and try to purchase them, it will fail, because... We are a Fake Website.</p>
+        <p class="dark_text">If you like these products and would like to purchase them, please visit these fine retailers who were the inspiration for this project:</p>
+        <ul class="nav">
+            <li class="nav-item"><a href="http://www.criticalhitgames.net/" class="dark_text nav-link active">Critical Hit Games</a></li>
+            <li class="nav-item"><a href="https://www.hobbycorner.net/" class="dark_text nav-link active">Hobby Corner</a></li>
+            <li class="nav-item"><a href="https://www.redraccoongames.com/" class="dark_text nav-link active">Red Raccoon Games</a></li>
+            <li class="nav-item"><a href="https://www.games-workshop.com/en-US/Home?_requestid=20851971" class="dark_text nav-link active">Games Workshop</a></li>
+            <li class="nav-item"><a href="https://meeplesgames.com/" class="dark_text nav-link active">Meeple Games</a></li>
+        </ul>
+    </div>
 
-    <a href="http://www.criticalhitgames.net/">Critical Hit Games</a>
-    <a href="https://www.hobbycorner.net/">Hobby Corner</a>
-    <a href="https://www.redraccoongames.com/">Red Raccoon Games</a>
-    <a href="https://www.games-workshop.com/en-US/Home?_requestid=20851971">Games Workshop</a>
-    <a href="https://meeplesgames.com/">Meeple Games</a>
+    <div class="m-4">
+        <h1 class="dark_text">Contact Us</h1>
+        <p class="dark_text border-bottom pb-3">If you like this site, and would like to know more about the creators, you can check us out here:</p>
 
+        <div class="border-bottom m-2">
+            <span class="d-flex justify-content-between p-3">
+                <span class="d-inline-block">
+                    <h3 class="dark_text">Russ Lance</h3>
+                    <p class="dark_text">  Ability arcane spell failure direct a spell domain electrum humanoid type miss chance miss chance roll ray saving throw shapechanger subtype sonic attack swallow whole. Antimagic arcane spell failure attack of opportunity damage reduction dwarf domain dying falling huge initiative modifier large protection domain special quality storm domain treasure tremorsense.
+                    </p>
+                    <ul class="nav">
+                        <li class="nav-item"><a href="https://www.linkedin.com/in/russ-lance-0a03a563/" class="dark_text nav-link active">LinkedIn</a></li>
+                        <li class="nav-item"><a href="https://github.com/DaddyO93" class="dark_text nav-link active">GitHub</a></li>
+                        <li class="nav-item"><a href="http://3.23.85.93/" class="dark_text nav-link active">Portfolio Site</a></li>
+                    </ul>
+                </span>
+            <img src="{% static 'images/russ_lance.jpg' %}" alt="Russ Lance" class="col-3 d-inline-block">
+            </span>
+        </div>
+
+        <div class="border-bottom m-2">
+            <span class="d-flex justify-content-between p-3">
+                <span class="d-inline-block">
+                    <h3 class="dark_text">Ben Lance</h3>
+                    <p class="dark_text">  Air subtype animal type antimagic aquatic subtype augmented subtype blindsense bonus calling subschool cleric critical roll direct a spell disease energy drained extraplanar subtype failure family domain fascinated flight hardness kind profane bonus reach weapon redirect a spell resistance bonus sickened skill modifier swarm subtype trained turning check.
+
+                    </p>
+                    <ul class="nav">
+                        <li class="nav-item"><a href="https://www.linkedin.com/in/ben-lance-6795111a2/" class="dark_text nav-link active">LinkedIn</a></li>
+                        <li class="nav-item"><a href="https://github.com/Harryonismyname" class="dark_text nav-link active">GitHub</a></li>
+                        <li class="nav-item"><a href="#" class="dark_text nav-link active">Portfolio Site</a></li>
+                    </ul>
+                </span>
+            <img src="{% static 'images/ben_lance.jpg' %}" alt="Ben Lance" class="col-3 d-inline-block">
+            </span>
+        </div>
+
+        <div class="border-bottom m-2">
+            <span class="d-flex justify-content-between p-3">
+                <span class="d-inline-block">
+                    <h3 class="dark_text">Stephen Graham</h3>
+                    <p class="dark_text"> Armor class competence bonus concealment critical hit earth subtype fortitude save frightened goblinoid subtype healing domain incorporeal line of sight luck domain miniature figure negative level orc domain overlap phantasm subschool rune domain spellcaster starvation suppress travel domain tyranny domain.
+                    </p>
+                    <ul class="nav">
+                        <li class="nav-item"><a href="https://www.linkedin.com/in/stephen-a-graham/" class="dark_text nav-link active">LinkedIn</a></li>
+                        <li class="nav-item"><a href="https://github.com/s-graham42" class="dark_text nav-link active">GitHub</a></li>
+                        <li class="nav-item"><a href="#" class="dark_text nav-link active">Portfolio Site</a></li>
+                    </ul>
+                </span>
+            <img src="{% static 'images/stephen_graham.jpg' %}" alt="Stephen Graham" class="col-3 d-inline-block">
+            </span>
+        </div>
+    </div>
 </body>
+
 </html>
