@@ -20,7 +20,7 @@
     background-color: #CCC5B9;
     color: #252422;
 }
-.myTab, .myTab li button
+.myTab, .myTab li button, .dropdown-menu
 {
     color: #FFFCF2;
     background-color: #252422;
@@ -28,6 +28,11 @@
 #logo
 {
     height: 175px;
+}
+.modal-content
+{
+    background-color: #FFFCF2;
+    color: #252422;
 }
 .main_area {
     height: 800px;
