@@ -8,6 +8,18 @@ def index (request):
     # ]
     return render(request,'index.html')
 
+def home(request):
+    return render(request, "home.html")
+
+def directions(request):
+    return render(request, "directions.html")
+
+def cart(request):
+    return render(request, "cart.html")
+
+def login(request):
+    return render(request, "login.html")
+
 def news(request):
     # Maybe there's some logic here that returns the queryset of the most recent news items.
     # ajax on the page would replace the most recent articles with some page navigation?
@@ -21,6 +33,9 @@ def about_us(request):
 
 def contact_us(request):
     return render(request, 'contact_us.html')
+
+
+
 
 def add_product(request):
     context = {
