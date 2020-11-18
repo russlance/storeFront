@@ -1,4 +1,7 @@
-__pycache__
 .vscode
 venv/
+<<<<<<< HEAD
 db.sqlite3
+old_DB/
+=======
+>>>>>>> 1e89d3a78276197af1dda9ac5815d488f8302275
