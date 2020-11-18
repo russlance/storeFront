@@ -67,11 +67,19 @@
 
     <div class="row m-5">
         <div class="col-6">
-            <form action="/create_product" method="POST">
+            {% if messages %}
+            <p class="text-danger">Errors on this page:</p>
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{massage.tags}} text-danger" {% endif %}>{{message}}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <form action="/create_product" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="product_name">Product Name:</label>
-                    <input class="form-control" type="text" placeholder="description" id="product_name" name="product_name">
+                    <input class="form-control" type="text" placeholder="description" id="product_name" name="product_name" required>
                 </div>
                 <div class="form-group">
                     <label for="product_description">Enter a description:</label>
@@ -82,7 +90,7 @@
                     <input type="file" class="form-control-file" id="product_image" name="product_image">
                 </div>
                 <div class="form-group">
-                    <label for="product_price">Product price</label>
+                    <label for="product_price">Product price</label required>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">$</span>
@@ -93,6 +101,7 @@
                 <div class="form-group">
                     <label for="product_category">Product category</label>
                     <select class="form-control" name="product_category" id="product_category" aria-label="product_category">
+                        <option value="" selected>Choose...</option>
                         {% for category in all_categories %}
                         <option value="{{ category.id }}">{{ category.name }}</option>
                         {% endfor %}
@@ -101,13 +110,50 @@
                 <div class="form-group">
                     <label for="product_brand">Product brand</label>
                     <select class="form-control" name="product_brand" id="product_brand" aria-label="product_brand">
+                        <option value="" selected>Choose...</option>
                         {% for brand in all_brands %}
                         <option value="{{ brand.id }}">{{ brand.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
-                <div class="justify-content-center">
+                <div class="form-check my-4">
+                    <input type="checkbox" class="form-check-input" id="featured_product" name="featured_product" value="True">
+                    <label class="form-check-label" for="featured_product">Featured Product</label>
+                </div>
+                <div>
                     <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+            <div class="my-4">
+                <h3>Add New Categories and Brands:</h3>
+            </div>
+            <form action="/create_category" method="POST">
+                {% csrf_token %}
+                <div class="form-group my-3">
+                    <label for="new_category">Add A Category:</label>
+                    <input class="form-control" type="text" placeholder="New Category" id="new_category" name="new_category">
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-sm btn-info">Save</button>
+                </div>
+            </form>
+            <form action="/create_brand" method="POST">
+                {% csrf_token %}
+                <div class="form-group my-3">
+                    <label for="new_brand">Add A Brand:</label>
+                    <input class="form-control" type="text" placeholder="New Brand" id="new_brand" name="new_brand">
+                </div>
+                <div class="form-group">
+                    <label for="brand_category">Product category</label>
+                    <select class="form-control" name="brand_category" id="brand_category" aria-label="brand_category">
+                        <option value="" selected>Choose...</option>
+                        {% for category in all_categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-sm btn-info">Save</button>
                 </div>
             </form>
         </div>
