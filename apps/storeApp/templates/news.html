@@ -1,26 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project: Hobby - News</title>
 </head>
+
 <body>
     <div>
-        <h1>Project: Hobby News</h1>
-        <a href="/store">Home</a>
+        <h1 class="dark_text">Project: Hobby News</h1>
     </div>
     <div>
-        <h1>Article</h1>
-        <p>Alignment blinded class critical roll damage direct a spell disabled dodge bonus elf domain enemy ethereal favored class fear ray fighter flat-footed illusion domain initiative mundane necromancy nonintelligent paladin plane of existence ranged attack roll reaction scrying subschool special quality subtype threatened square travel domain unarmed attack.</p>
-        <p>Ability drained abjuration base save bonus concentrate on a spell double weapon enhancement bonus gold piece ocean domain range penalty turned. Blindsense class skill cold dangers constitution creation subschool fey type level loss massive damage off hand splash weapon strength domain.</p>
-        <p>Action animal domain aquatic subtype attack class level construct type cross-class skill damage reduction destruction domain difficulty class extraordinary ability favored class figment subschool gaze giant type granted power melee monk phantasm subschool plant domain platinum piece slime domain spell preparation spell trigger item swarm subtype water dangers water domain.</p>
+        {% for article in all_articles %}
+        <h1 class="dark_text">{{article.title}}</h1>
+        <p class="text-wrap dark_text">{{article.content}}</p>
+        <p class="dark_text">{{article.updated_at}}</p>
+        <p class="border"></p>
+        {% endfor %}
     </div>
-    <div>
-        <h1>Another Article</h1>
-        <p>Action bonus charm cold domain cowering disabled fey type giant type illusion manufactured weapons negative energy plane nonplayer character plant type player character resistance bonus shaken target turning check unconscious. Air subtype animal type antimagic aquatic subtype augmented subtype blindsense bonus calling subschool cleric critical roll direct a spell disease energy drained extraplanar subtype failure family domain fascinated flight hardness kind profane bonus reach weapon redirect a spell resistance bonus sickened skill modifier swarm subtype trained turning check.</p>
-        <p>Alternate form armor class balance domain cast a spell climb deal damage drow domain failure force damage fortitude save good subtype improved grab knowledge domain melee attack move action plant type shaken spell slot spontaneous casting tanar'ri subtype threaten water dangers wisdom.</p>
-        <p>0-level spell ability damaged checked death domain earth subtype evil domain evil subtype extraplanar gnome domain healing subschool large morale bonus move action rake resistance to energy spell descriptor summon. Balance domain enchantment fire immunity invisible lethal damage morale bonus shaken strength domain tremorsense turning damage.</p>
-    </div>
+
 </body>
+
 </html>
