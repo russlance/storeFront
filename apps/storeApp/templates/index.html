@@ -16,7 +16,7 @@
 <body>
     <ul class="nav top_nav justify-content-center" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-signpost-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <a class="nav-link active" id="map-tab" data-toggle="tab" href="#map" role="tab" aria-controls="map" aria-selected="true"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-signpost-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7 1.414V2h2v-.586a1 1 0 0 0-2 0z"/>
                     <path fill-rule="evenodd" d="M13.5 3H2v2h11.5l.75-1-.75-1zM2 2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h11.5a1 1 0 0 0 .8-.4l.975-1.3a.5.5 0 0 0 0-.6L14.3 2.4a1 1 0 0 0-.8-.4H2zm.5 6H14v2H2.5l-.75-1 .75-1zM14 7a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2.5a1 1 0 0 1-.8-.4L.725 9.3a.5.5 0 0 1 0-.6L1.7 7.4a1 1 0 0 1 .8-.4H14z"/>
                     <path d="M7 6h2v1H7V6zm0 5h2v5H7v-5z"/>
@@ -29,16 +29,16 @@
                   </svg></a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">News</a>
+            <a class="nav-link" id="profile-tab" href="/news" role="tab" aria-controls="profile" aria-selected="false">News</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Events</a>
+            <a class="nav-link" id="contact-tab" href="/events" role="tab" aria-controls="contact" aria-selected="false">Events</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">About Us</a>
+            <a class="nav-link" id="contact-tab" href="/about_us" role="tab" aria-controls="contact" aria-selected="false">About Us</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact Us</a>
+            <a class="nav-link" id="contact-tab" href="/contact_us" role="tab" aria-controls="contact" aria-selected="false">Contact Us</a>
         </li>
         <li>
             <h1>Project: Hobby</h1>
@@ -272,6 +272,78 @@
                         </div>
                         {% endfor %}
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="login_modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Log In</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="user_email">Email address</label>
+                            <input type="email" class="form-control" id="user_email" name="user_email" aria-describedby="emailHelp">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="user_password">Password</label>
+                            <input type="password" class="form-control" id="user_password" name="user_password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Log In</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="register_modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Register</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="user_first_name">First Name</label>
+                            <input type="text" name="user_first_name" id="user_first_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="user_last_name">Last Name</label>
+                            <input type="text" name="user_last_name" id="user_last_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="user_email">Email address</label>
+                            <input type="email" class="form-control" id="user_email" name="user_email" aria-describedby="emailHelp">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="user_password">Password</label>
+                            <input type="password" class="form-control" id="user_password" name="user_password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
