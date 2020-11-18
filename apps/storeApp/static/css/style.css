@@ -20,7 +20,15 @@
     background-color: #CCC5B9;
     color: #252422;
 }
-
+.myTab, .myTab li button
+{
+    color: #FFFCF2;
+    background-color: #252422;
+}
+#logo
+{
+    height: 175px;
+}
 .main_area {
     height: 800px;
 }
