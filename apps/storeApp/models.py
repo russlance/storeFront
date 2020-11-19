@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
+import re
 from djmoney.models.fields import MoneyField
-from django.contrib.auth.models import User
 
         # -----    Validators    -----
 
@@ -47,11 +47,61 @@ class ProductManager(models.Manager):
         if len(this_brand) == 0:
             errors['brand_not_exist'] = "Add Product: Brand does not exist."
         return errors
-        
 
-# Create your models here.
+class UserManager(models.Manager):
+    def reg_validator(self, postData):
+        errors = {}
+        NAME_REGEX = re.compile(r'^[a-zA-Z]+$')
+        EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+        if len(postData['first_name']) < 2:
+            errors['f_name_short'] = "First Name must be at least 2 characters."
+        if len(postData['first_name']) > 255:
+            errors['f_name_long'] = "First Name can't be more than 50 characters."
+        if not NAME_REGEX.match(postData['first_name']):
+            errors['f_name_regex'] = "First Name can only contain letters; no numbers, spaces or special characters."
+
+        if len(postData['last_name']) < 2:
+            errors['l_name_short'] = "Last Name must be at least 2 characters."
+        if len(postData['last_name']) > 255:
+            errors['l_name_long'] = "Last Name can't be more than 50 characters."
+        if not NAME_REGEX.match(postData['last_name']):
+            errors['l_name_regex'] = "Last Name can only contain letters; no numbers, spaces or special characters."
+
+        if len(postData['email']) == 0:
+            errors['req_email'] = "Email Required."
+        if len(postData['email']) > 255:
+            errors['long_email'] = "Email is too long.  Must be no more than 50 characters."
+        if not EMAIL_REGEX.match(postData['email']):
+            errors['email_regex'] = "Not a valid email address."
+        existing_email = User.objects.filter(email=postData['email'])
+        if len(existing_email) > 0:
+            errors['email_exists'] = "Email Address is already registered to another user."
+
+        if len(postData['password']) < 8:
+            errors['email_short'] = "Password must be at least 8 characters."
+        if len(postData['password']) > 200:
+            errors['email_long'] = "Password is too long.  Must be no more than 50 characters."
+        if postData['password'] != postData['password_conf']:
+            errors['no_pw_match'] = "Password confirmation failed.  Does not match."
+        return errors 
+        
+        # -----    Models    -----
+
+class User(models.Model):
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
+    is_admin = models.BooleanField(default=False)
+    wants_newsletter = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = UserManager()
+    # orders = List of orders associated with this User.
+    # articles = List of Articles associated with this User.
+
 class Category(models.Model):
-    name = models.CharField(max_length= 128)
+    name = models.CharField(max_length=128)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = CategoryManager()
@@ -59,7 +109,7 @@ class Category(models.Model):
     # products = List of Products associated with this Category.
 
 class Brand(models.Model):
-    name = models.CharField(max_length= 128)
+    name = models.CharField(max_length=128)
     categories = models.ManyToManyField(Category, related_name="brands")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -70,7 +120,7 @@ class Product(models.Model):
     name = models.CharField(max_length=256)
     description = models.TextField()
     image = models.ImageField(upload_to='media')
-                # access image details: productObject.image.name  /  productObject.image.path
+                # access image details: productObject.image.name  /  productObject.image.url
     price = MoneyField(max_digits=14, decimal_places=2, default_currency='USD')
     category = models.ForeignKey(Category, related_name="products", on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, related_name="products", on_delete=models.CASCADE)

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Category, Brand, Product, Order, Article
+from .models import Category, Brand, Product, Order, Article, User
 from django.contrib import messages
 
 # Create your views here.
@@ -57,6 +57,18 @@ def create_product(request):
             Product.objects.create(name=request.POST['product_name'], description=request.POST['product_description'], image=image_to_add, price=request.POST['product_price'], category=category_to_add, brand=brand_to_add)
             brand_to_add.categories.add(category_to_add)
         return redirect('/add_product')
+
+# path('products/<int:product_id>', views.product_detail),
+def product_detail(request, product_id):
+    this_product = Product.objects.filter(id=product_id)
+    if len(this_product) > 0:
+        this_product = this_product[0]
+        context = {
+            'this_product': this_product,
+        }
+        return render(request, "product_detail.html", context)
+    return redirect('/')
+
 
 def create_category(request):
     if request.method == "POST":

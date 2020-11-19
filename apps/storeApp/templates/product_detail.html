@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="col-8 mx-auto">
+        <h3>Product Detail:</h3>
+            <h5>Name:</h5>
+            <p>{{this_product.name}}</p>
+            <h5>Description:</h5>
+            <p>{{this_product.description}}</p>
+            <h5>Image:</h5>
+            <img src="{{this_product.image.url}}" alt="product_image" width="200px"/>
+            <h5>Price:</h5>
+            <p>{{this_product.price}}</p>
+            <h5>Category</h5>
+            <p>{{this_product.category.name}}</p>
+            <h5>Brand</h5>
+            <p>{{this_product.brand.name}}</p>
+    </div>
+</body>
+</html>
