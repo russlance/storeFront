@@ -229,7 +229,7 @@
                             </ul>
                         </div>
                     </li>
-
+                  
                     <li class="nav flex-column dropright">
                         <button type="button" class="btn btn-secondary dropdown-toggle rounded-0 text-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Video Games</button>
                         <div class="dropdown-menu p-0">
@@ -286,37 +286,7 @@
 
         <div class="col-md-6 mx-md-4 p-1">
             <div class="border main_area overflow-auto" id="content">
-                <h1 class="text-center">Main Product View Area</h1>
-                <div id="first_load">
-                    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            {% for item in sale_list_4 %}
-                            <div class="carousel-item active">
-                                <img src="{% static 'storeApp/{{item.image}}' %}" class="d-block w-100" alt="sale item">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5>item.name</h5>
-                                    <p>item.description</p>
-                                    <a href="#">Click here for more information</a>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+                        <!-- Main display area loaded via AJAX -->
         </div>
     </div>
 
