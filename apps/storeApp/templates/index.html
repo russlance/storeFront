@@ -11,110 +11,95 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             $.ajax({
-                    url: "/home",
-                    method: 'get',
-                    success:function(data)
-                {
+                url: "/home",
+                method: 'get',
+                success: function(data) {
                     var html_str = ""
-                    html_str+=data
+                    html_str += data
                     document.getElementById("content").innerHTML = html_str;
                 }
-                })
-            $("#AboutUs").click(function()
-            {
+            })
+            $("#AboutUs").click(function() {
                 $.ajax({
                     url: "{% static 'AjaxFiles/about_us.txt' %}",
                     method: 'get',
-                    success:function(data)
-                {
-                    var html_str = ""
-                    html_str+=data
-                    document.getElementById("content").innerHTML = html_str;
-                }
+                    success: function(data) {
+                        var html_str = ""
+                        html_str += data
+                        document.getElementById("content").innerHTML = html_str;
+                    }
                 })
             })
-            $("#home").click(function()
-            {
+            $("#home").click(function() {
                 $.ajax({
                     url: "/home",
                     method: 'get',
-                    success:function(data)
-                {
-                    var html_str = ""
-                    html_str+=data
-                    document.getElementById("content").innerHTML = html_str;
-                }
+                    success: function(data) {
+                        var html_str = ""
+                        html_str += data
+                        document.getElementById("content").innerHTML = html_str;
+                    }
                 })
             })
-            $("#profile-tab").click(function()
-            {
+            $("#profile-tab").click(function() {
                 $.ajax({
                     url: "/news",
                     method: 'get',
-                    success:function(data)
-                {
-                    var html_str = ""
-                    html_str+=data
-                    document.getElementById("content").innerHTML = html_str;
-                }
+                    success: function(data) {
+                        var html_str = ""
+                        html_str += data
+                        document.getElementById("content").innerHTML = html_str;
+                    }
                 })
             })
-            $("#directions").click(function()
-            {
+            $("#directions").click(function() {
                 $.ajax({
                     url: "/directions",
                     method: 'get',
-                    success:function(data)
-                {
-                    var html_str = ""
-                    html_str+=data
-                    document.getElementById("content").innerHTML = html_str;
-                }
+                    success: function(data) {
+                        var html_str = ""
+                        html_str += data
+                        document.getElementById("content").innerHTML = html_str;
+                    }
                 })
             })
-            $("#contactUs").click(function()
-            {
+            $("#contactUs").click(function() {
                 $.ajax({
                     url: "/contact_us",
                     method: 'get',
-                    success:function(data)
-                {
-                    var html_str = ""
-                    html_str+=data
-                    document.getElementById("content").innerHTML = html_str;
-                }
+                    success: function(data) {
+                        var html_str = ""
+                        html_str += data
+                        document.getElementById("content").innerHTML = html_str;
+                    }
                 })
             })
-            $("#events").click(function()
-            {
+            $("#events").click(function() {
                 $.ajax({
                     url: "/events",
                     method: 'get',
-                    success:function(data)
-                {
-                    var html_str = ""
-                    html_str+=data
-                    document.getElementById("content").innerHTML = html_str;
-                }
+                    success: function(data) {
+                        var html_str = ""
+                        html_str += data
+                        document.getElementById("content").innerHTML = html_str;
+                    }
                 })
             })
-            $("#cart").click(function()
-            {
+            $("#cart").click(function() {
                 $.ajax({
                     url: "/cart",
                     method: 'get',
-                    success:function(data)
-                {
-                    var html_str = ""
-                    html_str+=data
-                    console.log(html_str)
-                    document.getElementById("content").innerHTML = html_str;
-                }
+                    success: function(data) {
+                        var html_str = ""
+                        html_str += data
+                        console.log(html_str)
+                        document.getElementById("content").innerHTML = html_str;
+                    }
                 })
             })
-                    })
+        })
     </script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
@@ -170,7 +155,6 @@
 
         <div class="container">
             <div class="row p-4">
-
 
                 <div class="col-md-3">
                     <div><img src="#../static/images/gamestore_icon.png" alt="Logo"></div>
@@ -298,7 +282,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 mx-md-4">
+                <div class="col-md-6 mx-md-4 p-1">
                     <div class="border main_area overflow-auto" id="content">
                         <h1 class="text-center">Main Product View Area</h1>
                         <div id="first_load">
