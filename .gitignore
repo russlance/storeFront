@@ -1,4 +1,4 @@
 .vscode
 venv/
 old_DB/
-__pycache__
+__pycache__/
