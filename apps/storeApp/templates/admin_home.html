@@ -106,21 +106,23 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Product Name</th>
-                                <th scope="col">Product Category</th>
-                                <th scope="col">Product Brand</th>
-                                <th scope="col">Product Price</th>
-                                <th scope="col">Product Inventory</th>
+                                <th class="dark_text" scope="col">Name</th>
+                                <th class="dark_text" scope="col">Category</th>
+                                <th class="dark_text" scope="col">Brand</th>
+                                <th class="dark_text" scope="col">Price</th>
+                                <th class="dark_text" scope="col">Inventory</th>
+                                <th class="dark_text" scope="col">Sale</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for product in all_products %}
                             <tr>
-                                <th scope="row"><a href="#">{{product.name}}</a></th>
-                                <td>{{product.category}}</td>
-                                <td>{{product.brand}}</td>
-                                <td>{{product.price}}</td>
-                                <td>{{product.inventory}}</td>
+                                <th class="dark_text" scope="row"><a href="#">{{product.name}}</a></th>
+                                <td class="dark_text">{{product.category}}</td>
+                                <td class="dark_text">{{product.brand}}</td>
+                                <td class="dark_text">{{product.price}}</td>
+                                <td class="dark_text">{{product.inventory}}</td>
+                                <td class="dark_text">{{product.sale}}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -192,6 +194,18 @@
                                 <input class="form-control" type="number" id="product_inventory" name="product_inventory" value="{{product.inventory}}">
                             </div>
                         </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <label for="sale_select">Sale Item</label>
+                                    <input type="checkbox" aria-label="Checkbox for sale" name="sale_select" id="sale_select" value="{{product.sale_select}}">
+                                </div>
+                            </div>
+                            <label for="discount_amount">Discount Amount</label>
+                            <input type="number" class="form-control" aria-label="Amount discount" name="discount_amount" id="discount_amount" value="{{product.discount_amount}}">
+                        </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
