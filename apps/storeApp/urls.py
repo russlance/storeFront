@@ -13,5 +13,8 @@ urlpatterns = [
     path('contact_us', views.contact_us),
     path('add_product', views.add_product),
     path('create_product', views.create_product),
+    path('create_category', views.create_category),
+    path('create_brand', views.create_brand),
+
 
 ]
