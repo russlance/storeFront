@@ -58,8 +58,7 @@
                     <button class="btn dropdown-item" data-toggle="modal" data-target="#register_modal">Register</button>
                 </div>
             </li>
-            {% endif %}
-            {% if current_user.admin %}
+            {% endif %} {% if current_user.admin %}
             <li class="nav-item" role="presentation">
                 <a class="btn btn-link nav-link contact-tab">Admin Home</a>
             </li>
@@ -75,28 +74,8 @@
             </li>
         </ul>
 
-        <div class="col-md-3">
-            <div><img src="#../static/images/gamestore_icon.png" alt="Logo"></div>
-            <div class="btn-group">
-                <ul class="nav flex-column">
-                    <li class="nav flex-column dropright">
-                        <button type="button" class="btn btn-secondary dropdown-toggle rounded-0 text-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Role Playing Games</button>
-                        <div class="dropdown-menu p-0">
-                            <ul class="nav flex-column">
-                                <li class="nav flex-column">
-                                    <button type="button" class="btn btn-secondary dropdown-toggle rounded-0 text-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dungeons and Dragons</button>
-                                </li>
-                                <li class="nav flex-column">
-                                    <button type="button" class="btn btn-secondary dropdown-toggle rounded-0 text-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pathfinder</button>
-                                </li>
-                                <li class="nav flex-column">
-                                    <button type="button" class="btn btn-secondary dropdown-toggle rounded-0 text-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Call of Cthulhu</button>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-
-<!-- Vertical navbar -->
+        <div class="row justify-content-center">
+            <!-- Vertical navbar -->
             <div class="col-md-2">
                 <img src="../static/images/gamestore_icon.png" alt="Logo" class="d-block offset-5" id="logo">
                 <div class="btn-group offset-5">
@@ -108,33 +87,49 @@
                         {% endfor %}
                     </ul>
                 </div>
-                {% endfor %}
             </div>
-        </div>
 
-        <div id="second_featured_item" class="carousel slide border mt-3" data-ride="carousel">
-            <div class="carousel-inner">
-                {% for item in sale_list_2 %}
-                <div class="carousel-item active">
-                    <a href="#" class="d-block w-100">{{item.image}}</a>
-                    <p>{{item.name}}</p>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
+            <div class="col-6">
+                <div class="border main_area p-2 m-1">
 
-        <div id="third_featured_item" class="carousel slide border mt-3" data-ride="carousel">
-            <div class="carousel-inner">
-                {% for item in sale_list_3 %}
-                <div class="carousel-item active">
-                    <a href="#" class="d-block w-100">{{item.image}}</a>
-                    <p>{{item.name}}</p>
                 </div>
-                {% endfor %}
+            </div>
+
+            <div class="col-2">
+                <div id="first_featured_item" class="carousel slide border mt-3" data-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for item in sale_list_1 %}
+                        <div class="carousel-item active">
+                            <a href="#" class="d-block w-100">{{item.image}}</a>
+                            <p>{{item.name}}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div id="second_featured_item" class="carousel slide border mt-3" data-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for item in sale_list_2 %}
+                        <div class="carousel-item active">
+                            <a href="#" class="d-block w-100">{{item.image}}</a>
+                            <p>{{item.name}}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div id="third_featured_item" class="carousel slide border mt-3" data-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for item in sale_list_3 %}
+                        <div class="carousel-item active">
+                            <a href="#" class="d-block w-100">{{item.image}}</a>
+                            <p>{{item.name}}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    </div>
     </div>
 
     <!-- Login Modal -->

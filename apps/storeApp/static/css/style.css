@@ -3,7 +3,7 @@
 }
 
 .container-fluid {
-    background-image: radial-gradient(#FFFCF2 5%, #403d39);
+    background-image: radial-gradient(#FFFCF2 1%, #b4b3ab);
 }
 
 .btn-secondary {
@@ -21,22 +21,25 @@
     background-color: #CCC5B9;
     color: #252422;
 }
-.myTab, .myTab li button, .dropdown-menu
-{
+
+.myTab,
+.myTab li button,
+.dropdown-menu {
     color: #FFFCF2;
     background-color: #252422;
 }
-#logo
-{
+
+#logo {
     height: 175px;
 }
-.modal-content
-{
+
+.modal-content {
     background-color: #FFFCF2;
     color: #252422;
 }
+
 .main_area {
-    height: 800px;
+    height: 830px;
 }
 
 .border {
