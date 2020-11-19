@@ -58,6 +58,18 @@ def create_product(request):
             brand_to_add.categories.add(category_to_add)
         return redirect('/add_product')
 
+# path('products/<int:product_id>', views.product_detail),
+def product_detail(request, product_id):
+    this_product = Product.objects.filter(id=product_id)
+    if len(this_product) > 0:
+        this_product = this_product[0]
+        context = {
+            'this_product': this_product,
+        }
+        return render(request, "product_detail.html", context)
+    return redirect('/')
+
+
 def create_category(request):
     if request.method == "POST":
         errors = Category.objects.create_validator(request.POST)

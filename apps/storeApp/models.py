@@ -70,7 +70,7 @@ class Product(models.Model):
     name = models.CharField(max_length=256)
     description = models.TextField()
     image = models.ImageField(upload_to='media')
-                # access image details: productObject.image.name  /  productObject.image.path
+                # access image details: productObject.image.name  /  productObject.image.url
     price = MoneyField(max_digits=14, decimal_places=2, default_currency='USD')
     category = models.ForeignKey(Category, related_name="products", on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, related_name="products", on_delete=models.CASCADE)
