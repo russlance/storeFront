@@ -125,6 +125,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, related_name="products", on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, related_name="products", on_delete=models.CASCADE)
     is_featured = models.BooleanField(default=False)
+    inventory = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = ProductManager()
