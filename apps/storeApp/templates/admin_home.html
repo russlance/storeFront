@@ -27,9 +27,6 @@
                 <a class="nav-link" href="#">Admin Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Sales</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="#">News</a>
             </li>
             <li class="nav-item">
@@ -117,6 +114,7 @@
                         <tbody>
                             {% for product in all_products %}
                             <tr>
+                                <!-- This a-tag needs to send product.id to feed modal below ; need url -->
                                 <th class="dark_text" scope="row"><a href="#">{{product.name}}</a></th>
                                 <td class="dark_text">{{product.category}}</td>
                                 <td class="dark_text">{{product.brand}}</td>
@@ -133,7 +131,7 @@
         </div>
     </div>
 
-    <!-- Display product info in modal -->
+    <!-- Display product info in modal for editing -->
     <div class="modal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
