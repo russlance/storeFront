@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from .models import Category, Brand, Product
 
 # Create your views here.
 def index (request):
@@ -6,6 +7,18 @@ def index (request):
     #     "stuff":stuff,
     # ]
     return render(request,'index.html')
+
+def home(request):
+    return render(request, "home.html")
+
+def directions(request):
+    return render(request, "directions.html")
+
+def cart(request):
+    return render(request, "cart.html")
+
+def login(request):
+    return render(request, "login.html")
 
 def news(request):
     # Maybe there's some logic here that returns the queryset of the most recent news items.
@@ -20,3 +33,21 @@ def about_us(request):
 
 def contact_us(request):
     return render(request, 'contact_us.html')
+
+
+
+
+def add_product(request):
+    context = {
+        'all_categories': Category.objects.all(),
+        'all_brands': Brand.objects.all(),
+        'last_product': Product.objects.last(),
+    }
+    return render(request, 'add_product.html', context)
+
+def create_product(request):
+    if request.method == "POST":
+        category_to_add = Category.objects.get(id=request.POST['product_category'])
+        brand_to_add = Brand.objects.get(id=request.POST['product_brand'])
+        Product.objects.create(name=request.POST['product_name'], description=request.POST['product_description'], image=request.POST['product_image'], price=request.POST['product_price'], category=category_to_add, brand=brand_to_add)
+        return redirect('/add_product')
