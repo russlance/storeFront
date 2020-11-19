@@ -53,10 +53,10 @@
                         <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                         <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                     </svg></button>
-                    <div class="dropdown-menu py-0" aria-labelledby="login">
-                        <button class="btn dropdown-item" data-toggle="modal" data-target="#login_modal">Log in</button>
-                        <button class="btn dropdown-item" data-toggle="modal" data-target="#register_modal" >Register</button>
-                    </div>
+                <div class="dropdown-menu py-0" aria-labelledby="login">
+                    <button class="btn dropdown-item" data-toggle="modal" data-target="#login_modal">Log in</button>
+                    <button class="btn dropdown-item" data-toggle="modal" data-target="#register_modal">Register</button>
+                </div>
             </li>
             {% endif %}
             {% if current_user.admin %}
@@ -75,7 +75,26 @@
             </li>
         </ul>
 
-        <div class="row p-4 justify-content-center">
+        <div class="col-md-3">
+            <div><img src="#../static/images/gamestore_icon.png" alt="Logo"></div>
+            <div class="btn-group">
+                <ul class="nav flex-column">
+                    <li class="nav flex-column dropright">
+                        <button type="button" class="btn btn-secondary dropdown-toggle rounded-0 text-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Role Playing Games</button>
+                        <div class="dropdown-menu p-0">
+                            <ul class="nav flex-column">
+                                <li class="nav flex-column">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle rounded-0 text-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dungeons and Dragons</button>
+                                </li>
+                                <li class="nav flex-column">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle rounded-0 text-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pathfinder</button>
+                                </li>
+                                <li class="nav flex-column">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle rounded-0 text-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Call of Cthulhu</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
 
 <!-- Vertical navbar -->
             <div class="col-md-2">
@@ -89,49 +108,33 @@
                         {% endfor %}
                     </ul>
                 </div>
-            </div>
-
-            <div class="col-md-6 mx-md-4">
-                <div class="border main_area overflow-auto p-2" id="content">
-                </div>
-            </div>
-
-            <div class="col-md-2">
-                <p>Featured Items</p>
-                <div id="first_featured_item" class="carousel slide border" data-ride="carousel">
-                    <div class="carousel-inner">
-                        {% for item in sale_list_1 %}
-                        <div class="carousel-item active">
-                            <a href="#" class="d-block w-100">{{item.image}}</a>
-                            <p>{{item.name}}</p>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <div id="second_featured_item" class="carousel slide border mt-3" data-ride="carousel">
-                    <div class="carousel-inner">
-                        {% for item in sale_list_2 %}
-                        <div class="carousel-item active">
-                            <a href="#" class="d-block w-100">{{item.image}}</a>
-                            <p>{{item.name}}</p>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <div id="third_featured_item" class="carousel slide border mt-3" data-ride="carousel">
-                    <div class="carousel-inner">
-                        {% for item in sale_list_3 %}
-                        <div class="carousel-item active">
-                            <a href="#" class="d-block w-100">{{item.image}}</a>
-                            <p>{{item.name}}</p>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
+
+        <div id="second_featured_item" class="carousel slide border mt-3" data-ride="carousel">
+            <div class="carousel-inner">
+                {% for item in sale_list_2 %}
+                <div class="carousel-item active">
+                    <a href="#" class="d-block w-100">{{item.image}}</a>
+                    <p>{{item.name}}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div id="third_featured_item" class="carousel slide border mt-3" data-ride="carousel">
+            <div class="carousel-inner">
+                {% for item in sale_list_3 %}
+                <div class="carousel-item active">
+                    <a href="#" class="d-block w-100">{{item.image}}</a>
+                    <p>{{item.name}}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </div>
     </div>
 
     <!-- Login Modal -->
