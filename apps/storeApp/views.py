@@ -1,13 +1,19 @@
 from django.shortcuts import render, redirect
 from .models import Category, Brand, Product, Order, Article, User
 from django.contrib import messages
+import bcrypt
 
 # Create your views here.
 def index (request):
-    # context = [
-    #     "stuff":stuff,
-    # ]
-    return render(request,'index.html')
+    if 'current_user' not in request.session:
+        curr_user = None
+    else:
+        curr_user = User.objects.get(id=request.session['current_user'])
+    context = {
+        "all_categories": Category.objects.all(),
+        "current_user": curr_user,
+    }
+    return render(request,'index.html', context)
 
 def home(request):
     return render(request, "home.html")
@@ -22,9 +28,10 @@ def login(request):
     return render(request, "login.html")
 
 def news(request):
-    # Maybe there's some logic here that returns the queryset of the most recent news items.
-    # ajax on the page would replace the most recent articles with some page navigation?
-    return render(request, 'news.html')
+    context = {
+        'all_articles': Article.objects.all(),
+    }
+    return render(request, 'news.html', context)
 
 def events(request):
     return render(request, 'events.html')
@@ -35,13 +42,18 @@ def about_us(request):
 def contact_us(request):
     return render(request, 'contact_us.html')
 
-def add_product(request):
+
+
+
+def admin_home(request):
     context = {
         'all_categories': Category.objects.all(),
         'all_brands': Brand.objects.all(),
         'last_product': Product.objects.last(),
     }
-    return render(request, 'add_product.html', context)
+    return render(request, 'admin_home.html', context)
+
+# ---------- PRODUCT FUNCTIONS ----------
 
 def create_product(request):
     if request.method == "POST":
@@ -58,7 +70,6 @@ def create_product(request):
             brand_to_add.categories.add(category_to_add)
         return redirect('/add_product')
 
-# path('products/<int:product_id>', views.product_detail),
 def product_detail(request, product_id):
     this_product = Product.objects.filter(id=product_id)
     if len(this_product) > 0:
@@ -95,3 +106,35 @@ def create_brand(request):
             new_brand.categories.add(category_to_add)
             return redirect('/add_product')
     return redirect('/add_product')
+
+# ----------  USER FUNCTIONS ----------
+
+def register_user(request):
+    if request.method == "POST":
+        errors = User.objects.reg_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/')
+        else:
+            hashed_pw = bcrypt.hashpw(request.POST['user_password'].encode(), bcrypt.gensalt()).decode()
+            new_user = User.objects.create(first_name=request.POST['user_first_name'], last_name=request.POST['user_last_name'], email=request.POST['user_email'], password=hashed_pw)
+            request.session['current_user'] = new_user.id
+            return redirect('/')
+    return redirect('/')
+
+def log_in(request):
+    if request.method =="POST":
+        login_user = User.objects.filter(email=request.POST['user_email'])
+        if len(login_user) > 0:
+            login_user = login_user[0]
+            if bcrypt.checkpw(request.POST['user_password'].encode(), login_user.password.encode()):
+                request.session["current_user"] = login_user.id
+                return redirect('/')
+        messages.error(request, "Email or password is incorrect.")
+        return redirect('/')
+    return redirect('/')
+
+def log_out(request):
+    request.session.clear()
+    return redirect('/')
