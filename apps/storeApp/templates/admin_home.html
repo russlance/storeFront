@@ -15,10 +15,11 @@
 </head>
 
 <body>
-    <div class="row justify-content-center">
-        <ul class="nav top_nav">
+    <div class="container-fluid min-vh-100">
+        <!-- Navbar -->
+        <ul class="nav top_nav justify-content-center row myTab mb-2" role="tablist">
             <li class="nav-item">
-                <p class="dark_text">Hello {{user.first_name}}</p>
+                <p class="">Hello {{user.first_name}}</p>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="#">Store</a>
@@ -39,96 +40,77 @@
                 <a class="nave-link" href="/users/logout">Log Out</a>
             </li>
         </ul>
-    </div>
 
-    <div class="container-fluid min-vh-100">
-        <div class="row m-5 justify-content-center">
+        <div class="row justify-content-center">
+            {% if messages %}
+            <p class="text-danger">Errors on this page:</p>
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{massage.tags}} text-danger" {% endif %}>{{message}}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
             <!-- Add Product -->
-            <div class="col">
+            <div class="col-3">
                 <h5 class="dark_text">Add Product</h5>
-                {% if messages %}
-                <p class="text-danger">Errors on this page:</p>
-                <ul class="messages">
-                    {% for message in messages %}
-                    <li {% if message.tags %} class="{{massage.tags}} text-danger" {% endif %}>{{message}}</li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
                 <form action="/create_product" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group">
-                        <div class="input-group-prepend">
-                            <label for="product_name" class="dark_text">Name</label>
-                        </div>
                         <input class="form-control" type="text" placeholder="Enter a product name" id="product_name" name="product_name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="product_description" class="dark_text">Description</label>
                         <textarea class="form-control" id="product_description" name="product_description" rows="3" placeholder="Enter a product description"></textarea>
-                    </div>
-                    <span>  </span>
-                    <div class="form-group">
-                        <label for="product_image" class="dark_text">Upload an image</label>
-                        <input type="file" class="form-control-file" id="product_image" name="product_image">
-                    </div>
-                    <div class="form-group">
-                        <label for="product_price" class="dark_text">Price</label>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text dark_text">$</span>
                             </div>
-                            <input class="form-control" type="number" id="product_price" name="product_price" aria-label="product_price" step="0.01">
+                            <input class="form-control mr-2" type="number" id="product_price" name="product_price" aria-label="product_price" step="0.01" placeholder="Enter price">
+                            <input class="form-control" type="number" id="product_inventory" name="product_inventory" aria-label="product_inventory" placeholder="Inventory on hand">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="product_category" class="dark_text">Category</label>
                         <select class="form-control dark_text" name="product_category" id="product_category" aria-label="product_category">
-                            <option value="" selected>Choose...</option>
-                            {% for category in all_categories %}
-                            <option value="{{ category.id }}" class="dark_text">{{ category.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="product_brand" class="dark_text">Brand</label>
+                                    <option value="" selected>Choose Category</option>
+                                    {% for category in all_categories %}
+                                    <option value="{{ category.id }}" class="dark_text">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
                         <select class="form-control dark_text" name="product_brand" id="product_brand" aria-label="product_brand">
-                            <option value="" selected>Choose...</option>
-                            {% for brand in all_brands %}
-                            <option value="{{ brand.id }}" class="dark_text">{{ brand.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="product_inventory" class="dark_text">Inventory on hand</label>
-                        <input class="form-control" type="number" id="product_inventory" name="product_inventory" aria-label="product_inventory">
+                                    <option value="" selected>Choose Brand</option>
+                                    {% for brand in all_brands %}
+                                    <option value="{{ brand.id }}" class="dark_text">{{ brand.name }}</option>
+                                    {% endfor %}
+                                </select>
+
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="product_image" name="product_image" aria-describedby="inputGroupFileAddon01">
+                                <label class="custom-file-label dark_text" for="inputGroupFile01">Choose image file</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="justify-content-center">
                         <button type="submit" class="btn btn-success">Save</button>
                     </div>
                 </form>
-                <div class="my-4">
-                    <h3>Add New Categories and Brands:</h3>
-                </div>
+            </div>
+
+            <!-- Add Category and Brand -->
+            <div class="col-3">
+                <h5 class="dark_text">Add New Category</h5>
                 <form action="/create_category" method="POST">
                     {% csrf_token %}
                     <div class="form-group my-3">
-                        <label for="new_category">Add A Category:</label>
-                        <input class="form-control" type="text" placeholder="New Category" id="new_category" name="new_category">
+                        <input class="form-control" type="text" placeholder="Add New Category" id="new_category" name="new_category">
                     </div>
                     <div>
                         <button type="submit" class="btn btn-sm btn-info">Save</button>
                     </div>
                 </form>
+                <h5 class="dark_text mt-5">Add New Brand</h5>
                 <form action="/create_brand" method="POST">
                     {% csrf_token %}
                     <div class="form-group my-3">
-                        <label for="new_brand">Add A Brand:</label>
-                        <input class="form-control" type="text" placeholder="New Brand" id="new_brand" name="new_brand">
-                    </div>
-                    <div class="form-group">
-                        <label for="brand_category">Product category</label>
-                        <select class="form-control" name="brand_category" id="brand_category" aria-label="brand_category">
-                            <option value="" selected>Choose...</option>
+                        <input class="form-control" type="text" placeholder="Add New Brand" id="new_brand" name="new_brand">
+                        <select class="form-control dark_text" name="brand_category" id="brand_category" aria-label="brand_category">
+                            <option value="" selected>Choose Category</option>
                             {% for category in all_categories %}
                             <option value="{{ category.id }}">{{ category.name }}</option>
                             {% endfor %}
@@ -140,10 +122,13 @@
                 </form>
             </div>
 
+            <!-- Change sale list discounts shown in space under add-section -->
+
+
             <!-- Edit Product Table: selecting item populates form below for editing -->
             <div class="col">
                 <h5 class="dark_text">All Products</h5>
-                <div class="overflow-auto">
+                <div class="overflow-auto main_area border">
                     <table class="table">
                         <thead>
                             <tr>
@@ -174,9 +159,10 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
+
+    </div>
     </div>
 
     <!-- Display product info in modal for editing -->
