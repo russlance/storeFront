@@ -104,7 +104,7 @@
                     <div class="carousel-inner">
                         {% for item in sale_list_1 %}
                         <div class="carousel-item active">
-                            <a href="#" class="d-block w-100">{{item.image}}</a>
+                            <a href="/products/{{item.id}}" class="d-block w-100"><img src="{{item.image.url}}" alt="product_image" width="50px" /></a>
                             <p>{{item.name}}</p>
                         </div>
                         {% endfor %}
@@ -115,7 +115,7 @@
                     <div class="carousel-inner">
                         {% for item in sale_list_2 %}
                         <div class="carousel-item active">
-                            <a href="#" class="d-block w-100">{{item.image}}</a>
+                            <a href="/products/{{item.id}}" class="d-block w-100"><img src="{{item.image.url}}" alt="product_image" width="50px" /></a>
                             <p>{{item.name}}</p>
                         </div>
                         {% endfor %}
@@ -126,7 +126,7 @@
                     <div class="carousel-inner">
                         {% for item in sale_list_3 %}
                         <div class="carousel-item active">
-                            <a href="#" class="d-block w-100">{{item.image}}</a>
+                            <a href="/products/{{item.id}}" class="d-block w-100"><img src="{{item.image.url}}" alt="product_image" width="50px" /></a>
                             <p>{{item.name}}</p>
                         </div>
                         {% endfor %}

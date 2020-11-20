@@ -9,9 +9,18 @@ def index (request):
         curr_user = None
     else:
         curr_user = User.objects.get(id=request.session['current_user'])
+    sale1 = Sale.objects.get(sale_list=1)
+    sale2 = Sale.objects.get(sale_list=2)
+    sale3 = Sale.objects.get(sale_list=3)
+    sale4 = Sale.objects.get(sale_list=4)
+    print(sale1, sale2, sale3, sale4)
     context = {
         "all_categories": Category.objects.all(),
         "current_user": curr_user,
+        "sale_list_1": Product.objects.filter(sale=sale1),
+        "sale_list_2": Product.objects.filter(sale=sale2),
+        "sale_list_3": Product.objects.filter(sale=sale3),
+        "sale_list_4": Product.objects.filter(sale=sale4),
     }
     return render(request,'index.html', context)
 
