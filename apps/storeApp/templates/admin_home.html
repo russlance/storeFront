@@ -46,11 +46,19 @@
             <!-- Add Product -->
             <div class="col">
                 <h5 class="dark_text">Add Product</h5>
-                <form action="/create_product" method="POST">
+                {% if messages %}
+                <p class="text-danger">Errors on this page:</p>
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="{{massage.tags}} text-danger" {% endif %}>{{message}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <form action="/create_product" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="product_name" class="dark_text">Name</label>
-                        <input class="form-control" type="text" placeholder="Enter a product name" id="product_name" name="product_name">
+                        <input class="form-control" type="text" placeholder="Enter a product name" id="product_name" name="product_name" required>
                     </div>
                     <div class="form-group">
                         <label for="product_description" class="dark_text">Description</label>
@@ -73,14 +81,16 @@
                     <div class="form-group">
                         <label for="product_category" class="dark_text">Category</label>
                         <select class="form-control dark_text" name="product_category" id="product_category" aria-label="product_category">
-                        {% for category in all_categories %}
-                        <option value="{{ category.id }}" class="dark_text">{{ category.name }}</option>
-                        {% endfor %}
-                    </select>
+                            <option value="" selected>Choose...</option>
+                            {% for category in all_categories %}
+                            <option value="{{ category.id }}" class="dark_text">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="product_brand" class="dark_text">Brand</label>
                         <select class="form-control dark_text" name="product_brand" id="product_brand" aria-label="product_brand">
+                            <option value="" selected>Choose...</option>
                             {% for brand in all_brands %}
                             <option value="{{ brand.id }}" class="dark_text">{{ brand.name }}</option>
                             {% endfor %}
@@ -92,6 +102,38 @@
                     </div>
                     <div class="justify-content-center">
                         <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </form>
+                <div class="my-4">
+                    <h3>Add New Categories and Brands:</h3>
+                </div>
+                <form action="/create_category" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group my-3">
+                        <label for="new_category">Add A Category:</label>
+                        <input class="form-control" type="text" placeholder="New Category" id="new_category" name="new_category">
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-sm btn-info">Save</button>
+                    </div>
+                </form>
+                <form action="/create_brand" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group my-3">
+                        <label for="new_brand">Add A Brand:</label>
+                        <input class="form-control" type="text" placeholder="New Brand" id="new_brand" name="new_brand">
+                    </div>
+                    <div class="form-group">
+                        <label for="brand_category">Product category</label>
+                        <select class="form-control" name="brand_category" id="brand_category" aria-label="brand_category">
+                            <option value="" selected>Choose...</option>
+                            {% for category in all_categories %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-sm btn-info">Save</button>
                     </div>
                 </form>
             </div>
@@ -109,6 +151,7 @@
                                 <th class="dark_text" scope="col">Price</th>
                                 <th class="dark_text" scope="col">Inventory</th>
                                 <th class="dark_text" scope="col">Sale</th>
+                                <th class="dark_text" scope="col">Image</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -116,11 +159,14 @@
                             <tr>
                                 <!-- This a-tag needs to send product.id to feed modal below ; need url -->
                                 <th class="dark_text" scope="row"><a href="#">{{product.name}}</a></th>
-                                <td class="dark_text">{{product.category}}</td>
-                                <td class="dark_text">{{product.brand}}</td>
+                                <td class="dark_text">{{product.category.name}}</td>
+                                <td class="dark_text">{{product.brand.name}}</td>
                                 <td class="dark_text">{{product.price}}</td>
                                 <td class="dark_text">{{product.inventory}}</td>
                                 <td class="dark_text">{{product.sale}}</td>
+                                <td>
+                                    <img src="{{product.image.url}}" alt="product_image" width="50px"/>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
