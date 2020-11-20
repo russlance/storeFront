@@ -25,6 +25,19 @@ class BrandManager(models.Manager):
             errors['no_category'] = "Add Brand:  Please choose a Category."
         return errors
 
+class SaleManager(models.Manager):
+    def create_validator(self, postData):
+        errors = {}
+        if int(postData['new_sale_list']) < 1:
+            errors['no_name'] = "Add Sale: Sale List Number Required."
+        if Sale.objects.filter(sale_list=int(postData['new_sale_list'])):
+            errors['duplicate_sale'] = "Add Sale: Sale already exists."
+        if int(postData['new_sale_discount']) < 1:
+            errors['no_discount'] = "Add Sale: Discount Percentage Required."
+        if int(postData['new_sale_discount']) > 100:
+            errors['high_discount'] = "Add Sale: Discount Percentage Too High."
+        return errors
+
 class ProductManager(models.Manager):
     def create_validator(self, postData):
         errors = {}
@@ -120,6 +133,16 @@ class Brand(models.Model):
     objects = BrandManager()
     # products = List of Products associated with this Brand
 
+class Sale(models.Model):
+    sale_list = models.IntegerField()
+    discount = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = SaleManager()
+    # sale_products = List of products associated with this sale
+
+
+
 class Product(models.Model):
     name = models.CharField(max_length=256)
     description = models.TextField()
@@ -130,6 +153,7 @@ class Product(models.Model):
     brand = models.ForeignKey(Brand, related_name="products", on_delete=models.CASCADE)
     is_featured = models.BooleanField(default=False)
     inventory = models.IntegerField()
+    sale = models.ForeignKey(Sale, related_name="sale_products", on_delete=models.CASCADE, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = ProductManager()

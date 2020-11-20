@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Category, Brand, Product, Order, Article, User
+from .models import Category, Brand, Product, Order, Article, User, Sale
 from django.contrib import messages
 import bcrypt
 
@@ -46,10 +46,16 @@ def contact_us(request):
 
 
 def admin_home(request):
+    if 'current_user' not in request.session:
+        curr_user = None
+    else:
+        curr_user = User.objects.get(id=request.session['current_user'])
     context = {
+        "current_user": curr_user,
         'all_categories': Category.objects.all(),
         'all_brands': Brand.objects.all(),
         'all_products': Product.objects.all(),
+        'all_sale_lists': Sale.objects.all(),
     }
     return render(request, 'admin_home.html', context)
 
@@ -106,6 +112,36 @@ def create_brand(request):
             new_brand.categories.add(category_to_add)
             return redirect('/admin/home')
     return redirect('/admin/home')
+
+def create_sale(request):
+    if request.method == "POST":
+        errors = Sale.objects.create_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/admin/home')
+        else:
+            Sale.objects.create(sale_list=request.POST['new_sale_list'], discount=request.POST['new_sale_discount'])
+            return redirect('/admin/home')
+    return redirect('/admin/home')
+
+def assign_to_sale(request, product_id):
+    if request.method == "POST":
+        this_product = Product.objects.filter(id=product_id)
+        if len(this_product) > 0:
+            this_product = this_product[0]
+            this_sale = Sale.objects.filter(id=request.POST['assign_sale_list'])
+            if len(this_sale) > 0:
+                this_sale = this_sale[0]
+                this_product.sale = this_sale
+                this_product.save()
+                return redirect('/admin/home')
+    return redirect('/admin/home')
+
+
+
+
+
 
 # ----------  USER FUNCTIONS ----------
 
