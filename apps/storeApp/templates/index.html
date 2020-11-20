@@ -59,7 +59,12 @@
                     
                 </div>
             </li>
-            {% endif %} {% if current_user.admin %}
+            {% else %}
+            <li class="nav-item" role="presentation">
+                <a href="/users/logout" class="btn btn-link nav-link contact-tab">Log Out</a>
+            </li>
+            {% endif %}
+            {% if current_user.admin %}
             <li class="nav-item" role="presentation">
                 <a href="/admin/home" class="btn btn-link nav-link contact-tab">Admin Home</a>
             </li>

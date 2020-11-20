@@ -49,7 +49,7 @@ def admin_home(request):
     context = {
         'all_categories': Category.objects.all(),
         'all_brands': Brand.objects.all(),
-        'last_product': Product.objects.last(),
+        'all_products': Product.objects.all(),
     }
     return render(request, 'admin_home.html', context)
 
@@ -61,14 +61,14 @@ def create_product(request):
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request, value)
-            return redirect('/add_product')
+            return redirect('/admin/home')
         else:
             category_to_add = Category.objects.get(id=request.POST['product_category'])
             brand_to_add = Brand.objects.get(id=request.POST['product_brand'])
             image_to_add = request.FILES['product_image']
-            Product.objects.create(name=request.POST['product_name'], description=request.POST['product_description'], image=image_to_add, price=request.POST['product_price'], category=category_to_add, brand=brand_to_add)
+            Product.objects.create(name=request.POST['product_name'], description=request.POST['product_description'], image=image_to_add, price=request.POST['product_price'], inventory=request.POST['product_inventory'], category=category_to_add, brand=brand_to_add)
             brand_to_add.categories.add(category_to_add)
-        return redirect('/add_product')
+        return redirect('/admin/home')
 
 def product_detail(request, product_id):
     this_product = Product.objects.filter(id=product_id)
@@ -87,11 +87,11 @@ def create_category(request):
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request, value)
-            return redirect('/add_product')
+            return redirect('/admin/home')
         else:
             Category.objects.create(name=request.POST['new_category'])
-            return redirect('/add_product')
-    return redirect('/add_product')
+            return redirect('/admin/home')
+    return redirect('/admin/home')
 
 def create_brand(request):
     if request.method == "POST":
@@ -99,13 +99,13 @@ def create_brand(request):
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request, value)
-            return redirect('/add_product')
+            return redirect('/admin/home')
         else:
             category_to_add = Category.objects.get(id=request.POST['brand_category'])
             new_brand = Brand.objects.create(name=request.POST['new_brand'])
             new_brand.categories.add(category_to_add)
-            return redirect('/add_product')
-    return redirect('/add_product')
+            return redirect('/admin/home')
+    return redirect('/admin/home')
 
 # ----------  USER FUNCTIONS ----------
 
