@@ -50,14 +50,16 @@
                 <p class="text-danger">Errors on this page:</p>
                 <ul class="messages">
                     {% for message in messages %}
-                        <li {% if message.tags %} class="{{massage.tags}} text-danger" {% endif %}>{{message}}</li>
+                    <li {% if message.tags %} class="{{massage.tags}} text-danger" {% endif %}>{{message}}</li>
                     {% endfor %}
                 </ul>
                 {% endif %}
                 <form action="/create_product" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="product_name" class="dark_text">Name</label>
+                        <div class="input-group-prepend">
+                            <label for="product_name" class="dark_text">Name</label>
+                        </div>
                         <input class="form-control" type="text" placeholder="Enter a product name" id="product_name" name="product_name" required>
                     </div>
                     <div class="form-group">
@@ -165,7 +167,7 @@
                                 <td class="dark_text">{{product.inventory}}</td>
                                 <td class="dark_text">{{product.sale}}</td>
                                 <td>
-                                    <img src="{{product.image.url}}" alt="product_image" width="50px"/>
+                                    <img src="{{product.image.url}}" alt="product_image" width="50px" />
                                 </td>
                             </tr>
                             {% endfor %}

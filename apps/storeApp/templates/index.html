@@ -56,15 +56,13 @@
                 <div class="dropdown-menu py-0" aria-labelledby="login">
                     <button class="btn dropdown-item" data-toggle="modal" data-target="#login_modal">Log in</button>
                     <button class="btn dropdown-item" data-toggle="modal" data-target="#register_modal">Register</button>
-                    
                 </div>
             </li>
             {% else %}
             <li class="nav-item" role="presentation">
                 <a href="/users/logout" class="btn btn-link nav-link contact-tab">Log Out</a>
             </li>
-            {% endif %}
-            {% if current_user.admin %}
+            {% endif %} {% if current_user.admin %}
             <li class="nav-item" role="presentation">
                 <a href="/admin/home" class="btn btn-link nav-link contact-tab">Admin Home</a>
             </li>
@@ -96,8 +94,8 @@
             </div>
 
             <div class="col-6">
-                <div class="border main_area p-2 m-1">
-
+                <!-- Main Content area loaded by AJAX -->
+                <div class="border main_area p-2 m-1" id="content">
                 </div>
             </div>
 
@@ -153,7 +151,7 @@
                     <div class="row my-4 justify-content-center">
                         <ul class="messages">
                             {% for message in messages %}
-                                <li>{{message}}</li>
+                            <li>{{message}}</li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -194,7 +192,7 @@
                     <div class="row my-4 justify-content-center">
                         <ul class="messages">
                             {% for message in messages %}
-                                <li>{{message}}</li>
+                            <li>{{message}}</li>
                             {% endfor %}
                         </ul>
                     </div>
