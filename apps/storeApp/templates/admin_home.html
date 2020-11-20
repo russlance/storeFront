@@ -16,32 +16,30 @@
 
 <body>
     <div class="container-fluid min-vh-100">
-
-        <div class="row justify-content-center mb-2">
-            <ul class="nav top_nav">
-                <li class="nav-item">
-                    <p class="dark_text">Hello {{user.first_name}}</p>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Store</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Admin Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">News</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Users</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Edit Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nave-link" href="/users/logout">Log Out</a>
-                </li>
-            </ul>
-        </div>
+        <!-- Navbar -->
+        <ul class="nav top_nav justify-content-center row myTab mb-2" role="tablist">
+            <li class="nav-item">
+                <p class="">Hello {{user.first_name}}</p>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Store</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Admin Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">News</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">Users</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">Edit Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nave-link" href="/users/logout">Log Out</a>
+            </li>
+        </ul>
 
         <div class="row justify-content-center">
             {% if messages %}
