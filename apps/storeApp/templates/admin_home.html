@@ -19,13 +19,13 @@
         <!-- Navbar -->
         <ul class="nav top_nav justify-content-center row myTab mb-2" role="tablist">
             <li class="nav-item">
-                <p class="">Hello {{user.first_name}}</p>
+                <p class="">Hello {{current_user.first_name}}</p>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="#">Store</a>
+                <a class="nav-link active" href="/">Store</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Admin Home</a>
+                <a class="nav-link" href="/admin/home">Admin Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">News</a>
@@ -40,15 +40,14 @@
                 <a class="nave-link" href="/users/logout">Log Out</a>
             </li>
         </ul>
-
         <div class="row justify-content-center">
             {% if messages %}
-            <p class="text-danger">Errors on this page:</p>
-            <ul class="messages">
-                {% for message in messages %}
-                <li {% if message.tags %} class="{{massage.tags}} text-danger" {% endif %}>{{message}}</li>
-                {% endfor %}
-            </ul>
+                <p class="text-danger">Errors on this page:</p>
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class="{{massage.tags}} text-danger" {% endif %}>{{message}}</li>
+                    {% endfor %}
+                </ul>
             {% endif %}
 
             <div class="col">
@@ -69,6 +68,7 @@
                                     <input class="form-control" type="number" id="product_inventory" name="product_inventory" aria-label="product_inventory" placeholder="Inventory on hand">
                                 </div>
                                 <select class="form-control dark_text" name="product_category" id="product_category" aria-label="product_category">
+
                                     <option value="" selected>Choose Category</option>
                                     {% for category in all_categories %}
                                     <option value="{{ category.id }}" class="dark_text">{{ category.name }}</option>
@@ -224,7 +224,26 @@
                                 <td class="dark_text">{{product.brand.name}}</td>
                                 <td class="dark_text">{{product.price}}</td>
                                 <td class="dark_text">{{product.inventory}}</td>
-                                <td class="dark_text">{{product.sale}}</td>
+                                <td class="dark_text">
+                                    <form action="/products/{{product.id}}/assign_to_sale" method="POST">
+                                        {% csrf_token %}
+                                        <div class="form-group my-3">
+                                            <select class="form-control dark_text" name="assign_sale_list" id="assign_sale_list" aria-label="sale_list">
+                                                {% if product.sale is not null %}
+                                                <option value="{{product.sale.id}}" selected>{{product.sale.sale_list}}</option>
+                                                {% else %}
+                                                <option value="" selected>Sale List</option>
+                                                {% endif %}
+                                                {% for sale in all_sale_lists %}
+                                                <option value="{{ sale.id }}" class="dark_text">{{ sale.sale_list }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <button type="submit" class="btn btn-sm btn-info">Assign</button>
+                                        </div>
+                                    </form>
+                                </td>
                                 <td>
                                     <img src="{{product.image.url}}" alt="product_image" width="50px" />
                                 </td>
