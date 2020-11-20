@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+</head>
+
+<body>
+    <div class="row p-1">
+        <h5 class="dark_text">Checkout</h5>
+        <div class="col border-bottom">
+            <!-- Member Sign in ; if signed in is welcome, if not is form -->
+            <div class="col">
+                {% if user in session %}
+                <h5 class="dark_text">Welcome back {{user.first_name}}</h5>
+                {% else %}
+                <h5 class="dark_text">Member Sign In</h5>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="login_email">Email address</label>
+                        <input type="email" class="form-control" id="login_email" aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="login_password">Password</label>
+                        <input type="password" class="form-control" id="login_password">
+                        <button>forgot password</button>
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="wants_newsletter">
+                        <label class="form-check-label" for="wants_newsletter">Sign me up for the Newsletter</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Log in</button>
+                </form>
+                {% endif %}
+            </div>
+
+            <!-- Guest sign in ; will add to mailing for newsletter -->
+            <div class="col">
+                <h5 class="dark_text">Guest Checkout</h5>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="guest_name">Name</label>
+                        <input type="text" class="form-control" id="guest_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="guest_email">Email address</label>
+                        <input type="email" class="form-control" id="guest_email" aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Checkout as Guest</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-7 p-1">
+            <div id="shipping_info" class="border-bottom">
+                <p class="dark_text">Shipping Address</p>
+                {% if user in session %}
+                <p class="dark_text ml-1">{{user.first_name}} {{user.last_name}}</p>
+                <p class="dark_text ml-1">{{user.address}}</p>
+                <p class="dark_text ml-1">{{user.city}}, {{user.state}} {{user.zip}}</p>
+                {% else %}
+                <p class="text_dark">Please log in or enter your shipping address</p>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <input type="text" class="form-control" id="guest_first_name" name="guest_name" placeholder="First and Last Name">
+                    <input type="text" class="form-control" id="guest_address" name="guest_address" placeholder="Street Address">
+                    <span>
+                        <input type="text" class="form-control d-inline-block" id="guest_city" name="guest_city" placeholder="City"> 
+                        <input type="text" class="form-control d-inline-block" id="guest_state" name="guest_state" placeholder="State"> 
+                        <input type="number" class="form-control d-inline-block" id="guest_zip" name="guest_zip" placeholder="Zip"> 
+                    </span>
+                </form>
+                {% endif %}
+            </div>
+
+            <div id="shipping_info" class="border-bottom">
+                <p class="dark_text">Shipping Method</p>
+                <p>This will be populated with shipping method and/or shipping options stuff</p>
+            </div>
+        </div>
+
+
+        <div class="col-5 p-1">
+            <div class="border">
+                <p class="dark_text font-weight-bold">Order Summary</p>
+                <div class="row">
+                    <p class="dark_text d-display-inline-block">Your Cart</p>
+                    <p class="dark_text d-display-inline-block">{{order.cart_total}}</p>
+                </div>
+                <div class="row border-bottom">
+                    <p class="dark_text d-display-inline-block">Shipping</p>
+                    <p class="dark_text d-display-inline-block">{{order.shipping}}</p>
+                </div>
+                <div class="row">
+                    <p class="dark_text d-display-inline-block">Subtotal</p>
+                    <p class="dark_text d-display-inline-block">{{order.cart_total}}</p>
+                </div>
+                <div class="row">
+                    <p class="dark_text d-display-inline-block">Est. Tax</p>
+                    <p class="dark_text d-display-inline-block">{{order.tax}}</p>
+                </div>
+                <div class="row">
+                    <p class="dark_text d-display-inline-block font-weight-bold">Total</p>
+                    <p class="dark_text d-display-inline-block">{{order.total}}</p>
+                </div>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <button class="btn">Place Order</button>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <p class="dark_text border-bottom">Your Cart (select item to edit cart)</p>
+            <div class="overflow-auto">
+                <table class="table">
+                    <tbody>
+                        {% for item in cart %}
+                        <tr>
+                            <th scope="row">{{item.image}}</th>
+                            <td><button>{{item.name}}</button></td>
+                            <td>{{item.description}}</td>
+                            <td>{{item.price}} x</td>
+                            <td>{{item.quantity}}</td>
+                            <td>{{item.total}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal" id="register_modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Forgot Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <p class="dark_text">Please enter your email address so we can send you a reset code</p>
+                        <div class="form-group">
+                            <label for="user_email">Email address</label>
+                            <input type="email" class="form-control" id="user_email" name="user_email" aria-describedby="emailHelp">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    <form action="" method="POST">
+                        <div class="form-group">
+                            <label for="temp_code">Reset Code</label>
+                            <input type="number" class="form-control" id="temp_code" name="temp_code">
+                        </div>
+                        <div class="form-group">
+                            <label for=""></label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Reset Password</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Cart Modal -->
+    <div class="modal" id="register_modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Cart</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <p class="dark_text">{{item.name}}</p>
+                        <label for="item_quantity">Quantity</label>
+                        <input type="number" class="form-control" id="item_quantity" name="item_quantity">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
