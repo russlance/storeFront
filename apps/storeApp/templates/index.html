@@ -16,39 +16,40 @@
 
 <body>
     <div class="container-fluid min-vh-100">
-        <ul class="nav top_nav justify-content-center row myTab" id="top_navbar" role="tablist">
-            <li class="nav-item" role="presentation">
+        <ul class="nav top_nav justify-content-center row myTab shadow" id="top_navbar" role="tablist">
+            <li class="nav-item navbar-text">
+                <h1 class="mb-0">Project: Hobby</h1>
+            </li>
+            <li class="nav-item navbar-text" role="presentation">
                 <button class="nav-link active btn btn-link" id="directions" data-toggle="tab" href="/" role="tab" aria-controls="home" aria-selected="true"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-signpost-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7 1.414V2h2v-.586a1 1 0 0 0-2 0z"/>
                         <path fill-rule="evenodd" d="M13.5 3H2v2h11.5l.75-1-.75-1zM2 2a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h11.5a1 1 0 0 0 .8-.4l.975-1.3a.5.5 0 0 0 0-.6L14.3 2.4a1 1 0 0 0-.8-.4H2zm.5 6H14v2H2.5l-.75-1 .75-1zM14 7a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2.5a1 1 0 0 1-.8-.4L.725 9.3a.5.5 0 0 1 0-.6L1.7 7.4a1 1 0 0 1 .8-.4H14z"/>
                         <path d="M7 6h2v1H7V6zm0 5h2v5H7v-5z"/>
                     </svg></button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item navbar-text" role="presentation">
                 <button class="nav-link active btn btn-link" id="home" data-toggle="tab" href="/" role="tab" aria-controls="home" aria-selected="true"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M8 3.293l6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
                         <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
                     </svg></button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item navbar-text" role="presentation">
                 <button class="btn btn-link nav-link" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">News</button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item navbar-text" role="presentation">
                 <button class="nav-link contact-tab btn btn-link" id="events" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Events</button>
             </li>
-            <li>
-                <h1>Project: Hobby</h1>
+
+            <li class="nav-item navbar-text" role="presentation">
+                <button class="nav-link contact-tab btn btn-link" id="search" data-toggle="tab" role="tab" aria-controls="search" aria-selected="false"><input class="form-control" type="number" id="search" name="search" placeholder="Search"></button>
             </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Search bar</a>
-            </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item navbar-text" role="presentation">
                 <button class="nav-link contact-tab btn btn-link" id="cart" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">My Cart <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
                 </svg>{{cart_quantity}}</button>
             </li>
             {% if current_user == None %}
-            <li class="nav-item" role="presentation">
+            <li class="nav-item navbar-text" role="presentation">
                 <button class="nav-link contact-tab btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="login" role="tab" aria-controls="contact" aria-selected="false"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                         <path fill-rule="evenodd" d="M2 15v-1c0-1 1-4 6-4s6 3 6 4v1H2zm6-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -59,11 +60,11 @@
                 </div>
             </li>
             {% else %}
-            <li class="nav-item" role="presentation">
+            <li class="nav-item navbar-text" role="presentation">
                 <a href="/users/logout" class="btn btn-link nav-link contact-tab">Log Out</a>
             </li>
             {% endif %} {% if current_user.admin %}
-            <li class="nav-item" role="presentation">
+            <li class="nav-item navbar-text" role="presentation">
                 <a href="/admin/home" class="btn btn-link nav-link contact-tab">Admin Home</a>
             </li>
             {% endif %}
