@@ -52,6 +52,8 @@
     {% else %}
     <li class="nav-item" role="presentation">
         <button class="btn" data-toggle="modal" data-target="#edit_profile">Profile</button>
+    </li>
+    <li class="nav-item" role="presentation">
         <a href="/users/logout" class="btn btn-link nav-link contact-tab">Log Out</a>
     </li>
     {% endif %} {% if current_user.admin %}
