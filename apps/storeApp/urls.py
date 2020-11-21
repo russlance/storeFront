@@ -22,8 +22,11 @@ urlpatterns = [
     path('create_product', views.create_product),
     path('create_category', views.create_category),
     path('create_brand', views.create_brand),
+    path('create_article', views.create_article),
     path('users/register', views.register_user),
     path('users/login', views.log_in),
     path('users/logout', views.log_out),
     path('admin/home', views.admin_home),
+    path('admin/user_manager', views.admin_user_manager),
+    path('admin/news', views.admin_news),
 ]
