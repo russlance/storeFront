@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Category, Brand, Product, Order, Article, User, Sale
+from .models import Category, Brand, Product, Order, Article, User, Sale, OrderItem
 from django.contrib import messages
 import bcrypt
 
@@ -14,9 +14,13 @@ def index (request):
         sale_finder = Sale.objects.filter(sale_list=i)
         if sale_finder:
             sale_list[f"sale{i}"] = sale_finder[0]
-    
     print(sale_list['sale1'], sale_list['sale2'], sale_list['sale3'])
+    cart_quantity = 0
+    if "current_order" in request.session:
+        curr_order = Order.objects.get(id=request.session["current_order"])
+        cart_quantity += curr_order.order_items.count()
     context = {
+        "cart_quantity": cart_quantity,
         "all_categories": Category.objects.all(),
         "current_user": curr_user,
         "sale_list_1": Product.objects.filter(sale=sale_list['sale1']),
@@ -35,7 +39,14 @@ def directions(request):
     return render(request, "directions.html")
 
 def cart(request):
-    return render(request, "cart.html")
+    if "current_order" not in request.session:
+        curr_order = None
+    else:
+        curr_order = Order.objects.get(id=request.session["current_order"])
+    context = {
+        "current_order": curr_order,
+    }
+    return render(request, "cart.html", context)
 
 def login(request):
     return render(request, "login.html")
@@ -151,10 +162,27 @@ def assign_to_sale(request, product_id):
                 return redirect('/admin/home')
     return redirect('/admin/home')
 
-
-
-
-
+def add_to_cart(request):
+    if request.method == "POST":
+        if 'current_order' not in request.session:
+            curr_order = Order.objects.create()
+            request.session["current_order"] = curr_order.id
+            if "current_user" in request.session:
+                curr_order.user = User.objects.get(id=request.session['current_user'])
+                curr_order.save()
+        else:
+            curr_order = Order.objects.filter(id=request.session['current_order'])
+            if len(curr_order) > 0:
+                curr_order = curr_order[0]
+        this_product = Product.objects.filter(id=request.POST['product_id'])
+        if len(this_product) > 0:
+            this_product = this_product[0]
+            new_order_item = OrderItem.objects.create(product=this_product, quantity=request.POST['product_quantity'], order=curr_order)
+            total_price = new_order_item.quantity * new_order_item.product.price
+            curr_order.total += total_price
+            print(curr_order, curr_order.total)
+            print(new_order_item)
+    return redirect(f'/products/{this_product.id}')
 
 # ----------  USER FUNCTIONS ----------
 
