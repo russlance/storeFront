@@ -10,15 +10,16 @@
 
 <body>
     <div class="row justify-content-center">
-        <ul class="nav top_nav">
+        <!-- Navbar -->
+        <ul class="nav top_nav justify-content-center row myTab mb-2" role="tablist">
             <li class="nav-item">
-                <p class="dark_text">Hello {{user.first_name}}</p>
+                <p class="">Hello {{current_user.first_name}}</p>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="#">Store</a>
+                <a class="nav-link active" href="/">Store</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Admin Home</a>
+                <a class="nav-link" href="/admin/home">Admin Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">News</a>
@@ -30,7 +31,7 @@
                 <a href="#" class="nav-link">Edit Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nave-link" href="#">Log Out</a>
+                <a class="nave-link" href="/users/logout">Log Out</a>
             </li>
         </ul>
     </div>
