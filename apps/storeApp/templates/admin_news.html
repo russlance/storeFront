@@ -4,12 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Admin News</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
-    <div class="row justify-content-center">
+    <div class="container-fluid min-vh-100">
         <!-- Navbar -->
         <ul class="nav top_nav justify-content-center row myTab mb-2" role="tablist">
             <li class="nav-item">
@@ -34,29 +39,28 @@
                 <a class="nave-link" href="/users/logout">Log Out</a>
             </li>
         </ul>
-    </div>
 
-    <div class="container-fluid min-vh-100">
-        <h5 class="dark_text">Article Input</h5>
-        <div class="col-6">
-            <form action="#" method="POST">
-                {% csrf_token %}
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="article_title">Title</span>
+        <div class="container-fluid min-vh-100">
+            <h5 class="dark_text">Article Input</h5>
+            <div class="col-6">
+                <form action="#" method="POST">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="article_title">Title</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="article_title" aria-describedby="article_title" name="article_title">
                     </div>
-                    <input type="text" class="form-control" aria-label="article_title" aria-describedby="article_title" name="article_title">
-                </div>
 
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">News Article</span>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">News Article</span>
+                        </div>
+                        <textarea class="form-control" aria-label="With textarea" name="article_content"></textarea>
                     </div>
-                    <textarea class="form-control" aria-label="With textarea" name="article_content"></textarea>
-                </div>
-                <button type="button" class="btn button-success">Submit</button>
-            </form>
-
+                    <button type="button" class="btn button-success">Submit</button>
+                </form>
+            </div>
         </div>
     </div>
 </body>
