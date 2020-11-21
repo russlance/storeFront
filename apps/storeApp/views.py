@@ -9,8 +9,8 @@ def index (request):
         curr_user = None
     else:
         curr_user = User.objects.get(id=request.session['current_user'])
-    sale_list = {'sale1':None, 'sale2':None, 'sale3':None}
-    for i in range(1,3):
+    sale_list = {'sale1':None, 'sale2':None, 'sale3':None,'sale4':None}
+    for i in range(1,4):
         sale_finder = Sale.objects.filter(sale_list=i)
         if sale_finder:
             sale_list[f"sale{i}"] = sale_finder[0]
@@ -22,6 +22,7 @@ def index (request):
         "sale_list_1": Product.objects.filter(sale=sale_list['sale1']),
         "sale_list_2": Product.objects.filter(sale=sale_list['sale2']),
         "sale_list_3": Product.objects.filter(sale=sale_list['sale3']),
+        "sale_list_4": Product.objects.filter(sale=sale_list['sale4'])
     }
     return render(request,'index.html', context)
 
@@ -29,7 +30,14 @@ def home(request):
     return render(request, "home.html")
 
 def navbar(request):
-    return render(request, "navbar.html")
+    if 'current_user' not in request.session:
+        curr_user = None
+    else:
+        curr_user = User.objects.get(id=request.session['current_user'])
+    context = {
+        "current_user": curr_user,
+    }
+    return render(request, "navbar.html", context)
 
 def directions(request):
     return render(request, "directions.html")

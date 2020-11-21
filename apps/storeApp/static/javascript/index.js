@@ -87,32 +87,26 @@ $(document).ready(function() {
         })
     })
 
-    // Do not use this until render route to new navbar.html created
-    
-    // $(document).on("submit", '#loginform', function(event){
-    //     event.preventDefault();
-    //     var data = {
-    //         user_email: $('#user_email').val(),
-    //         user_password: $("#user_password").val()
-    //     }
-    //     var token = $('input[name="csrfToken"]').attr('value')
-    //     $.ajaxSetup({
-    //         beforeSend: function(xhr){
-    //             xhr.setRequestHeader('Csrf-Token', token)
-    //         }
-    //     });
-    //     var route = "/user/login"
-    //     $.ajax({
-    //         url:route,
-    //         type: "post",
-    //         data: data,
-    //         success: function(data){
-    //             var html_str=""
-    //             html_str+= data
-    //             document.getElementById("top_navbar").innerHTML= html_str
-    //         }
-    //     })
-    // })
+    $(document).on("submit", '#loginform', function(event){
+        event.preventDefault();
+        var data = {
+            user_email: $('#user_email').val(),
+            user_password: $("#user_password").val(),
+            csrfmiddlewaretoken:$('input[name="csrfmiddlewaretoken"]').attr('value')
+        }
+        var route = "/users/login"
+        $.ajax({
+            url:route,
+            type: "post",
+            data: data,
+            success: function(data){
+                $("#login_modal").modal('hide')
+                var html_str=""
+                html_str+= data
+                document.getElementById("top_navbar").innerHTML= html_str
+            }
+        })
+    })
 })
 function loadCategory(id) {
     $.ajax({
