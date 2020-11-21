@@ -27,10 +27,10 @@
                 <a class="nav-link" href="/admin/home">Admin Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">News</a>
+                <a class="nav-link" href="/admin/news">News</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">Users</a>
+                <a href="/admin/user_manager" class="nav-link">Users</a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link">Edit Profile</a>
@@ -41,25 +41,31 @@
         </ul>
 
         <div class="container-fluid min-vh-100">
-            <h5 class="dark_text">Article Input</h5>
-            <div class="col-6">
-                <form action="#" method="POST">
-                    {% csrf_token %}
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="article_title">Title</span>
+            <div class="row justify-content-center">
+                <div class="col-4">
+                    <h5 class="dark_text">Article Input</h5>
+                    <form action="/admin/create_article" method="POST">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="article_title">Title</span>
+                            </div>
+                            <input type="text" class="form-control" aria-label="article_title" aria-describedby="article_title" name="article_title">
                         </div>
-                        <input type="text" class="form-control" aria-label="article_title" aria-describedby="article_title" name="article_title">
-                    </div>
 
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">News Article</span>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">News Article</span>
+                            </div>
+                            <textarea class="form-control" aria-label="With textarea" name="article_content"></textarea>
                         </div>
-                        <textarea class="form-control" aria-label="With textarea" name="article_content"></textarea>
-                    </div>
-                    <button type="button" class="btn button-success">Submit</button>
-                </form>
+                        <button type="button" class="btn button-success">Submit</button>
+                    </form>
+                </div>
+
+                <div class="col-6">
+                    <p>This will list all past articles for reference</p>
+                </div>
             </div>
         </div>
     </div>

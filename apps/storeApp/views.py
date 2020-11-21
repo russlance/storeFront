@@ -34,7 +34,10 @@ def index (request):
     return render(request,'index.html', context)
 
 def home(request):
-    return render(request, "home.html")
+    context = {
+        "sale_list_4": Product.objects.filter(sale=4)
+    }
+    return render(request, "home.html", context)
 
 def navbar(request):
     if 'current_user' not in request.session:
@@ -102,6 +105,32 @@ def admin_home(request):
         'all_sale_lists': Sale.objects.all(),
     }
     return render(request, 'admin_home.html', context)
+
+def admin_user_manager(request):
+    if 'current_user' not in request.session:
+        curr_user = None
+    else:
+        curr_user = User.objects.get(id=request.session['current_user'])
+    context = {
+        "current_user": curr_user,
+    }
+    return render(request, 'admin_user_manager.html', context)
+
+def admin_news(request):
+    if 'current_user' not in request.session:
+        curr_user = None
+    else:
+        curr_user = User.objects.get(id=request.session['current_user'])
+    context = {
+        "current_user": curr_user,
+        'all_users': User.objects.all(),
+    }
+    return render(request, 'admin_news.html', context)
+
+def create_article(request):
+    curr_user = User.objects.get(id=request.session['current_user'])
+    Article.objects.create(author=curr_user, title=request.POST['article_title'], content=request.POST['article_content'])
+    return redirect('/admin/home')
 
 def show_category(request, id):   #  This is not right yet - may just want the name
     this_category = Category.objects.filter(id=id)
