@@ -8,6 +8,15 @@ $(document).ready(function() {
             document.getElementById("content").innerHTML = html_str;
         }
     })
+    $.ajax({
+        url: "/navbar",
+        method: "get",
+        success: function(data){
+            var html_str=""
+            html_str+= data
+            document.getElementById("top_navbar").innerHTML= html_str
+        }
+    })
     $("#AboutUs").click(function() {
         $.ajax({
             url: "/about_us",
