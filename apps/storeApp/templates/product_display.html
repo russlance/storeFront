@@ -25,12 +25,23 @@
               </button>
             </nav>
         </div>
-        <div class="list-group">
-            {% for product in products_in_category %}
-            <button type="button" class="list-group-item list-group-item-action active">
-                <p class="dark_text">{{product.name}} {{product.price}} {{product.image}}</p>
-            </button> {% endfor %}
+
+        <!-- Main product display area -->
+        <div class="p-2">
+            <table class="table">
+                <tbody>
+                    {% for product in products_in_category %}
+                    <button type="button" class="list-group-item list-group-item-action active">
+                        <tr>
+                            <th scope="row">{{product.name}}</th>
+                            <td>{{product.price}}</td>
+                            <td>{{product.image}}</td>
+                        </tr>
+                    </button> {% endfor %}
+                </tbody>
+            </table>
         </div>
+
     </div>
 </body>
 
