@@ -39,7 +39,14 @@ def directions(request):
     return render(request, "directions.html")
 
 def cart(request):
-    return render(request, "cart.html")
+    if "current_order" not in request.session:
+        curr_order = None
+    else:
+        curr_order = Order.objects.get(id=request.session["current_order"])
+    context = {
+        "current_order": curr_order,
+    }
+    return render(request, "cart.html", context)
 
 def login(request):
     return render(request, "login.html")
