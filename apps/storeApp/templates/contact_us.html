@@ -10,7 +10,7 @@
 <body>
     <div>
         <h1 class="dark_text">Contact us</h1>
-        <form action="" method="POST">
+        <form action="/contact_us/contact_send" method="POST">
             {% csrf_token %}
 
             <span class="row">
@@ -30,7 +30,7 @@
             </div>
 
             <input type="hidden" name="honey_pot">
-            <button type="button">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
 
         </form>
     </div>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+</head>
+
+<body>
+    <h5 class="dark_text">{{order.user.first_name}}'s Cart</h5>
+    <table class="table">
+        <tbody>
+            {% for item in current_order %}
+            <tr class="row">
+                <td>{{item.order_items.product.image}}</td>
+                <td>{{item.order_items.product.name}}</td>
+                <td>{{item.order_items.product.price}}</td>
+                <td><input type="number" placeholder="{{item.order_item.quantity}}" name="item_quantity"><button class="btn" onclick="update_quantity(item.order_items.id)">Update</button></td>
+                <td><button class="btn" onclick="remove_item(item.order_items.id)">Remove</button></td>
+                <td>{% item.order_items.product.price * item.order_items.quantity %}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="dark_text">Total</td>
+                <td class="dark_text">{{item.total}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <button class="btn" onclick="empty_cart()">Empty Cart</button>
+        <button class="btn" onclick="checkout()">Checkout</button>
+    </div>
+</body>
+
+</html>
