@@ -95,15 +95,16 @@ def admin_home(request):
     }
     return render(request, 'admin_home.html', context)
 
-def show_category(request, category_id):   #  This is not right yet - may just want the name
-    this_category = Category.objects.filter(id=category_id)
+def show_category(request, id):   #  This is not right yet - may just want the name
+    this_category = Category.objects.filter(id=id)
     if len(this_category) > 0:
         this_category = this_category[0]
         context = {
-            "category_products": this_category.products.all(),
+            "products_in_category": this_category,
         }
         return render(request, "product_display.html", context)
     return redirect('/')
+    
 # ---------- PRODUCT FUNCTIONS ----------
 
 def create_product(request):
