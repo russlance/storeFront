@@ -40,7 +40,12 @@
 
 .main_area {
     height: 820px;
-    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.interior{
+    height: 700px;
+    overflow-y: auto;
 }
 
 .border {

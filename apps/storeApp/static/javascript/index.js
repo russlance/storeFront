@@ -85,22 +85,8 @@ $(document).ready(function() {
         })
     })
 })
-function update_quantity(id)
-{
-    var data= {
-        item_quantity:$("input[name='item_quantity]").val()
-    }
-    $.ajax({
-        url:"/products/update_quantity/"+id,
-        type: "post",
-        data: data,
-        success: function(data){
-            var html_str=""
-            html_str+=data
-            document.getElementById("content").innerHTML= html_str
-        }
-    })
-}
+// Navbar Methods
+
 function display_events()
 {
     $.ajax({
@@ -164,6 +150,7 @@ function display_home()
         }
     })
 }
+// Product browsing methods
 function loadCategory(id) {
     $.ajax({
         url: "/category/" + id,
@@ -177,3 +164,34 @@ function loadCategory(id) {
     })
 }
 
+function show_product(id)
+{
+    $.ajax({
+        url:"/products/"+id,
+        method: "get",
+        success: function(data){
+            var html_str = ""
+            html_str += data
+            console.log(html_str)
+            document.getElementById("content").innerHTML = html_str;
+        }
+    })
+}
+
+// Checkout Methods
+function update_quantity(id)
+{
+    var data= {
+        item_quantity:$("input[name='item_quantity]").val()
+    }
+    $.ajax({
+        url:"/products/update_quantity/"+id,
+        type: "post",
+        data: data,
+        success: function(data){
+            var html_str=""
+            html_str+=data
+            document.getElementById("content").innerHTML= html_str
+        }
+    })
+}
