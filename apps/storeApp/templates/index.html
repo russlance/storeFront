@@ -16,8 +16,9 @@
 
 <body>
     <div class="container-fluid min-vh-100">
-        <ul class="nav top_nav justify-content-center row myTab shadow" id="top_navbar" role="tablist">
-        </ul>
+        <div class="top_nav row justify-content-center myTab shadow" id="top_navbar">
+        </div>
+
 
         <ul class="nav top_nav fixed-bottom justify-content-center row myTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -25,6 +26,10 @@
             </li>
             <li class="nav-item" role="presentation">
                 <button id="contactUs" class="nav-link contact-tab btn btn-link" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Contact Us</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active btn btn-link" id="directions" data-toggle="tab" onclick="display_directions()" role="tab" aria-controls="home" aria-selected="true">Directions
+                    </button>
             </li>
         </ul>
 
@@ -57,7 +62,7 @@
                             {% else %}
                             <div class="carousel-item">
                                 {% endif %}
-                                <button href="/products/{{item.id}}" class="d-block w-100 p-2"><img src="{{item.image.url}}" alt="product_image" width="50%" />
+                                <button href="/products/{{item.id}}" class="d-block w-100 p-2"><img src="{{item.image}}" alt="product_image" width="50%" />
                             <p>{{item.name}}</p>
                             </button>
                             </div>
@@ -81,7 +86,7 @@
                                 {% else %}
                                 <div class="carousel-item">
                                     {% endif %}
-                                    <button href="/products/{{product.id}}" class="d-block w-100 p-2"><img src="{{product.image.url}}" alt="product_image" width="50%" />
+                                    <button href="/products/{{product.id}}" class="d-block w-100 p-2"><img src="{{product.image}}" alt="product_image" width="50%" />
                                     <p>{{product.name}}</p></button>
                                 </div>
                                 {% endfor %}
@@ -104,7 +109,7 @@
                                     {% else %}
                                     <div class="carousel-item">
                                         {% endif %}
-                                        <button href="/products/{{item.id}}" class="d-block w-100 p-2"><img src="{{item.image.url}}" alt="product_image" width="50%" />
+                                        <button href="/products/{{item.id}}" class="d-block w-100 p-2"><img src="{{item.image}}" alt="product_image" width="50%" />
                                         <p>{{item.name}}</p></button>
                                     </div>
                                     {% endfor %}
@@ -184,7 +189,7 @@
                                     </ul>
                                 </div>
                                 {% endif %}
-                                <form action="/users/register" method="POST">
+                                <form action="/users/register" id="registerform" method="POST">
                                     {% csrf_token %}
                                     <div class="form-group">
                                         <label for="user_first_name">First Name</label>
