@@ -16,7 +16,7 @@
 
 <body>
     <div class="container-fluid min-vh-100">
-        <ul class="nav top_nav justify-content-center row myTab" role="tablist">
+        <ul class="nav top_nav justify-content-center row myTab" id="top_navbar" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active btn btn-link" id="directions" data-toggle="tab" href="/" role="tab" aria-controls="home" aria-selected="true"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-signpost-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7 1.414V2h2v-.586a1 1 0 0 0-2 0z"/>
@@ -95,7 +95,7 @@
 
             <div class="col-6">
                 <!-- Main Content area loaded by AJAX -->
-                <div class="border main_area p-2 m-1" id="content">
+                <div class="border main_area p-2 m-1 overflow-auto" id="content">
                 </div>
             </div>
 
@@ -156,7 +156,7 @@
                         </ul>
                     </div>
                     {% endif %}
-                    <form action="/users/login" method="POST">
+                    <form action="/users/login" id="loginform" method="POST">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="user_email">Email address</label>

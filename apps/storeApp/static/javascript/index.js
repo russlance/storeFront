@@ -87,16 +87,43 @@ $(document).ready(function() {
         })
     })
 
-    function loadCategory(id) {
-        $.ajax({
-            url: "/category/" + id,
-            method: "get",
-            success: function(data) {
-                var html_str = ""
-                html_str += data
-                console.log(html_str)
-                document.getElementById("content").innerHTML = html_str;
-            }
-        })
-    }
+    // Do not use this until render route to new navbar.html created
+    
+    // $(document).on("submit", '#loginform', function(event){
+    //     event.preventDefault();
+    //     var data = {
+    //         user_email: $('#user_email').val(),
+    //         user_password: $("#user_password").val()
+    //     }
+    //     var token = $('input[name="csrfToken"]').attr('value')
+    //     $.ajaxSetup({
+    //         beforeSend: function(xhr){
+    //             xhr.setRequestHeader('Csrf-Token', token)
+    //         }
+    //     });
+    //     var route = "/user/login"
+    //     $.ajax({
+    //         url:route,
+    //         type: "post",
+    //         data: data,
+    //         success: function(data){
+    //             var html_str=""
+    //             html_str+= data
+    //             document.getElementById("top_navbar").innerHTML= html_str
+    //         }
+    //     })
+    // })
 })
+function loadCategory(id) {
+    $.ajax({
+        url: "/category/" + id,
+        method: "get",
+        success: function(data) {
+            var html_str = ""
+            html_str += data
+            console.log(html_str)
+            document.getElementById("content").innerHTML = html_str;
+        }
+    })
+}
+
