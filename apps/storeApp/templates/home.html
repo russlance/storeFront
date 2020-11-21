@@ -17,42 +17,45 @@
                 <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
             </ol>
             <div class="carousel-inner">
-                {% for item in sale_list_4 %}
+                {% if sale_list_1 != None %} {% for item in sale_list_1 %} {% if item == sale_list_1.0 %}
                 <div class="carousel-item active">
-                    <img src="{% static 'storeApp/{{item.image}}' %}" class="d-block w-100" alt="sale item">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>item.name</h5>
-                        <p>item.description</p>
-                        <button class="btn" data-toggle="modal" data-target="#item">Click here for more information</button>
+                    {% else %}
+                    <div class="carousel-item">
+                        {% endif %}
+                        <button href="/products/{{item.id}}" class="d-block w-100"><img src="{{item.image.url}}" alt="product_image" width="100%" />
+                    <p>{{item.name}}</p>
+                    </button>
                     </div>
+                    {% endfor %}
+                    <a class="carousel-control-prev" href="#first_featured_item" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#first_featured_item" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                    {% endif %}
                 </div>
-                {% endfor %}
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
         </div>
-    </div>
-    <div id="feature_item" class="row">
-        <span class="col"><button class="btn" data-target="#"><img class="logo_image" src="https://ddoplayers.com/wp-content/uploads/2017/05/pathfinder-rpg-logo.png" alt="pathfinder logo"></button></span>
-        <span class="col"><button class="btn" data-target="#"><img class="logo_image" src="https://comicvine1.cbsistatic.com/uploads/scale_medium/3/38919/1805987-wizards_of_the_coast_logo.gif" alt="wizards of the coast"></button></span>
-        <span class="col"><button class="btn" data-target="#"><img class="logo_image" src="https://upload.wikimedia.org/wikipedia/en/thumb/f/fe/Games_Workshop_logo.svg/1200px-Games_Workshop_logo.svg.png" alt="games workshop"></button></span>
-    </div>
-    <div id="feature_item" class="row">
-        <span class="col"><button class="btn" data-target="#"><img class="logo_image" src="http://nerdreactor.com/wp-content/uploads/2016/09/Magic-The-Gathering-logo-800x279.png" alt="magic the gathering"></button></span>
-        <span class="col"><button class="btn" data-target="#"><img class="logo_image" src="http://vignette4.wikia.nocookie.net/logopedia/images/3/3b/Wizardsofthecoast_dungeonsanddragons_logo.jpg/revision/latest?cb=20140529192539" alt="dungeons and dragons"></button></span>
-        <span class="col"><button class="btn" data-target="#"><img class="logo_image" src="http://logos-download.com/wp-content/uploads/2016/02/warhammer-40000-and_bird_logo.png" alt="warhammer 40k"></button></span>
-    </div>
-    <div id="feature_item" class="row">
-        <span class="col"><button class="btn" data-target="#"><img class="logo_image" src="https://i1.wp.com/www.trackofwords.com/wp-content/uploads/2017/06/New-AoS-logo-2018.png?fit=1100%2C254&ssl=1" alt="warhammer age of sigmar"></button></span>
-        <span class="col"><button class="btn" data-target="#"><img class="logo_image" src="http://www.multiversecg.com/wp-content/uploads/2015/02/wizkids-heroclix-logo.jpg" alt="wizkids-heroclix-logo"></button></span>
-        <span class="col"><button class="btn" data-target="#"><img class="logo_image" src="https://clipground.com/images/pokemon-logo-png-5.png" alt="pokemon"></button></span>
-    </div>
+
+        <!-- display brands -->
+        <div id="feature_item" class="row justify-content-center">
+            <div class="col p-0"><button class="btn p-0" data-target="#"><img class="logo_image" src="https://cdn.paizo.com/d960ad1b-9967-00f9-1158-72274b18312d/8c6e5432-6200-4955-b3b2-9912e5b06346/2E-Logo.png" alt="pathfinder logo"></button></div>
+            <div class="col p-0"><button class="btn p-0" data-target="#"><img class="logo_image" src="https://upload.wikimedia.org/wikipedia/en/thumb/9/90/Wizards_of_the_Coast_logo.svg/200px-Wizards_of_the_Coast_logo.svg.png" alt="wizards of the coast"></button></div>
+            <div class="col p-0"><button class="btn p-0" data-target="#"><img class="logo_image" src="https://www.games-workshop.com/resources/static/header-2017/gw-logo-default-stacked.svg" alt="games workshop"></button></div>
+        </div>
+        <div id="feature_item" class="row">
+            <span class="col p-0"><button class="btn p-0" data-target="#"><img class="logo_image" src="https://tse1.mm.bing.net/th?id=OIP.T8KczEH9iB6lDhz-eIX1nAHaCl&pid=Api&rs=1&c=1&qlt=95&w=305&h=106" alt="magic the gathering"></button></span>
+            <span class="col p-0"><button class="btn p-0" data-target="#"><img class="logo_image" src="http://vignette4.wikia.nocookie.net/logopedia/images/3/3b/Wizardsofthecoast_dungeonsanddragons_logo.jpg/revision/latest?cb=20140529192539" alt="dungeons and dragons"></button></span>
+            <span class="col p-0"><button class="btn p-0" data-target="#"><img class="logo_image" src="https://tse1.mm.bing.net/th?id=OIP.FmeXlZcg3ZhoK1TjgaAeXQHaCC&pid=Api&rs=1&c=1&qlt=95&w=301&h=82" alt="warhammer 40k"></button></span>
+        </div>
+        <div id="feature_item" class="row">
+            <span class="col p-0"><button class="btn p-0" data-target="#"><img class="logo_image" src="https://tse1.mm.bing.net/th?id=OIP.Bi3XTDADwSiyyuE7xN5XNQHaBt&pid=Api&rs=1&c=1&qlt=95&w=368&h=84" alt="warhammer age of sigmar"></button></span>
+            <span class="col p-0"><button class="btn p-0" data-target="#"><img class="logo_image" src="http://www.multiversecg.com/wp-content/uploads/2015/02/wizkids-heroclix-logo.jpg" alt="wizkids-heroclix-logo"></button></span>
+            <span class="col p-0"><button class="btn p-0" data-target="#"><img class="logo_image" src="https://clipground.com/images/pokemon-logo-png-5.png" alt="pokemon"></button></span>
+        </div>
 </body>
 
 </html>
