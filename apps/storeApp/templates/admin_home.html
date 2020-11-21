@@ -138,7 +138,7 @@
                                 <option value="{{ product.id }}">{{ product.name }}</option>
                                 {% endfor %}
                             </select>
-                            <label for="discount_amount_1 font-weight-bold">Discount for Sale 1</label>
+                            <label for="discount_amount_1" class="font-weight-bold">Discount for Sale 1</label>
                             <input class="form-control" type="number" placeholder="{{sale_list_1_discount}}" id="discount_amount_1" name="discount_amount_1" required>
                             <div>
                                 <button type="submit" class="btn btn-sm btn-info">Add</button>
@@ -219,7 +219,7 @@
                             {% for product in all_products %}
                             <tr>
                                 <!-- This a-tag needs to send product.id to feed modal below ; need url -->
-                                <th class="dark_text" scope="row"><a href="#">{{product.name}}</a></th>
+                                <th class="dark_text" scope="row"><a href="/products/{{product.id}}">{{product.name}}</a></th>
                                 <td class="dark_text">{{product.category.name}}</td>
                                 <td class="dark_text">{{product.brand.name}}</td>
                                 <td class="dark_text">{{product.price}}</td>
