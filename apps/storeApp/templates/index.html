@@ -62,7 +62,7 @@
                             {% else %}
                             <div class="carousel-item">
                                 {% endif %}
-                                <button href="/products/{{item.id}}" class="d-block w-100 p-2"><img src="{{item.image}}" alt="product_image" width="50%" />
+                                <button href="/products/{{item.id}}" class="d-block w-100 p-2"><img src="{{item.image.url}}" alt="product_image" width="50%" />
                             <p>{{item.name}}</p>
                             </button>
                             </div>
@@ -86,7 +86,7 @@
                                 {% else %}
                                 <div class="carousel-item">
                                     {% endif %}
-                                    <button href="/products/{{product.id}}" class="d-block w-100 p-2"><img src="{{product.image}}" alt="product_image" width="50%" />
+                                    <button href="/products/{{product.id}}" class="d-block w-100 p-2"><img src="{{product.image.url}}" alt="product_image" width="50%" />
                                     <p>{{product.name}}</p></button>
                                 </div>
                                 {% endfor %}
@@ -109,7 +109,7 @@
                                     {% else %}
                                     <div class="carousel-item">
                                         {% endif %}
-                                        <button href="/products/{{item.id}}" class="d-block w-100 p-2"><img src="{{item.image}}" alt="product_image" width="50%" />
+                                        <button href="/products/{{item.id}}" class="d-block w-100 p-2"><img src="{{item.image.url}}" alt="product_image" width="50%" />
                                         <p>{{item.name}}</p></button>
                                     </div>
                                     {% endfor %}
