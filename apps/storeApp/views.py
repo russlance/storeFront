@@ -34,8 +34,13 @@ def index (request):
     return render(request,'index.html', context)
 
 def home(request):
+    sale4 = Sale.objects.filter(sale_list=3)
+    if sale4:
+        sale4=sale4[0]
+    else:
+        sale4= None
     context = {
-        "sale_list_4": Product.objects.filter(sale=4)
+        "sale_list_4": Product.objects.filter(sale=sale4)
     }
     return render(request, "home.html", context)
 
