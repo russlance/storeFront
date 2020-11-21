@@ -81,8 +81,8 @@
         <div class="row justify-content-center">
             <!-- Vertical navbar -->
             <div class="col-md-2">
-                <img src="../static/images/gamestore_icon.png" alt="Logo" class="d-block offset-5" id="logo">
-                <div class="btn-group offset-5">
+                <img src="../static/images/gamestore_icon.png" alt="Logo" class="d-block offset-5 mt-1" id="logo">
+                <div class="btn-group offset-5 shadow mt-2">
                     <ul class="nav flex-column">
                         {% for categories in all_categories %}
                         <li class="nav flex-column dropright">
@@ -95,183 +95,177 @@
 
             <div class="col-6">
                 <!-- Main Content area loaded by AJAX -->
-                <div class="border main_area p-2 m-1 overflow-auto" id="content">
+                <div class="border main_area p-2 shadow" id="content">
                 </div>
             </div>
 
-            <div class="col-2">
-                <div id="first_featured_item" class="carousel slide border mt-3" data-ride="carousel">
+            <div class="col-2 align-top">
+                <div id="first_featured_item" class="carousel slide border shadow mt-1" data-ride="carousel">
                     <div class="carousel-inner">
-                        {% if sale_list_1 != None %}
-                        {% for item in sale_list_1 %}
-                        {% if item == sale_list_1.0 %}
+                        {% if sale_list_1 != None %} {% for item in sale_list_1 %} {% if item == sale_list_1.0 %}
                         <div class="carousel-item active">
-                        {% else %}
-                        <div class="carousel-item">
-                        {% endif %}
-                            <button href="/products/{{item.id}}" class="d-block w-100"><img src="{{item.image.url}}" alt="product_image" width="50px" />
+                            {% else %}
+                            <div class="carousel-item">
+                                {% endif %}
+                                <button href="/products/{{item.id}}" class="d-block w-100 p-2"><img src="{{item.image.url}}" alt="product_image" width="50%" />
                             <p>{{item.name}}</p>
                             </button>
+                            </div>
+                            {% endfor %}
+                            <a class="carousel-control-prev" href="#first_featured_item" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#first_featured_item" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                            {% endif %}
                         </div>
-                        {% endfor %}
-                        <a class="carousel-control-prev" href="#first_featured_item" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#first_featured_item" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                        {% endif %}
+                    </div>
+
+                    <div id="second_featured_item" class="carousel slide border mt-5 shadow" data-ride="carousel">
+                        <div class="carousel-inner">
+                            {% if sale_list_2 != None %} {% for product in sale_list_2 %} {% if product == sale_list_2.0 %}
+                            <div class="carousel-item active">
+                                {% else %}
+                                <div class="carousel-item">
+                                    {% endif %}
+                                    <button href="/products/{{product.id}}" class="d-block w-100 p-2"><img src="{{product.image.url}}" alt="product_image" width="50%" />
+                                    <p>{{product.name}}</p></button>
+                                </div>
+                                {% endfor %}
+                                <a class="carousel-control-prev" href="#second_featured_item" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#second_featured_item" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div id="third_featured_item" class="carousel slide border mt-5 shadow" data-ride="carousel">
+                            <div class="carousel-inner">
+                                {% if sale_list_3 != None %} {% for item in sale_list_3 %} {% if item == sale_list_3.0 %}
+                                <div class="carousel-item active">
+                                    {% else %}
+                                    <div class="carousel-item">
+                                        {% endif %}
+                                        <button href="/products/{{item.id}}" class="d-block w-100 p-2"><img src="{{item.image.url}}" alt="product_image" width="50%" />
+                                        <p>{{item.name}}</p></button>
+                                    </div>
+                                    {% endfor %}
+                                    <a class="carousel-control-prev" href="#third_featured_item" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#third_featured_item" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div id="second_featured_item" class="carousel slide border mt-3" data-ride="carousel">
-                    <div class="carousel-inner">
-                        {% if sale_list_2 != None %}
-                        {% for product in sale_list_2 %}
-                        {% if product == sale_list_2.0 %}
-                        <div class="carousel-item active">
-                        {% else %}
-                        <div class="carousel-item">
-                        {% endif %}
-                            <a href="/products/{{product.id}}" class="d-block w-100"><img src="{{product.image.url}}" alt="product_image" width="50px" /></a>
-                            <p>{{product.name}}</p>
-                        </div>
-                        {% endfor %}
-                        <a class="carousel-control-prev" href="#second_featured_item" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#second_featured_item" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                        {% endif %}
-                    </div>
-                </div>
-
-                <div id="third_featured_item" class="carousel slide border mt-3" data-ride="carousel">
-                    <div class="carousel-inner">
-                        {% if sale_list_3 != None %}
-                        {% for item in sale_list_3 %}
-                        {% if item == sale_list_3.0 %}
-                        <div class="carousel-item active">
-                        {% else %}
-                        <div class="carousel-item">
-                        {% endif %}
-                            <a href="/products/{{item.id}}" class="d-block w-100"><img src="{{item.image.url}}" alt="product_image" width="50px" /></a>
-                            <p>{{item.name}}</p>
-                        </div>
-                        {% endfor %}
-                        <a class="carousel-control-prev" href="#third_featured_item" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#third_featured_item" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Login Modal -->
-    <div class="modal" id="login_modal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Log In</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <!-- Login Modal -->
+                <div class="modal" id="login_modal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Log In</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
-                </div>
-                <div class="modal-body">
-                    {% if messages %}
-                    <div class="row my-4 justify-content-center">
-                        <ul class="messages">
-                            {% for message in messages %}
-                            <li>{{message}}</li>
-                            {% endfor %}
-                        </ul>
+                            </div>
+                            <div class="modal-body">
+                                {% if messages %}
+                                <div class="row my-4 justify-content-center">
+                                    <ul class="messages">
+                                        {% for message in messages %}
+                                        <li>{{message}}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endif %}
+                                <form action="/users/login" id="loginform" method="POST">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="user_email">Email address</label>
+                                        <input type="email" class="form-control" id="user_email" name="user_email" aria-describedby="emailHelp">
+                                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_password">Password</label>
+                                        <input type="password" class="form-control" id="user_password" name="user_password">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Log In</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
                     </div>
-                    {% endif %}
-                    <form action="/users/login" id="loginform" method="POST">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="user_email">Email address</label>
-                            <input type="email" class="form-control" id="user_email" name="user_email" aria-describedby="emailHelp">
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="user_password">Password</label>
-                            <input type="password" class="form-control" id="user_password" name="user_password">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Log In</button>
-                    </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Register Modal -->
-    <div class="modal" id="register_modal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Register</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <!-- Register Modal -->
+                <div class="modal" id="register_modal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Register</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
-                </div>
-                <div class="modal-body">
-                    {% if messages %}
-                    <div class="row my-4 justify-content-center">
-                        <ul class="messages">
-                            {% for message in messages %}
-                            <li>{{message}}</li>
-                            {% endfor %}
-                        </ul>
+                            </div>
+                            <div class="modal-body">
+                                {% if messages %}
+                                <div class="row my-4 justify-content-center">
+                                    <ul class="messages">
+                                        {% for message in messages %}
+                                        <li>{{message}}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endif %}
+                                <form action="/users/register" method="POST">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="user_first_name">First Name</label>
+                                        <input type="text" name="user_first_name" id="user_first_name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_last_name">Last Name</label>
+                                        <input type="text" name="user_last_name" id="user_last_name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_email">Email address</label>
+                                        <input type="email" class="form-control" id="user_email" name="user_email" aria-describedby="emailHelp">
+                                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_password">Password</label>
+                                        <input type="password" class="form-control" id="user_password" name="user_password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_password_conf">Password</label>
+                                        <input type="password" class="form-control" id="user_password_conf" name="user_password_conf">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Register</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
                     </div>
-                    {% endif %}
-                    <form action="/users/register" method="POST">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="user_first_name">First Name</label>
-                            <input type="text" name="user_first_name" id="user_first_name">
-                        </div>
-                        <div class="form-group">
-                            <label for="user_last_name">Last Name</label>
-                            <input type="text" name="user_last_name" id="user_last_name">
-                        </div>
-                        <div class="form-group">
-                            <label for="user_email">Email address</label>
-                            <input type="email" class="form-control" id="user_email" name="user_email" aria-describedby="emailHelp">
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="user_password">Password</label>
-                            <input type="password" class="form-control" id="user_password" name="user_password">
-                        </div>
-                        <div class="form-group">
-                            <label for="user_password_conf">Password</label>
-                            <input type="password" class="form-control" id="user_password_conf" name="user_password_conf">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Register</button>
-                    </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 
 </html>
