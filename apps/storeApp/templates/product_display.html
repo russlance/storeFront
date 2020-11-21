@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Display</title>
+</head>
+
+<body>
+    <div>
+        <div class="fixed-top">
+            <div class="collapse" id="navbarToggleExternalContent">
+                <div class="bg-dark p-4">
+                    <p>Sort by:</p>
+                    <button class="btn" data-toggle="modal" data-target="#sort_by_brand">Brand</button>
+                    <button class="btn" data-toggle="modal" data-target="#sort_by_name">Name</button>
+                    <button class="btn" data-toggle="modal" data-target="#sort_price_high">Price - High</button>
+                    <button class="btn" data-toggle="modal" data-target="#sort_price_low">Price - Low</button>
+                </div>
+            </div>
+            <nav class="navbar navbar-dark bg-dark">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            </nav>
+        </div>
+        <div class="list-group">
+            {% for product in products_in_category %}
+            <button type="button" class="list-group-item list-group-item-action active">
+                <p class="dark_text">{{product.name}} {{product.price}} {{product.image}}</p>
+            </button> {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>
