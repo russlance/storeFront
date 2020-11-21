@@ -11,14 +11,13 @@
     <div>
         <h1 class="dark_text">Project: Hobby News</h1>
     </div>
-    <div>
-        {% for article in all_articles %}
+    {% for article in all_articles %}
+    <div class="border-bottom p-2">
         <h1 class="dark_text">{{article.title}}</h1>
         <p class="text-wrap dark_text">{{article.content}}</p>
         <p class="dark_text">{{article.updated_at}}</p>
-        <p class="border"></p>
-        {% endfor %}
     </div>
+    {% endfor %}
 
 </body>
 

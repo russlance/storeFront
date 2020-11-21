@@ -175,7 +175,11 @@ def create_sale(request):
                 messages.error(request, value)
             return redirect('/admin/home')
         else:
-            Sale.objects.create(sale_list=request.POST['new_sale_list'], discount=request.POST['new_sale_discount'])
+            if request.POST['new_sale_list'] in Sale.objects.all():
+                Sale.objects.discount = request.POST['new_sale_discount']
+                Sale.objects.save()
+            else:
+                Sale.objects.create(sale_list=request.POST['new_sale_list'], discount=request.POST['new_sale_discount'])
             return redirect('/admin/home')
     return redirect('/admin/home')
 
