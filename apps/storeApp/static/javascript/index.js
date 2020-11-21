@@ -60,7 +60,47 @@ $(document).ready(function() {
             }
         })
     })
+    
+    $(document).on("submit", '#registerform', function(event){
+        event.preventDefault();
+        var data = {
+            user_first_name:$('user_first_name').val(),
+            user_last_name:$("user_last_name").val(),
+            user_email: $('#user_email').val(),
+            user_password: $("#user_password").val(),
+            user_password_conf:$("user_password_conf").val(),
+            csrfmiddlewaretoken:$('input[name="csrfmiddlewaretoken"]').attr('value')
+        }
+        var route = "/users/login"
+        $.ajax({
+            url:route,
+            type: "post",
+            data: data,
+            success: function(data){
+                $("#register_modal").modal('hide')
+                var html_str=""
+                html_str+= data
+                document.getElementById("top_navbar").innerHTML= html_str
+            }
+        })
+    })
 })
+function update_quantity(id)
+{
+    var data= {
+        item_quantity:$("input[name='item_quantity]").val()
+    }
+    $.ajax({
+        url:"/products/update_quantity/"+id,
+        type: "post",
+        data: data,
+        success: function(data){
+            var html_str=""
+            html_str+=data
+            document.getElementById("content").innerHTML= html_str
+        }
+    })
+}
 function display_events()
 {
     $.ajax({
