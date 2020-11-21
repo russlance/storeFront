@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from .models import Category, Brand, Product, Order, Article, User, Sale, OrderItem
 from django.contrib import messages
 import bcrypt
+from storeFront.settings import EMAIL_HOST_USER
+from django.core.mail import send_mail
+from .contact_info import contact_recipients
 
 # Create your views here.
 def index (request):
@@ -14,7 +17,7 @@ def index (request):
         sale_finder = Sale.objects.filter(sale_list=i)
         if sale_finder:
             sale_list[f"sale{i}"] = sale_finder[0]
-    print(sale_list['sale1'], sale_list['sale2'], sale_list['sale3'])
+    # print(sale_list['sale1'], sale_list['sale2'], sale_list['sale3'])
     cart_quantity = 0
     if "current_order" in request.session:
         curr_order = Order.objects.get(id=request.session["current_order"])
@@ -74,8 +77,17 @@ def about_us(request):
 def contact_us(request):
     return render(request, 'contact_us.html')
 
-
-
+def contact_send(request):
+    if request.method == "POST":
+        print(request.POST)
+        sender = request.POST["contact_name"]
+        email = request.POST["contact_email"]
+        message = request.POST["contact_message"]
+        subject = (f'{sender} sent you a message through Project: Hobby')
+        message = (f'{sender} at {email} says:\n {message}')
+        send_mail(subject, message, EMAIL_HOST_USER, contact_recipients, fail_silently=False)
+        return redirect("/")
+    return redirect("/")
 
 def admin_home(request):
     if 'current_user' not in request.session:
@@ -91,6 +103,16 @@ def admin_home(request):
     }
     return render(request, 'admin_home.html', context)
 
+def show_category(request, id):   #  This is not right yet - may just want the name
+    this_category = Category.objects.filter(id=id)
+    if len(this_category) > 0:
+        this_category = this_category[0]
+        context = {
+            "products_in_category": this_category,
+        }
+        return render(request, "product_display.html", context)
+    return redirect('/')
+    
 # ---------- PRODUCT FUNCTIONS ----------
 
 def create_product(request):
