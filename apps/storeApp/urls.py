@@ -12,6 +12,7 @@ urlpatterns = [
     path('events', views.events),
     path('about_us', views.about_us),
     path('contact_us', views.contact_us),
+    path('contact_us/contact_send', views.contact_send),
     # path('products/add_product', views.add_product),
     path('products/<int:product_id>', views.product_detail),
     path('products/<int:product_id>/assign_to_sale', views.assign_to_sale),
