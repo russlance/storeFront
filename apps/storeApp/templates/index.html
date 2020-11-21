@@ -28,23 +28,23 @@
                     </svg></button>
             </li>
             <li class="nav-item navbar-text" role="presentation">
-                <button class="nav-link active btn btn-link" id="home" data-toggle="tab" href="/" role="tab" aria-controls="home" aria-selected="true"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <button class="nav-link active btn btn-link" id="home" data-toggle="tab" href="/" role="tab" aria-controls="home" aria-selected="true" onclick="display_home"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M8 3.293l6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
                         <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
                     </svg></button>
             </li>
             <li class="nav-item navbar-text" role="presentation">
-                <button class="btn btn-link nav-link" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">News</button>
+                <button class="btn btn-link nav-link" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false" onclick="display_news">News</button>
             </li>
             <li class="nav-item navbar-text" role="presentation">
-                <button class="nav-link contact-tab btn btn-link" id="events" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Events</button>
+                <button class="nav-link contact-tab btn btn-link" id="events" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false" onclick="display_events">Events</button>
             </li>
 
             <li class="nav-item navbar-text" role="presentation">
-                <button class="nav-link contact-tab btn btn-link" id="search" data-toggle="tab" role="tab" aria-controls="search" aria-selected="false"><input class="form-control" type="number" id="search" name="search" placeholder="Search"></button>
+                <button class="nav-link contact-tab btn btn-link" id="search" data-toggle="tab" role="tab" aria-controls="search" aria-selected="false"><input class="form-control" type="text" id="search" name="search" placeholder="Search"></button>
             </li>
             <li class="nav-item navbar-text" role="presentation">
-                <button class="nav-link contact-tab btn btn-link" id="cart" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">My Cart <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <button class="nav-link contact-tab btn btn-link" id="cart" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false" onclick="display_cart">My Cart <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
                 </svg>{{cart_quantity}}</button>
             </li>
@@ -283,7 +283,7 @@
                                 <p class="dark_text">{{product.price}} <img src="{{product.imgage}}" alt="product image"></p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" id="add_to" class="btn btn-secondary" data-dismiss="modal" value="{{product.id}}">Add to Cart</button>
+                                <button type="button" id="add_to" class="btn btn-secondary" data-dismiss="modal" value="{{product.id}}" onclick="add_to_cart">Add to Cart</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </div>
