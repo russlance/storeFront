@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     {% load static %}
 </head>
+
 <body>
-    <h1 class="text-center">Main Product View Area</h1>
-    <div id="first_load">
+    <div id="first_load" class="row">
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -22,7 +23,7 @@
                     <div class="carousel-caption d-none d-md-block">
                         <h5>item.name</h5>
                         <p>item.description</p>
-                        <a href="#">Click here for more information</a>
+                        <button class="btn" data-toggle="modal" data-target="#item">Click here for more information</button>
                     </div>
                 </div>
                 {% endfor %}
@@ -37,5 +38,21 @@
             </a>
         </div>
     </div>
+    <div id="feature_item" class="row">
+        <span class="col"><button class="btn" data-target="#"><img class="logo_image" src="https://ddoplayers.com/wp-content/uploads/2017/05/pathfinder-rpg-logo.png" alt="pathfinder logo"></button></span>
+        <span class="col"><button class="btn" data-target="#"><img class="logo_image" src="https://comicvine1.cbsistatic.com/uploads/scale_medium/3/38919/1805987-wizards_of_the_coast_logo.gif" alt="wizards of the coast"></button></span>
+        <span class="col"><button class="btn" data-target="#"><img class="logo_image" src="https://upload.wikimedia.org/wikipedia/en/thumb/f/fe/Games_Workshop_logo.svg/1200px-Games_Workshop_logo.svg.png" alt="games workshop"></button></span>
+    </div>
+    <div id="feature_item" class="row">
+        <span class="col"><button class="btn" data-target="#"><img class="logo_image" src="http://nerdreactor.com/wp-content/uploads/2016/09/Magic-The-Gathering-logo-800x279.png" alt="magic the gathering"></button></span>
+        <span class="col"><button class="btn" data-target="#"><img class="logo_image" src="http://vignette4.wikia.nocookie.net/logopedia/images/3/3b/Wizardsofthecoast_dungeonsanddragons_logo.jpg/revision/latest?cb=20140529192539" alt="dungeons and dragons"></button></span>
+        <span class="col"><button class="btn" data-target="#"><img class="logo_image" src="http://logos-download.com/wp-content/uploads/2016/02/warhammer-40000-and_bird_logo.png" alt="warhammer 40k"></button></span>
+    </div>
+    <div id="feature_item" class="row">
+        <span class="col"><button class="btn" data-target="#"><img class="logo_image" src="https://i1.wp.com/www.trackofwords.com/wp-content/uploads/2017/06/New-AoS-logo-2018.png?fit=1100%2C254&ssl=1" alt="warhammer age of sigmar"></button></span>
+        <span class="col"><button class="btn" data-target="#"><img class="logo_image" src="http://www.multiversecg.com/wp-content/uploads/2015/02/wizkids-heroclix-logo.jpg" alt="wizkids-heroclix-logo"></button></span>
+        <span class="col"><button class="btn" data-target="#"><img class="logo_image" src="https://clipground.com/images/pokemon-logo-png-5.png" alt="pokemon"></button></span>
+    </div>
 </body>
+
 </html>

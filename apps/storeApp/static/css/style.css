@@ -3,7 +3,7 @@
 }
 
 .container-fluid {
-    background-image: radial-gradient(#FFFCF2 1%, #b4b3ab);
+    background-color: #FFFCF2;
 }
 
 .btn-secondary {
@@ -53,4 +53,12 @@
 
 .dark_text {
     color: #252422;
+}
+
+.box_background {
+    background-color: #ffffff;
+}
+
+.logo_image {
+    height: 50px;
 }

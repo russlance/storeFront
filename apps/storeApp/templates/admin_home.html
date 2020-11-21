@@ -42,12 +42,12 @@
         </ul>
         <div class="row justify-content-center">
             {% if messages %}
-                <p class="text-danger">Errors on this page:</p>
-                <ul class="messages">
-                    {% for message in messages %}
-                    <li {% if message.tags %} class="{{massage.tags}} text-danger" {% endif %}>{{message}}</li>
-                    {% endfor %}
-                </ul>
+            <p class="text-danger">Errors on this page:</p>
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{massage.tags}} text-danger" {% endif %}>{{message}}</li>
+                {% endfor %}
+            </ul>
             {% endif %}
 
             <div class="col">
@@ -83,7 +83,7 @@
 
                                 <div class="input-group mb-3">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="product_image" name="product_image" aria-describedby="inputGroupFileAddon01">
+                                        <input type="file" class="custom-file-input" id="product_image" name="product_image" aria-describedby="inputGroupFile01">
                                         <label class="custom-file-label dark_text" for="inputGroupFile01">Choose image file</label>
                                     </div>
                                 </div>
@@ -238,9 +238,11 @@
                                                 <option value="{{ sale.id }}" class="dark_text">{{ sale.sale_list }}</option>
                                                 {% endfor %}
                                             </select>
-                                        </div>
-                                        <div>
                                             <button type="submit" class="btn btn-sm btn-info">Assign</button>
+
+                                        </div>
+
+                                        <div>
                                         </div>
                                     </form>
                                 </td>
