@@ -15,6 +15,7 @@ urlpatterns = [
     # path('products/add_product', views.add_product),
     path('products/<int:product_id>', views.product_detail),
     path('products/<int:product_id>/assign_to_sale', views.assign_to_sale),
+    path('products/add_to_cart', views.add_to_cart),
     path('create_sale', views.create_sale),
     path('create_product', views.create_product),
     path('create_category', views.create_category),

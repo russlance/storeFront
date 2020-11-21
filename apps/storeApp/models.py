@@ -157,12 +157,19 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = ProductManager()
-    # orders = List of Orders containing this product.
+    # order_items = List of OrderItems containing this product.
 
 class Order(models.Model):
-    user = models.ForeignKey(User, related_name="orders", on_delete=models.CASCADE)
-    total = MoneyField(max_digits=14, decimal_places=2, default_currency='USD')
-    products_ordered = models.ManyToManyField(Product, related_name="orders")
+    user = models.ForeignKey(User, related_name="orders", on_delete=models.CASCADE, null=True, blank=True)
+    total = MoneyField(default=0, max_digits=14, decimal_places=2, default_currency='USD')
+    completed = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class OrderItem(models.Model):
+    product = models.ForeignKey(Product, related_name="order_items", on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    order = models.ForeignKey(Order, related_name="order_items", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
