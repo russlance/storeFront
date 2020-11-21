@@ -25,6 +25,9 @@ def index (request):
 def home(request):
     return render(request, "home.html")
 
+def navbar(request):
+    return render(request, "navbar.html")
+
 def directions(request):
     return render(request, "directions.html")
 
@@ -163,7 +166,7 @@ def register_user(request):
             hashed_pw = bcrypt.hashpw(request.POST['user_password'].encode(), bcrypt.gensalt()).decode()
             new_user = User.objects.create(first_name=request.POST['user_first_name'], last_name=request.POST['user_last_name'], email=request.POST['user_email'], password=hashed_pw)
             request.session['current_user'] = new_user.id
-            return redirect('/')
+            return redirect('/navbar')
     return redirect('/')
 
 def log_in(request):
@@ -173,7 +176,7 @@ def log_in(request):
             login_user = login_user[0]
             if bcrypt.checkpw(request.POST['user_password'].encode(), login_user.password.encode()):
                 request.session["current_user"] = login_user.id
-                return redirect('/')
+                return redirect('/navbar')
         messages.error(request, "Email or password is incorrect.")
         return redirect('/')
     return redirect('/')
