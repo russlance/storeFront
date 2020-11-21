@@ -165,6 +165,7 @@ class Order(models.Model):
     completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    # order_items = list of OrderItems in this order
 
 class OrderItem(models.Model):
     product = models.ForeignKey(Product, related_name="order_items", on_delete=models.CASCADE)

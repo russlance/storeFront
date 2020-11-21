@@ -14,9 +14,13 @@ def index (request):
         sale_finder = Sale.objects.filter(sale_list=i)
         if sale_finder:
             sale_list[f"sale{i}"] = sale_finder[0]
-    
     print(sale_list['sale1'], sale_list['sale2'], sale_list['sale3'])
+    cart_quantity = 0
+    if "current_order" in request.session:
+        curr_order = Order.objects.get(id=request.session["current_order"])
+        cart_quantity += curr_order.order_items.count()
     context = {
+        "cart_quantity": cart_quantity,
         "all_categories": Category.objects.all(),
         "current_user": curr_user,
         "sale_list_1": Product.objects.filter(sale=sale_list['sale1']),
@@ -156,6 +160,9 @@ def add_to_cart(request):
         if 'current_order' not in request.session:
             curr_order = Order.objects.create()
             request.session["current_order"] = curr_order.id
+            if "current_user" in request.session:
+                curr_order.user = User.objects.get(id=request.session['current_user'])
+                curr_order.save()
         else:
             curr_order = Order.objects.filter(id=request.session['current_order'])
             if len(curr_order) > 0:
