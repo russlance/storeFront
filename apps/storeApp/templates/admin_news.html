@@ -33,9 +33,6 @@
                 <a href="/admin/user_manager" class="nav-link">Users</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">Edit Profile</a>
-            </li>
-            <li class="nav-item">
                 <a class="nave-link" href="/users/logout">Log Out</a>
             </li>
         </ul>
@@ -55,20 +52,30 @@
 
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">News Article</span>
+                                <span class="input-group-text">Content</span>
                             </div>
-                            <textarea class="form-control" aria-label="With textarea" name="article_content"></textarea>
+                            <textarea class="form-control" aria-label="article_content" name="article_content"></textarea>
                         </div>
                         <button type="button" class="btn button-success">Submit</button>
                     </form>
                 </div>
 
                 <div class="col-6">
-                    <p>This will list all past articles for reference</p>
+                    <p>This will list all articles for reference</p>
                 </div>
             </div>
         </div>
     </div>
+    {% if messages %} {% for message in messages %} {% if message.tags == 'error' %}
+    <div class="alert toast ml-auto">
+        <div class="toast-header">
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">×</button>
+        </div>
+        <div class="toast-body text-dark">
+            {{message}}
+        </div>
+    </div>
+    {% endif %} {% endfor %} {% endif %}
 </body>
 
 </html>
