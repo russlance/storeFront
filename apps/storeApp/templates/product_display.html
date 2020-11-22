@@ -23,17 +23,17 @@
         <div class="p-2">
             {% for product in products_in_category.products.all %}
             <span class="row w-100">
-                    <button type="button" class="list-group-item list-group-item-action row" onclick="show_product('{{product.id}}')">
-                        <span class="col">
-                            <span class="row">
-                                <p class="col d-inline-block"><img src="{{product.image.url}}" alt="{{product.name}}" height="150px"></p>
-                                <p class="col d-inline-block">{{product.name}}</p>
-                                <p class="col d-inline-block">{{product.price}}</p>
-                            </span>
+                <button type="button" class="list-group-item list-group-item-action row offset-2" onclick="show_product('{{product.id}}')">
+                    <span class="col">
+                        <span class="row w-100">
+                            <p class="col d-inline-block"><img src="{{product.image.url}}" alt="{{product.name}}" height="150px"></p>
+                            <p class="col d-inline-block">{{product.name}}</p>
+                            <p class="col d-inline-block">{{product.price}}</p>
+                        </span>
             </span>
-
             </button>
-            </span>{% endfor %}
+            </span>
+            {% endfor %}
         </div>
     </div>
 
