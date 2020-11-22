@@ -17,6 +17,10 @@ $(document).ready(function() {
             document.getElementById("top_navbar").innerHTML= html_str
         }
     })
+    $('.toast').toast({
+        autohide:false
+    })
+    $(".toast").toast("show")
     $("#AboutUs").click(function() {
         $.ajax({
             url: "/about_us",
@@ -112,7 +116,6 @@ function display_directions()
         }
     })
 }
-
 function display_cart()
 {
     $.ajax({
@@ -121,8 +124,16 @@ function display_cart()
         success: function(data) {
             var html_str = ""
             html_str += data
-            console.log(html_str)
             document.getElementById("content").innerHTML = html_str;
+            var slicey = document.getElementsByClassName("price")
+            var quantums = document.getElementsByClassName("quantity")
+            var totos = document.getElementsByClassName("total")
+            for(var i=0; i<slicey.length; i++)
+            {
+                var price =Number.parseFloat(slicey[i].innerHTML.slice(1))
+                var quantity =Number.parseFloat(quantums[i].placeholder)
+                totos[i].innerHTML ="$"+ price*quantity
+            }
         }
     })
 }
@@ -184,6 +195,7 @@ function update_quantity(id)
     var data= {
         item_quantity:$("input[name='item_quantity]").val()
     }
+    console.log(data["item_quantity"])
     $.ajax({
         url:"/products/update_quantity/"+id,
         type: "post",
