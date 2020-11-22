@@ -123,17 +123,29 @@ def admin_user_manager(request):
         curr_user = User.objects.get(id=request.session['current_user'])
     context = {
         "current_user": curr_user,
-        "all_users": User.objects.all()
+        "all_users": User.objects.all(),
     }
     return render(request, 'admin_user_manager.html', context)
 
 def admin_update_user(request):
-    User.objects.first_name=request.POST['user_first_name']
-    User.objects.last_name=request.POST['user_last_name']
-    User.objects.email=request.POST['user_email']
-    if request.POST['user_admin']==1:
-        User.objects.admin=True
-    User.objects.save()
+    if request.method == "POST":
+        print(request.POST)
+        this_user = User.objects.filter(id=request.session['current_user'])
+        if len(this_user) > 0:
+            this_user = this_user[0]
+            print(this_user)
+            this_user.first_name = request.POST['user_first_name']
+            this_user.last_name = request.POST['user_last_name']
+            this_user.email = request.POST['user_email']
+            if 'user_admin' in request.POST:
+                this_user.admin = True
+            else:
+                this_user.admin = False
+            if 'user_newsletter' in request.POST:
+                this_user.wants_newsletter = True
+            else:
+                this_user.wants_newsletter = False
+            this_user.save()
     return redirect('/admin/user_manager')
 
 def admin_news(request):

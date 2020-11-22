@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="col-5">
-                    <form action="" method="POST">
+                    <form action="/admin/update_user" method="POST">
                         {% csrf_token %}
                         <div class="input-group pb-1">
                             <div class="input-group-prepend">
@@ -84,11 +84,29 @@
                             <div class="input-group-prepend">
                                 {% if current_user.admin == False %}
                                 <div class="form-group form-check">
-                                    <input type="checkbox" class="form-check-input" value="true" id="user_admin" name="user_admin">
+                                    <input type="checkbox" class="form-check-input" value="True" id="user_admin" name="user_admin">
+                                </div>
+                                {% else %}
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" value="True" id="user_admin" name="user_admin" checked>
                                 </div>
                                 {% endif %}
                             </div>
                             <label for="user_admin">Administrator</label>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                {% if current_user.wants_newsletter == False %}
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" value="True" id="user_newsletter" name="user_newsletter">
+                                </div>
+                                {% else %}
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" value="True" id="user_newsletter" name="user_newsletter" checked>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <label for="user_admin">Wants Newsletter?</label>
                         </div>
                         <button type="submit" class="btn btn-danger pt-2">Delete</button>
                         <button type="submit" class="btn btn-primary pt-2">Update</button>
