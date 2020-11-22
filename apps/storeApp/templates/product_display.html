@@ -20,21 +20,18 @@
 
     <!-- Main product display area -->
     <div class="overflow-auto interior row">
-        <div class="p-2">
+        <ul class="list-group w-100">
             {% for product in products_in_category.products.all %}
-            <span class="row w-100">
-                <button type="button" class="list-group-item list-group-item-action row offset-2" onclick="show_product('{{product.id}}')">
-                    <span class="col">
-                        <span class="row w-100">
-                            <p class="col d-inline-block"><img src="{{product.image.url}}" alt="{{product.name}}" height="150px"></p>
-                            <p class="col d-inline-block">{{product.name}}</p>
-                            <p class="col d-inline-block">{{product.price}}</p>
-                        </span>
-            </span>
-            </button>
-            </span>
-            {% endfor %}
-        </div>
+            <li class="list-group-item">
+                <button type="button" class="list-group-item list-group-item-action row p-2 m-0 product_button" onclick="show_product('{{product.id}}')">
+                    <div class="row w-100">
+                        <p class="col d-inline-block"><img src="{{product.image.url}}" alt="{{product.name}}" height="150px"></p>
+                        <p class="col d-inline-block align-middle">{{product.name}}</p>
+                        <p class="col d-inline-block">{{product.price}}</p>
+                    </div>
+                </button>
+            </li> {% endfor %}
+        </ul>
     </div>
 
 </div>
