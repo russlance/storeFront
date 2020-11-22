@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
     <script src="{% static 'javascript/index.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
+
 <body>
     <div class="col-8 mx-auto">
         <h3>Product Detail:</h3>
@@ -22,7 +24,7 @@
         <h5>Image:</h5>
         <div class="row">
             <div class="col-6">
-                <img src="{{this_product.image.url}}" alt="product_image" width="200px"/>
+                <img src="{{this_product.image.url}}" alt="product_image" height="100px" />
             </div>
             <div class="col-6">
                 <h5>Price:</h5>
@@ -43,4 +45,5 @@
         </div>
     </div>
 </body>
+
 </html>
