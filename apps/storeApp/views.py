@@ -138,6 +138,7 @@ def admin_news(request):
         curr_user = User.objects.get(id=request.session['current_user'])
     context = {
         "current_user": curr_user,
+        'all_articles': Article.objects.all().order_by("-created_at"),
         'all_users': User.objects.all(),
     }
     return render(request, 'admin_news.html', context)
@@ -145,7 +146,7 @@ def admin_news(request):
 def create_article(request):
     curr_user = User.objects.get(id=request.session['current_user'])
     Article.objects.create(author=curr_user, title=request.POST['article_title'], content=request.POST['article_content'])
-    return redirect('/admin/home')
+    return redirect('/admin/news')
 
 def show_category(request, id):   #  This is not right yet - may just want the name
     this_category = Category.objects.filter(id=id)
@@ -258,6 +259,7 @@ def add_to_cart(request):
             new_order_item = OrderItem.objects.create(product=this_product, quantity=request.POST['product_quantity'], order=curr_order)
             total_price = new_order_item.quantity * new_order_item.product.price
             curr_order.total += total_price
+            curr_order.save()
             print(curr_order, curr_order.total)
             print(new_order_item)
     return redirect(f'/products/{this_product.id}')

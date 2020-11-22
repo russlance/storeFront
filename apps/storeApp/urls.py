@@ -22,7 +22,6 @@ urlpatterns = [
     path('create_product', views.create_product),
     path('create_category', views.create_category),
     path('create_brand', views.create_brand),
-    path('create_article', views.create_article),
     path('users/register', views.register_user),
     path('users/login', views.log_in),
     path('users/logout', views.log_out),
@@ -30,4 +29,5 @@ urlpatterns = [
     path('admin/user_manager', views.admin_user_manager),
     path('admin/update_user', views.admin_update_user),
     path('admin/news', views.admin_news),
+    path('admin/news/create_article', views.create_article),
 ]

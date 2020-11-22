@@ -42,7 +42,7 @@
             <div class="row justify-content-center">
                 <div class="col-4">
                     <h5 class="dark_text">Article Input</h5>
-                    <form action="/admin/create_article" method="POST">
+                    <form action="/admin/news/create_article" method="POST">
                         {% csrf_token %}
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -57,12 +57,17 @@
                             </div>
                             <textarea class="form-control" aria-label="article_content" name="article_content"></textarea>
                         </div>
-                        <button type="button" class="btn button-success">Submit</button>
+                        <button type="submit" class="btn btn-success my-4">Submit</button>
                     </form>
                 </div>
 
                 <div class="col-6">
-                    <p>This will list all articles for reference</p>
+                    <p>This will list all past articles for reference</p>
+                    {% for article in all_articles %}
+                        <h3>{{article.title}}</h3>
+                        <p><em>by: {{article.author.first_name}} {{article.author.last_name}}</em></p>
+                        <p>{{article.content}}</p>
+                    {% endfor %}
                 </div>
             </div>
         </div>
