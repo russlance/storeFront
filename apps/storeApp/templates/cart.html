@@ -13,7 +13,7 @@
         <tbody>
             {% for item in current_order.order_items.all %}
             <tr class="row">
-                <td><img src="{{item.product.image}}" alt="{{item.product.name}}"></td>
+                <td><img src="{{item.product.image.url}}" alt="{{item.product.name}}" width="50px"></td>
                 <td>{{item.product.name}}</td>
                 <td class="price">{{item.product.price}}</td>
                 <td><input class="quantity" type="number" placeholder="{{item.quantity}}" name="item_quantity"><button class="btn" onclick="update_quantity(item.order_items.id)">Update</button></td>

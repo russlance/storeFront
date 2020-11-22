@@ -62,7 +62,12 @@ def cart(request):
         curr_order = None
     else:
         curr_order = Order.objects.get(id=request.session["current_order"])
+    if 'current_user' not in request.session:
+        curr_user = None
+    else:
+        curr_user = User.objects.get(id=request.session['current_user'])
     context = {
+        "current_user": curr_user,
         "current_order": curr_order,
     }
     return render(request, "cart.html", context)
