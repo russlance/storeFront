@@ -68,11 +68,11 @@ $(document).ready(function() {
     $(document).on("submit", '#registerform', function(event){
         event.preventDefault();
         var data = {
-            user_first_name:$('user_first_name').val(),
-            user_last_name:$("user_last_name").val(),
+            user_first_name:$('#user_first_name').val(),
+            user_last_name:$("#user_last_name").val(),
             user_email: $('#user_email').val(),
             user_password: $("#user_password").val(),
-            user_password_conf:$("user_password_conf").val(),
+            user_password_conf:$("#user_password_conf").val(),
             csrfmiddlewaretoken:$('input[name="csrfmiddlewaretoken"]').attr('value')
         }
         var route = "/users/register"
