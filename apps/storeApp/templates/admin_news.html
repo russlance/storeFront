@@ -62,12 +62,15 @@
                 </div>
 
                 <div class="col-6">
-                    <p>This will list all past articles for reference</p>
-                    {% for article in all_articles %}
-                        <h3>{{article.title}}</h3>
-                        <p><em>by: {{article.author.first_name}} {{article.author.last_name}}</em></p>
-                        <p>{{article.content}}</p>
-                    {% endfor %}
+                    <div class="overflow-auto main_area border">
+                        {% for article in all_articles %}
+                        <div class="border-bottom p-3">
+                            <h3>{{article.title}}</h3>
+                            <p><em>by: {{article.author.first_name}} {{article.author.last_name}}</em></p>
+                            <p>{{article.content}}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>

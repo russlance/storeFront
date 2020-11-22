@@ -3,7 +3,7 @@
 {% load static %}
 <div class="container-fluid">
     <div id="first_load" class="row">
-        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+        <div id="carouselExampleCaptions" class="carousel slide mx-auto w-100" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
                 <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
@@ -11,14 +11,13 @@
             </ol>
 
             <!-- Jumbotron Sale -->
-            <div class="carousel-inner shadow">
+            <div class="carousel-inner shadow mb-2">
                 {% if sale_list_4 != None %} {% for item in sale_list_4 %} {% if item == sale_list_4.0 %}
                 <div class="carousel-item active">
                     {% else %}
                     <div class="carousel-item">
                         {% endif %}
                         <button href="/products/{{item.id}}" class="d-block w-100"><img src="{{item.image.url}}" alt="product_image" height="200px" />
-                        <p>{{item.name}}</p>
                         </button>
                     </div>
                     {% endfor %}

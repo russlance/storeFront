@@ -43,7 +43,7 @@
     overflow-y: auto;
 }
 
-.interior{
+.interior {
     height: 700px;
     overflow-y: auto;
 }
@@ -53,9 +53,11 @@
 }
 
 .feature_box {
-    width: 100%;
-    height: 20%;
-    object-fit: cover;
+    height: 200px;
+}
+
+.feature_item {
+    height: 185px;
 }
 
 .dark_text {
@@ -68,4 +70,8 @@
 
 .logo_image {
     width: 80%;
+}
+
+.product_button {
+    height: 200px;
 }
