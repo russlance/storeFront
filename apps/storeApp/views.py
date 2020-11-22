@@ -49,8 +49,13 @@ def navbar(request):
         curr_user = None
     else:
         curr_user = User.objects.get(id=request.session['current_user'])
+    cart_quantity = 0
+    if "current_order" in request.session:
+        curr_order = Order.objects.get(id=request.session["current_order"])
+        cart_quantity += curr_order.order_items.count()
     context = {
         "current_user": curr_user,
+        "cart_quantity": cart_quantity,
     }
     return render(request, "navbar.html", context)
 
@@ -258,6 +263,13 @@ def assign_to_sale(request, product_id):
                 return redirect('/admin/home')
     return redirect('/admin/home')
 
+def update_order_total(order):
+    total = 0
+    for i in order.order_items.all():
+        total += (i.quantity * i.product.price)
+    order.total = total
+    order.save()
+
 def add_to_cart(request):
     if request.method == "POST":
         if 'current_order' not in request.session:
@@ -274,12 +286,55 @@ def add_to_cart(request):
         if len(this_product) > 0:
             this_product = this_product[0]
             new_order_item = OrderItem.objects.create(product=this_product, quantity=request.POST['product_quantity'], order=curr_order)
-            total_price = new_order_item.quantity * new_order_item.product.price
-            curr_order.total += total_price
-            curr_order.save()
+            update_order_total(curr_order)
             print(curr_order, curr_order.total)
             print(new_order_item)
-    return redirect(f'/products/{this_product.id}')
+    return redirect('/cart')
+
+def update_quantity(request, id):
+    if request.method == "POST":
+        this_order_item = OrderItem.objects.filter(id=id)
+        if len(this_order_item) > 0:
+            this_order_item = this_order_item[0]
+            this_order_item.quantity = request.POST['item_quantity']
+            this_order_item.save()
+            update_order_total(this_order_item.order)
+            return redirect('/cart')
+    return redirect('/cart')
+
+def remove_order_item(request, id):
+    if request.method == "POST":
+        this_order_item = OrderItem.objects.filter(id=id)
+        if len(this_order_item) > 0:
+            this_order_item = this_order_item[0]
+            this_order = Order.objects.get(id=this_order_item.order.id)
+            this_order_item.delete()
+            update_order_total(this_order)
+            print(f'new total: {this_order.total}')
+            return redirect('/cart')
+    return redirect('/cart')
+
+def empty_cart(request):
+    if request.method == "POST":
+        if 'current_order' in request.session:
+            curr_order = Order.objects.get(id=request.session['current_order'])
+            for item in curr_order.order_items.all():
+                item.delete()
+            update_order_total(curr_order)
+            return redirect('/home')
+    return redirect('/')
+
+def checkout(request):
+    if 'current_user' not in request.session:
+        curr_user = None
+    else:
+        curr_user = User.objects.get(id=request.session['current_user'])
+    curr_order = Order.objects.get(id=request.session["current_order"])
+    context = {
+        "user": curr_user,
+        "order": curr_order,
+    }
+    return render(request, 'checkout.html', context)
 
 # ----------  USER FUNCTIONS ----------
 
