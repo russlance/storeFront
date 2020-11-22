@@ -38,36 +38,31 @@
             </li>
         </ul>
 
-        <div class="container-fluid min-vh-100">
+        <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-4">
                     <h5 class="dark_text">Article Input</h5>
                     <form action="/admin/news/create_article" method="POST">
                         {% csrf_token %}
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="article_title">Title</span>
-                            </div>
-                            <input type="text" class="form-control" aria-label="article_title" aria-describedby="article_title" name="article_title">
+                            <input type="text" class="form-control" aria-label="article_title" aria-describedby="article_title" name="article_title" placeholder="Title">
                         </div>
 
                         <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Content</span>
-                            </div>
-                            <textarea class="form-control" aria-label="article_content" name="article_content"></textarea>
+                            <textarea class="form-control" aria-label="article_content" name="article_content" rows="27" placeholder="Content"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-success my-4">Submit</button>
+                        <button type="submit" class="btn btn-success my-4 float-right">Submit</button>
                     </form>
                 </div>
 
                 <div class="col-6">
-                    <div class="overflow-auto main_area border">
+                    <h5 class="dark_text">History</h5>
+                    <div class="overflow-auto main_area border p-2">
                         {% for article in all_articles %}
                         <div class="border-bottom p-3">
-                            <h3>{{article.title}}</h3>
-                            <p><em>by: {{article.author.first_name}} {{article.author.last_name}}</em></p>
-                            <p>{{article.content}}</p>
+                            <h3 class="dark_text">{{article.title}}</h3>
+                            <p class="dark_text"><em>by: {{article.author.first_name}} {{article.author.last_name}} - {{article.updated_at}}</em></p>
+                            <p class="dark_text">{{article.content}}</p>
                         </div>
                         {% endfor %}
                     </div>

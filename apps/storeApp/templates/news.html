@@ -12,10 +12,10 @@
         <h1 class="dark_text">Project: Hobby News</h1>
     </div>
     {% for article in all_articles %}
-    <div class="border-bottom p-2">
+    <div class="border-bottom p-4">
         <h1 class="dark_text">{{article.title}}</h1>
         <p class="text-wrap dark_text">{{article.content}}</p>
-        <p class="dark_text">{{article.created_at}}</p>
+        <p class="dark_text"><em>{{article.created_at}}</em></p>
     </div>
     {% endfor %}
 
