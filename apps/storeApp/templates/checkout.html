@@ -14,7 +14,7 @@
         <div class="col border-bottom">
             <!-- Member Sign in ; if signed in is welcome, if not is form -->
             <div class="col">
-                {% if user in session %}
+                {% if 'current_user' in request.session %}
                 <h5 class="dark_text">Welcome back {{user.first_name}}</h5>
                 {% else %}
                 <h5 class="dark_text">Member Sign In</h5>
@@ -63,7 +63,7 @@
         <div class="col-7 p-1">
             <div id="shipping_info" class="border-bottom">
                 <p class="dark_text">Shipping Address</p>
-                {% if user in session %}
+                {% if 'current_user' in request.session %}
                 <p class="dark_text ml-1">{{user.first_name}} {{user.last_name}}</p>
                 <p class="dark_text ml-1">{{user.address}}</p>
                 <p class="dark_text ml-1">{{user.city}}, {{user.state}} {{user.zip}}</p>
