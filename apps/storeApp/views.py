@@ -138,7 +138,7 @@ def admin_news(request):
         curr_user = User.objects.get(id=request.session['current_user'])
     context = {
         "current_user": curr_user,
-        'all_articles': Article.objects.all(),
+        'all_articles': Article.objects.all().order_by("-created_at"),
         'all_users': User.objects.all(),
     }
     return render(request, 'admin_news.html', context)
