@@ -250,9 +250,9 @@ def create_sale(request):
             return redirect('/admin/home')
     return redirect('/admin/home')
 
-def assign_to_sale(request, product_id):
+def assign_to_sale(request):
     if request.method == "POST":
-        this_product = Product.objects.filter(id=product_id)
+        this_product = Product.objects.filter(id=request.POST['sale_item'])
         if len(this_product) > 0:
             this_product = this_product[0]
             this_sale = Sale.objects.filter(id=request.POST['assign_sale_list'])

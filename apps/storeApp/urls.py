@@ -15,7 +15,7 @@ urlpatterns = [
     path('contact_us', views.contact_us),
     path('contact_us/contact_send', views.contact_send),
     path('products/<int:product_id>', views.product_detail),
-    path('products/<int:product_id>/assign_to_sale', views.assign_to_sale),
+    path('products/assign_to_sale', views.assign_to_sale),
     path('products/add_to_cart', views.add_to_cart),
     path('products/update_quantity/<int:id>', views.update_quantity),
     path('products/remove_from_cart/<int:id>', views.remove_order_item),
