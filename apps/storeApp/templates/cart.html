@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <h5 class="dark_text">{{current_order.user.first_name}}'s Cart</h5>
+    <h5 class="dark_text">{% if current_user != None %}{{current_user.first_name}}'s{% else %}Your{% endif %} Cart</h5>
     <table class="table">
         <tbody>
             {% for item in current_order.order_items.all %}
@@ -16,7 +16,7 @@
                 <td><img src="{{item.product.image}}" alt="{{item.product.name}}"></td>
                 <td>{{item.product.name}}</td>
                 <td class="price">{{item.product.price}}</td>
-                <td><input class="quantity" type="number" placeholder="{{item.quantity}}" name="item_quantity"><button class="btn" onclick="update_quantity(item.order_items.id)">Update</button></td>
+                <td><input class="quantity number_{{item.id}}" type="number" placeholder="{{item.quantity}}" name="item_quantity"><button class="btn" onclick="update_quantity('{{item.id}}')">Update</button></td> 
                 <td><button class="btn" onclick="remove_item('{{item.id}}')">Remove</button></td>
                 <td class="total">
                 </td>

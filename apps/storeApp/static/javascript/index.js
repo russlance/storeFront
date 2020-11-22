@@ -88,6 +88,25 @@ $(document).ready(function() {
             }
         })
     })
+    $(document).on("submit", "#add_product_form", function(event){
+        event.preventDefault();
+        var data={
+            product_id: $("input[name='product_id']").val(),
+            product_quantity: $("input[name='product_quantity']").val(),
+            csrfmiddlewaretoken:$('input[name="csrfmiddlewaretoken"]').attr('value')        
+        }
+        var route="/products/add_to_cart"
+        $.ajax({
+            url:route,
+            type:"post",
+            data:data,
+            success: function(data){
+                var html_str=""
+                html_str+= data
+                document.getElementById("content").innerHTML= html_str
+            }
+        })
+    })
 })
 // Navbar Methods
 
@@ -169,7 +188,6 @@ function loadCategory(id) {
         success: function(data) {
             var html_str = ""
             html_str += data
-            console.log(html_str)
             document.getElementById("content").innerHTML = html_str;
         }
     })
@@ -183,22 +201,56 @@ function show_product(id)
         success: function(data){
             var html_str = ""
             html_str += data
-            console.log(html_str)
             document.getElementById("content").innerHTML = html_str;
         }
     })
 }
 
+
+
+
 // Checkout Methods
 function update_quantity(id)
 {
     var data= {
-        item_quantity:$("input[name='item_quantity]").val()
+        item_quantity:Math.abs($(".number_"+id).val()),
+        csrfmiddlewaretoken:$('input[name="csrfmiddlewaretoken"]').attr('value')
     }
-    console.log(data["item_quantity"])
     $.ajax({
         url:"/products/update_quantity/"+id,
         type: "post",
+        data: data,
+        success: function(data){
+            var html_str=""
+            html_str+=data
+            document.getElementById("content").innerHTML= html_str
+        }
+    })
+}
+function remove_item(id)
+{
+    var data={
+        csrfmiddlewaretoken:$('input[name="csrfmiddlewaretoken"]').attr('value')
+    }
+    $.ajax({
+        url:"/products/remove_from_cart/"+id,
+        type:'post',
+        data: data,
+        success: function(data){
+            var html_str=""
+            html_str+=data
+            document.getElementById("content").innerHTML= html_str
+        }
+    })
+}
+function empty_cart()
+{
+    data={
+        csrfmiddlewaretoken:$('input[name="csrfmiddlewaretoken"]').attr('value')
+    }
+    $.ajax({
+        url:"/products/empty_cart",
+        type:"post",
         data: data,
         success: function(data){
             var html_str=""
