@@ -299,10 +299,10 @@ def register_user(request):
 
 def log_in(request):
     if request.method =="POST":
-        login_user = User.objects.filter(email=request.POST['user_email'])
+        login_user = User.objects.filter(email=request.POST['login_email'])
         if len(login_user) > 0:
             login_user = login_user[0]
-            if bcrypt.checkpw(request.POST['user_password'].encode(), login_user.password.encode()):
+            if bcrypt.checkpw(request.POST['login_password'].encode(), login_user.password.encode()):
                 request.session["current_user"] = login_user.id
                 return redirect('/navbar')
         messages.error(request, "Email or password is incorrect.")
@@ -310,5 +310,5 @@ def log_in(request):
     return redirect('/')
 
 def log_out(request):
-    request.session.clear()
+    request.session.pop('current_user')
     return redirect('/')
