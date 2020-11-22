@@ -47,8 +47,8 @@ $(document).ready(function() {
     $(document).on("submit", '#loginform', function(event){
         event.preventDefault();
         var data = {
-            user_email: $('#user_email').val(),
-            user_password: $("#user_password").val(),
+            login_email: $('#login_email').val(),
+            login_password: $("#login_password").val(),
             csrfmiddlewaretoken:$('input[name="csrfmiddlewaretoken"]').attr('value')
         }
         var route = "/users/login"
@@ -75,7 +75,7 @@ $(document).ready(function() {
             user_password_conf:$("user_password_conf").val(),
             csrfmiddlewaretoken:$('input[name="csrfmiddlewaretoken"]').attr('value')
         }
-        var route = "/users/login"
+        var route = "/users/register"
         $.ajax({
             url:route,
             type: "post",
