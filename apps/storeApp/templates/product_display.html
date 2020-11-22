@@ -1,41 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-    <div class="container-fluid">
-        <div class="row top_nav myTab">
-            <nav class="navbar navbar-dark">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+<div class="container-fluid">
+    <div class="row top_nav myTab">
+        <nav class="navbar navbar-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
-            </nav>
-            <div class="collapse" id="navbarToggleExternalContent">
-                <div class="p-4">
-                    <p>Sort by:</p>
-                    <button class="btn myTab" data-toggle="modal" data-target="#sort_by_brand">Brand</button>
-                    <button class="btn myTab" data-toggle="modal" data-target="#sort_by_name">Name</button>
-                    <button class="btn myTab" data-toggle="modal" data-target="#sort_price_high">Price - High</button>
-                    <button class="btn myTab" data-toggle="modal" data-target="#sort_price_low">Price - Low</button>
-                </div>
+        </nav>
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class="p-4">
+                <p>Sort by:</p>
+                <button class="btn myTab" data-toggle="modal" data-target="#sort_by_brand">Brand</button>
+                <button class="btn myTab" data-toggle="modal" data-target="#sort_by_name">Name</button>
+                <button class="btn myTab" data-toggle="modal" data-target="#sort_price_high">Price - High</button>
+                <button class="btn myTab" data-toggle="modal" data-target="#sort_price_low">Price - Low</button>
             </div>
         </div>
-
-            <!-- Main product display area -->
-        <div class="overflow-auto interior row">
-            <div class="p-2">
-                {% for product in products_in_category.products.all %}
-                <span class="col">
-                    <button type="button" class="list-group-item list-group-item-action row" onclick="show_product('{{product.id}}')">
-                        <span class="col">
-                            <span class="row">
-                                <p class="col d-inline-block"><img src="{{product.image.url}}" alt="{{product.name}}"></p>
-                                <p class="col d-inline-block">{{product.name}}</p>
-                                <p class="col d-inline-block">{{product.price}}</p>
-                            </span>
-                        </span>
-                        
-                    </button> 
-                </span>{% endfor %}
-            </div>
-        </div>
-
     </div>
+
+    <!-- Main product display area -->
+    <div class="overflow-auto interior row">
+        <div class="p-2">
+            {% for product in products_in_category.products.all %}
+            <span class="row w-100">
+                <button type="button" class="list-group-item list-group-item-action row offset-2" onclick="show_product('{{product.id}}')">
+                    <span class="col">
+                        <span class="row w-100">
+                            <p class="col d-inline-block"><img src="{{product.image.url}}" alt="{{product.name}}" height="150px"></p>
+                            <p class="col d-inline-block">{{product.name}}</p>
+                            <p class="col d-inline-block">{{product.price}}</p>
+                        </span>
+            </span>
+            </button>
+            </span>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
 </html>
