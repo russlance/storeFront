@@ -1,3 +1,4 @@
+from typing import ContextManager
 from django.shortcuts import render, redirect
 from .models import Category, Brand, Product, Order, Article, User, Sale, OrderItem
 from django.contrib import messages
@@ -142,6 +143,10 @@ def admin_update_user(request):
             this_user.first_name = request.POST['user_first_name']
             this_user.last_name = request.POST['user_last_name']
             this_user.email = request.POST['user_email']
+            this_user.address = request.POST['user_adress']
+            this_user.city = request.POST['user_city']
+            this_user.state = request.POST['user_state']
+            this_user.zip_code = request.POST['user_zip_code']
             if 'user_admin' in request.POST:
                 this_user.admin = True
             else:
@@ -152,6 +157,15 @@ def admin_update_user(request):
                 this_user.wants_newsletter = False
             this_user.save()
     return redirect('/admin/user_manager')
+
+def delete_user(request, user_id):
+    if 'current_user' not in request.session:
+        return redirect ('/')
+    else:
+        if request.method == "POST":
+            user_to_delete = User.objects.filter(id=user_id)[0]
+            user_to_delete.delete()
+            return redirect('/admin/user_manager')
 
 def admin_news(request):
     if 'current_user' not in request.session:
@@ -197,6 +211,47 @@ def create_product(request):
             brand_to_add.categories.add(category_to_add)
         return redirect('/admin/home')
 
+def edit_product(request, product_id):
+    if request.method == "POST":
+        errors = Product.objects.create_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/admin/home')
+        else:
+            product_to_update = Product.objects.filter(id=product_id)[0]
+            product_to_update.name = request.POST['product_name']
+            product_to_update.description = request.POST['product_description']
+            product_to_update.image = request.FILES['product_image']
+            product_to_update.price = request.POST['product_price']
+            product_to_update.inventory = request.POST['product_inventory']
+            product_to_update.category = request.POST['product_category']
+            product_to_update.brand = request.POST['product_brand']
+            Product.objects.save()
+        return redirect('/admin/home')
+
+def delete_product(request, id):
+    if request.method == "POST":
+        product_to_delete = Product.objects.filter(id=id)[0]
+        product_to_delete.delete()
+        return redirect('/products/edit_product_table')
+
+def edit_product_table(request):
+    context={
+        "all_products": Product.objects.all()
+    }
+    return render(request, 'product_table.html', context)
+
+def admin_product_detail(request, product_id):
+    this_product = Product.objects.filter(id=product_id)
+    if len(this_product) > 0:
+        this_product = this_product[0]
+        context = {
+            'this_product': this_product,
+        }
+        return render(request, "admin_product_detail.html", context)
+    return redirect('/')
+
 def product_detail(request, product_id):
     this_product = Product.objects.filter(id=product_id)
     if len(this_product) > 0:
@@ -206,7 +261,6 @@ def product_detail(request, product_id):
         }
         return render(request, "product_detail.html", context)
     return redirect('/')
-
 
 def create_category(request):
     if request.method == "POST":
