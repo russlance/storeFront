@@ -19,22 +19,22 @@
         <!-- Navbar -->
         <ul class="nav top_nav justify-content-center row myTab mb-2" role="tablist">
             <li class="nav-item">
-                <p class="">Hello {{current_user.first_name}}</p>
+                <p class="navbar-brand light_text">Hello {{current_user.first_name}}</p>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="/">Store</a>
+                <a class="nav-link light_text" href="/">Store</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/home">Admin Home</a>
+                <a class="nav-link light_text" href="/admin/home">Admin Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/news">News</a>
+                <a class="nav-link light_text" href="/admin/news">News</a>
             </li>
             <li class="nav-item">
-                <a href="/admin/user_manager" class="nav-link">Users</a>
+                <a href="/admin/user_manager" class="nav-link light_text">Users</a>
             </li>
             <li class="nav-item">
-                <a class="nave-link" href="/users/logout">Log Out</a>
+                <a class="nav-link light_text" href="/users/logout">Log Out</a>
             </li>
         </ul>
 
@@ -45,19 +45,19 @@
                     <form action="/admin/news/create_article" method="POST">
                         {% csrf_token %}
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" aria-label="article_title" aria-describedby="article_title" name="article_title" placeholder="Title">
+                            <input type="text" class="form-control shadow" aria-label="article_title" aria-describedby="article_title" name="article_title" placeholder="Title">
                         </div>
 
                         <div class="input-group">
-                            <textarea class="form-control" aria-label="article_content" name="article_content" rows="27" placeholder="Content"></textarea>
+                            <textarea class="form-control shadow" aria-label="article_content" name="article_content" rows="27" placeholder="Content"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-success my-4 float-right">Submit</button>
+                        <button type="submit" class="btn btn-success my-4 float-right shadow">Submit</button>
                     </form>
                 </div>
 
                 <div class="col-6">
                     <h5 class="dark_text">History</h5>
-                    <div class="overflow-auto main_area border p-2">
+                    <div class="overflow-auto main_area border p-2 shadow">
                         {% for article in all_articles %}
                         <div class="border-bottom p-3">
                             <h3 class="dark_text">{{article.title}}</h3>

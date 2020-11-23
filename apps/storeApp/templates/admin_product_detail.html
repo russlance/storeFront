@@ -19,63 +19,110 @@
         <!-- Navbar -->
         <ul class="nav top_nav justify-content-center row myTab mb-2" role="tablist">
             <li class="nav-item">
-                <p class="">Hello {{current_user.first_name}}</p>
+                <p class="navbar-brand light_text">Hello {{current_user.first_name}}</p>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="/">Store</a>
+                <a class="nav-link light_text" href="/">Store</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/home">Admin Home</a>
+                <a class="nav-link light_text" href="/admin/home">Admin Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/news">News</a>
+                <a class="nav-link light_text" href="/admin/news">News</a>
             </li>
             <li class="nav-item">
-                <a href="/admin/user_manager" class="nav-link">Users</a>
+                <a href="/admin/user_manager" class="nav-link light_text">Users</a>
             </li>
             <li class="nav-item">
-                <a class="nave-link" href="/users/logout">Log Out</a>
+                <a class="nav-link light_text" href="/users/logout">Log Out</a>
             </li>
         </ul>
 
-        <div class="col-8 mx-auto">
+        <div class="container">
             <h1 class="dark_text">Product Detail:</h1>
-            <h5 class="dark_text">Name:</h5>
-            <input class="dark_text" type="text" name="product_name" id="product_name" placeholder="{{this_product.name}}">
-            <h5 class="dark_text">Description:</h5>
-            <input class="dark_text" type="text" name="product_description" id="product_description" placeholder="{{this_product.description}}">
-            <h5 class="dark_text">Image:</h5>
-            <div class="row">
-                <div class="col-6">
-                    <div class="input-group mb-3">
-                        <div class="custom-file">
-                            <img src="{{this_product.image.url}}" alt="product_image" height="100px" />
-                            <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <div class="input-group shadow m-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Name</span>
+                        </div>
+                        <input class="dark_text shadow form-control" type="text" name="product_name" id="product_name" placeholder="{{this_product.name}}">
+                    </div>
+
+                    <div class="input-group shadow m-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Description</span>
+                        </div>
+                        <textarea class="dark_text shadow form-control" type="text" name="product_description" id="product_description" rows="6" placeholder="{{this_product.description}}"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <img src="{{this_product.image.url}}" alt="product_image" height="400px" class="shadow m-3" />
+                        </div>
+                        <div class="col">
+                            <div class="input-group shadow m-3">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="product_image" aria-describedby="product_image" name="product_image">
+                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-6">
-                    <h5 class="dark_text">Price:</h5>
-                    <input class="dark_text" type="text" name="product_description" id="product_description" placeholder="{{this_product.price}}">
-                    <h5 class="dark_text">Category</h5>
-                    <input class="dark_text" type="text" name="product_description" id="product_description" placeholder="{{this_product.category.name}}">
-                    <h5 class="dark_text">Brand</h5>
-                    <input class="dark_text" type="text" name="product_description" id="product_description" placeholder="{{this_product.brand.name}}">
-                    <h5 class="dark_text">Inventory</h5>
-                    <input class="dark_text" type="text" name="product_description" id="product_description" placeholder="{{this_product.inventory}}">
+
+                <div class="col-4">
+                    <div class="input-group shadow m-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Price</span>
+                        </div>
+                        <input class="dark_text shadow form-control" type="number" name="product_price" id="product_price" aria-label="product_price" step="0.01" placeholder="{{this_product.price}}">
+                    </div>
+
+                    <div class="input-group shadow m-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Category</span>
+                        </div>
+                        <input class="dark_text shadow form-control" type="text" name="product_category" id="product_category" placeholder="{{this_product.category.name}}">
+                    </div>
+
+                    <div class="input-group shadow m-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Brand</span>
+                        </div>
+                        <input class="dark_text shadow form-control" type="text" name="product_brand" id="product_brand" placeholder="{{this_product.brand.name}}">
+                    </div>
+
+                    <div class="input-group shadow m-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Inventory</span>
+                        </div>
+                        <input class="dark_text shadow form-control" type="number" name="product_inventory" id="product_inventory" placeholder="{{this_product.inventory}}">
+                    </div>
+
+                </div>
+
+                <div class="row justify-content-right">
+                    <form action="/products/edit_product/{{this_product.id}}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-sm btn-primary text-center shadow" type="submit" ">Update</button>
+                        <button class="btn btn-sm btn-danger text-center shadow " onclick="delete_product( '{{this_product.id}}') ">Delete</button>
+                        <a href="/admin/home " class="btn btn-sm btn-primary text-center shadow " role="button ">Cancel</a>
+                    </form>
                 </div>
             </div>
-
-            <div class="row my-4 justify-content-center">
-                <form action="" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="product_id" value="{{this_product.id}}">
-                    <button class="btn btn-sm btn-primary text-center" onclick="update()">Update</button>
-                    <button class="btn btn-sm btn-primary text-center" onclick="delete_product()">Delete</button>
-                    <button class="btn btn-sm btn-primary text-center" onclick="cancel()">Cancel</button>
-                </form>
-            </div>
+                <!-- Error messages -->
+                {% if messages %} {% for message in messages %} {% if message.tags == 'error' %}
+                <div class="alert toast float-left shadow ">
+                    <div class="toast-header ">
+                        <button type="button " class="ml-2 mb-1 close " data-dismiss="toast ">×</button>
+                    </div>
+                    <div class="toast-body text-dark ">
+                        {{message}}
+                    </div>
+                </div>
+                {% endif %} {% endfor %} {% endif %}
         </div>
 </body>
 
