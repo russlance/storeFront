@@ -121,6 +121,31 @@
                                 <button type="submit" class="btn btn-sm btn-info shadow">Save</button>
                             </div>
                         </form>
+                    </div>
+                </div>
+
+                <!-- Add items to sale lists -->
+                <div class="row justify-content-center">
+                    <div class="col">
+                        <h5 class="dark_text font-weight-bold d-block mt-4">Add to List</h5>
+                        <form class="mb-4" action="/products/assign_to_sale" method="POST">
+                            {% csrf_token %}
+                            <select class="form-control dark_text" name="assign_sale_list" aria-label="sale_list">
+                                <option value="" selected>Select List</option>
+                                <option value="1">1 - Right Top</option>
+                                <option value="2">2 - Right Middle</option>
+                                <option value="3">3 - Right Bottom</option>
+                                <option value="4">4 - Jumbotron</option>
+                            </select>
+                            <select class="form-control dark_text" name="sale_item" id="sale_item" aria-label="sale_item">
+                                <option value="" selected>Select Product to Add</option>
+                                {% for product in all_products %}
+                                <option value="{{ product.id }}">{{ product.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-info mt-2">Add</button>
+                        </form>
+                    </div>
 
                         <!-- Update discounts for Sale Lists -->
                         <h5 class="dark_text d-block mt-3">Edit Discount</h5>
@@ -182,23 +207,7 @@
                                 <td class="dark_text">{{product.brand.name}}</td>
                                 <td class="dark_text">{{product.price}}</td>
                                 <td class="dark_text">{{product.inventory}}</td>
-                                <td>
-                                    <form action="/products/{{product.id}}/assign_to_sale" method="POST">
-                                        {% csrf_token %}
-                                        <div class="form-group my-3 d-inline-block">
-                                            <select class="form-control dark_text" name="assign_sale_list" id="assign_sale_list" aria-label="sale_list">
-                                                {% if product.sale is not null %}
-                                                <option value="{{product.sale.id}}" selected>{{product.sale.sale_list}}</option>
-                                                {% endif %}
-                                                <option value="" selected>None</option>
-                                                <option value="1">1 - Right Top</option>
-                                                <option value="2">2 - Right Middle</option>
-                                                <option value="3">3 - Right Bottom</option>
-                                                <option value="4">4 - Jumbotron</option>
-                                            </select>
-                                        </div>
-                                    </form>
-                                </td>
+                                <td class="dark_text">{{product.sale.id}}</td>
                                 <td>
                                     <img src="{{product.image.url}}" alt="product_image" width="50px" />
                                 </td>
