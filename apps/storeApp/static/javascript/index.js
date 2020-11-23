@@ -90,24 +90,33 @@ $(document).ready(function() {
 
             }
         })
-        $(document).on("submit", "#add_product_form", function(event) {
-            event.preventDefault();
-            var data = {
-                product_id: $("input[name='product_id']").val(),
-                product_quantity: $("input[name='product_quantity']").val(),
-                csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').attr('value')
+    })
+    $(document).on("submit", "#add_product_form", function(event) {
+        event.preventDefault();
+        var data = {
+            product_id: $("input[name='product_id']").val(),
+            product_quantity: $("input[name='product_quantity']").val(),
+            csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').attr('value')
+        }
+        var route = "/products/add_to_cart"
+        $.ajax({
+            url: route,
+            type: "post",
+            data: data,
+            success: function(data) {
+                $.ajax({
+                    url:"/navbar",
+                    type:"get",
+                    success:function(data) {
+                        var html_str = ""
+                        html_str += data
+                        document.getElementById("top_navbar").innerHTML = html_str
+                    }
+                })
+                var html_str = ""
+                html_str += data
+                document.getElementById("content").innerHTML = html_str
             }
-            var route = "/products/add_to_cart"
-            $.ajax({
-                url: route,
-                type: "post",
-                data: data,
-                success: function(data) {
-                    var html_str = ""
-                    html_str += data
-                    document.getElementById("content").innerHTML = html_str
-                }
-            })
         })
     })
     // Navbar Methods
@@ -237,6 +246,15 @@ function remove_item(id) {
             var html_str = ""
             html_str += data
             document.getElementById("content").innerHTML = html_str
+            $.ajax({
+                url:"/navbar",
+                type:"get",
+                success:function(data) {
+                    var html_str = ""
+                    html_str += data
+                    document.getElementById("top_navbar").innerHTML = html_str
+                }
+            })
         }
     })
 }
@@ -253,6 +271,15 @@ function empty_cart() {
             var html_str = ""
             html_str += data
             document.getElementById("content").innerHTML = html_str
+            $.ajax({
+                url:"/navbar",
+                type:"get",
+                success:function(data) {
+                    var html_str = ""
+                    html_str += data
+                    document.getElementById("top_navbar").innerHTML = html_str
+                }
+            })
         }
     })
 }
