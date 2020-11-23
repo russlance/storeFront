@@ -29,22 +29,22 @@
         <!-- Navbar -->
         <ul class="nav top_nav justify-content-center row myTab mb-2" role="tablist">
             <li class="nav-item">
-                <p class="">Hello {{current_user.first_name}}</p>
+                <p class="navbar-brand light_text">Hello {{current_user.first_name}}</p>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="/">Store</a>
+                <a class="nav-link light_text" href="/">Store</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/home">Admin Home</a>
+                <a class="nav-link light_text" href="/admin/home">Admin Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/news">News</a>
+                <a class="nav-link light_text" href="/admin/news">News</a>
             </li>
             <li class="nav-item">
-                <a href="/admin/user_manager" class="nav-link">Users</a>
+                <a href="/admin/user_manager" class="nav-link light_text">Users</a>
             </li>
             <li class="nav-item">
-                <a class="nave-link" href="/users/logout">Log Out</a>
+                <a class="nav-link light_text" href="/users/logout">Log Out</a>
             </li>
         </ul>
 
@@ -57,22 +57,22 @@
                         <form action="/create_product" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Enter a product name" id="product_name" name="product_name" required>
-                                <textarea class="form-control" id="product_description" name="product_description" rows="3" placeholder="Enter a product description"></textarea>
+                                <input class="form-control shadow" type="text" placeholder="Enter a product name" id="product_name" name="product_name" required>
+                                <textarea class="form-control shadow" id="product_description" name="product_description" rows="9" placeholder="Enter a product description"></textarea>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text dark_text">$</span>
                                     </div>
-                                    <input class="form-control mr-2" type="number" id="product_price" name="product_price" aria-label="product_price" step="0.01" placeholder="Enter price">
-                                    <input class="form-control" type="number" id="product_inventory" name="product_inventory" aria-label="product_inventory" placeholder="Inventory">
+                                    <input class="form-control mr-2 shadow" type="number" id="product_price" name="product_price" aria-label="product_price" step="0.01" placeholder="Enter price">
+                                    <input class="form-control shadow" type="number" id="product_inventory" name="product_inventory" aria-label="product_inventory" placeholder="Inventory">
                                 </div>
-                                <select class="form-control dark_text" name="product_category" id="product_category" aria-label="product_category">
+                                <select class="form-control dark_text shadow" name="product_category" id="product_category" aria-label="product_category">
                                     <option value="" selected>Choose Category</option>
                                     {% for category in all_categories %}
                                     <option value="{{ category.id }}" class="dark_text">{{ category.name }}</option>
                                     {% endfor %}
                                 </select>
-                                <select class="form-control dark_text" name="product_brand" id="product_brand" aria-label="product_brand">
+                                <select class="form-control dark_text shadow" name="product_brand" id="product_brand" aria-label="product_brand">
                                     <option value="" selected>Choose Brand</option>
                                     {% for brand in all_brands %}
                                     <option value="{{ brand.id }}" class="dark_text">{{ brand.name }}</option>
@@ -81,13 +81,13 @@
 
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="product_image" name="product_image" aria-describedby="inputGroupFile01">
-                                        <label class="custom-file-label dark_text" for="inputGroupFile01">Choose image file</label>
+                                        <input type="file" class="custom-file-input shadow" id="product_image" name="product_image" aria-describedby="inputGroupFile01">
+                                        <label class="custom-file-label dark_text shadow" for="inputGroupFile01">Choose image file</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="justify-content-center">
-                                <button type="submit" class="btn btn-sm btn-info mt-2">Save</button>
+                                <button type="submit" class="btn btn-sm btn-info shadow">Save</button>
                             </div>
                         </form>
                     </div>
@@ -97,19 +97,20 @@
                         <h5 class="dark_text">Add New Category</h5>
                         <form action="/create_category" method="POST">
                             {% csrf_token %}
-                            <div class="form-group my-3">
-                                <input class="form-control" type="text" placeholder="Add New Category" id="new_category" name="new_category">
+                            <div class="form-group">
+                                <input class="form-control shadow" type="text" placeholder="Add New Category" id="new_category" name="new_category">
                             </div>
                             <div>
-                                <button type="submit" class="btn btn-sm btn-info">Save</button>
+                                <button type="submit" class="btn btn-sm btn-info shadow">Save</button>
                             </div>
                         </form>
-                        <h5 class="dark_text mt-5">Add New Brand</h5>
+
+                        <h5 class="dark_text mt-3">Add New Brand</h5>
                         <form action="/create_brand" method="POST">
                             {% csrf_token %}
-                            <div class="form-group my-3">
-                                <input class="form-control" type="text" placeholder="Add New Brand" id="new_brand" name="new_brand">
-                                <select class="form-control dark_text" name="brand_category" id="brand_category" aria-label="brand_category">
+                            <div class="form-group">
+                                <input class="form-control shadow" type="text" placeholder="Add New Brand" id="new_brand" name="new_brand">
+                                <select class="form-control dark_text shadow" name="brand_category" id="brand_category" aria-label="brand_category">
                                     <option value="" selected>Choose Category</option>
                                     {% for category in all_categories %}
                                     <option value="{{ category.id }}">{{ category.name }}</option>
@@ -117,7 +118,7 @@
                                 </select>
                             </div>
                             <div>
-                                <button type="submit" class="btn btn-sm btn-info">Save</button>
+                                <button type="submit" class="btn btn-sm btn-info shadow">Save</button>
                             </div>
                         </form>
                     </div>
@@ -127,7 +128,7 @@
                 <div class="row justify-content-center">
                     <div class="col">
                         <h5 class="dark_text font-weight-bold d-block mt-4">Add to List</h5>
-                        <form class="mb-4" action="/products/{{product.id}}/assign_to_sale" method="POST">
+                        <form class="mb-4" action="/products/assign_to_sale" method="POST">
                             {% csrf_token %}
                             <select class="form-control dark_text" name="assign_sale_list" aria-label="sale_list">
                                 <option value="" selected>Select List</option>
@@ -146,41 +147,45 @@
                         </form>
                     </div>
 
-                    <!-- Update discounts for Sale Lists -->
-                    <div class="col">
-                        <h5 class="dark_text font-weight-bold d-block mt-4">Edit Discount</h5>
+                        <!-- Update discounts for Sale Lists -->
+                        <h5 class="dark_text d-block mt-3">Edit Discount</h5>
                         <form class="mb-4" action="/create_sale" method="POST">
                             {% csrf_token %}
-                            <select class="form-control dark_text" name="new_sale_list" aria-label="new_sale_list" id="new_sale_list">
+                            <select class="form-control dark_text shadow" name="new_sale_list" aria-label="new_sale_list" id="new_sale_list">
                                 <option value="" selected>Select List</option>
                                 <option value="1">1 - Right Top</option>
                                 <option value="2">2 - Right Middle</option>
                                 <option value="3">3 - Right Bottom</option>
                                 <option value="4">4 - Jumbotron</option>
                             </select>
-                            <input class="form-control" type="number" placeholder="{{sale.discount}}" id="new_sale_discount" name="new_sale_discount" placeholder="Discount for Sale" required>
+                            <input class="form-control shadow" type="number" placeholder="{{sale.discount}}" id="new_sale_discount" name="new_sale_discount" placeholder="Discount for Sale" required>
                             <div>
-                                <button type="submit" class="btn btn-sm btn-info mt-2">Update</button>
+                                <button type="submit" class="btn btn-sm btn-info mt-2 shadow">Update</button>
                             </div>
                         </form>
                     </div>
                 </div>
-                {% if messages %} {% for message in messages %} {% if message.tags == 'error' %}
-                <div class="alert toast float-left">
-                    <div class="toast-header">
-                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">×</button>
+
+                <div class="row">
+                    <!-- Error messages -->
+                    {% if messages %} {% for message in messages %} {% if message.tags == 'error' %}
+                    <div class="alert toast float-left shadow">
+                        <div class="toast-header">
+                            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">×</button>
+                        </div>
+                        <div class="toast-body text-dark">
+                            {{message}}
+                        </div>
                     </div>
-                    <div class="toast-body text-dark">
-                        {{message}}
-                    </div>
+                    {% endif %} {% endfor %} {% endif %}
                 </div>
-                {% endif %} {% endfor %} {% endif %}
+
             </div>
 
             <!-- Edit Product Table: selecting item populates form below for editing -->
             <div class="col-7">
                 <h5 class="dark_text">All Products</h5>
-                <div class="overflow-auto main_area border">
+                <div class="overflow-auto main_area border shadow" id="edit_product_table">
                     <table class="table">
                         <thead>
                             <tr>
@@ -197,33 +202,16 @@
                         <tbody>
                             {% for product in all_products %}
                             <tr>
-                                <!-- This a-tag needs to send product.id to feed modal below ; need url -->
-                                <th class="dark_text" scope="row"><a href="/products/{{product.id}}">{{product.name}}</a></th>
+                                <th scope="row"><a href="/product/admin_product_detail/{{product.id}}" class="dark_text">{{product.name}}</a></th>
                                 <td class="dark_text">{{product.category.name}}</td>
                                 <td class="dark_text">{{product.brand.name}}</td>
                                 <td class="dark_text">{{product.price}}</td>
                                 <td class="dark_text">{{product.inventory}}</td>
-                                <td>
-                                    <form action="/products/{{product.id}}/assign_to_sale" method="POST">
-                                        {% csrf_token %}
-                                        <div class="form-group my-3 d-inline-block">
-                                            <select class="form-control dark_text" name="assign_sale_list" id="assign_sale_list" aria-label="sale_list">
-                                                {% if product.sale is not null %}
-                                                <option value="{{product.sale.id}}" selected>{{product.sale.sale_list}}</option>
-                                                {% endif %}
-                                                <option value="" selected>None</option>
-                                                <option value="1">1 - Right Top</option>
-                                                <option value="2">2 - Right Middle</option>
-                                                <option value="3">3 - Right Bottom</option>
-                                                <option value="4">4 - Jumbotron</option>
-                                            </select>
-                                        </div>
-                                    </form>
-                                </td>
+                                <td class="dark_text">{{product.sale.id}}</td>
                                 <td>
                                     <img src="{{product.image.url}}" alt="product_image" width="50px" />
                                 </td>
-                                <td><button class="btn-danger" onclick="remove_product()">Remove</button></td>
+                                <td><button class="btn-danger" onclick="delete_product('{{product.id}}')">Remove</button></td>
                             </tr>
                             {% endfor %}
                         </tbody>

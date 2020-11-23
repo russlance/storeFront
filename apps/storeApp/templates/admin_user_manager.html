@@ -19,22 +19,22 @@
         <!-- Navbar -->
         <ul class="nav top_nav justify-content-center row myTab mb-2" role="tablist">
             <li class="nav-item">
-                <p class="pr-5">Hello {{current_user.first_name}}</p>
+                <p class="navbar-brand light_text">Hello {{current_user.first_name}}</p>
             </li>
             <li class="nav-item">
-                <a class="nav-button" href="/">Store</a>
+                <a class="nav-link light_text" href="/">Store</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/home">Admin Home</a>
+                <a class="nav-link light_text" href="/admin/home">Admin Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/news">News</a>
+                <a class="nav-link light_text" href="/admin/news">News</a>
             </li>
             <li class="nav-item">
-                <a href="/admin/user_manager" class="nav-link">Users</a>
+                <a href="/admin/user_manager" class="nav-link light_text">Users</a>
             </li>
             <li class="nav-item">
-                <a class="nave-link" href="/users/logout">Log Out</a>
+                <a class="nav-link light_text" href="/users/logout">Log Out</a>
             </li>
         </ul>
 
@@ -43,7 +43,7 @@
                 <!-- Edit User Table: selecting user populates form below for editing -->
                 <div class="col">
                     <h5 class="dark_text">All Users</h5>
-                    <div class="overflow-auto">
+                    <div class="overflow-auto shadow">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -73,22 +73,39 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">First and Last Name</span>
                             </div>
-                            <input type="text" name="user_first_name" id="user_first_name" value="{{current_user.first_name}}" placeholder="{{current_user.first_name}}" aria-label="First name" class="form-control">
-                            <input type="text" name="user_last_name" id="user_last_name" value="{{current_user.last_name}}" placeholder="{{current_user.last_name}}" aria-label="Last name" class="form-control">
+                            <input type="text" name="user_first_name" id="user_first_name" value="{{current_user.first_name}}" placeholder="{{current_user.first_name}}" aria-label="First name" class="form-control shadow">
+                            <input type="text" name="user_last_name" id="user_last_name" value="{{current_user.last_name}}" placeholder="{{current_user.last_name}}" aria-label="Last name" class="form-control shadow">
                         </div>
 
                         <div class="form-group pb-1">
-                            <input type="email" class="form-control" id="user_email" name="user_email" value="{{current_user.email}}" placeholder="{{current_user.email}}">
+                            <input type="email" class="form-control shadow" id="user_email" name="user_email" value="{{current_user.email}}" placeholder="{{current_user.email}}">
                         </div>
+
+                        <div class="input-group pb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Address</span>
+                            </div>
+                            <input type="text" name="user_adress" id="user_adress" value="{{current_user.address}}" placeholder="{{current_user.address}}" aria-label="Address" class="form-control shadow">
+                        </div>
+
+                        <div class="input-group pb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">City, State and Zip</span>
+                            </div>
+                            <input type="text" name="user_city" id="user_city" value="{{current_user.city}}" placeholder="{{current_user.city}}" aria-label="City" class="form-control shadow">
+                            <input type="text" name="user_state" id="user_state" value="{{current_user.state}}" placeholder="{{current_user.state}}" aria-label="User State" class="form-control shadow">
+                            <input type="number" name="user_zip_code" id="user_zip_code" value="{{current_user.zip_code}}" placeholder="{{current_user.zip_code}}" aria-label="User Zip Code" class="form-control shadow">
+                        </div>
+
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 {% if current_user.admin == False %}
                                 <div class="form-group form-check">
-                                    <input type="checkbox" class="form-check-input" value="True" id="user_admin" name="user_admin">
+                                    <input type="checkbox" class="form-check-input shadow" value="True" id="user_admin" name="user_admin">
                                 </div>
                                 {% else %}
                                 <div class="form-group form-check">
-                                    <input type="checkbox" class="form-check-input" value="True" id="user_admin" name="user_admin" checked>
+                                    <input type="checkbox" class="form-check-input shadow" value="True" id="user_admin" name="user_admin" checked>
                                 </div>
                                 {% endif %}
                             </div>
@@ -98,24 +115,25 @@
                             <div class="input-group-prepend">
                                 {% if current_user.wants_newsletter == False %}
                                 <div class="form-group form-check">
-                                    <input type="checkbox" class="form-check-input" value="True" id="user_newsletter" name="user_newsletter">
+                                    <input type="checkbox" class="form-check-input shadow" value="True" id="user_newsletter" name="user_newsletter">
                                 </div>
                                 {% else %}
                                 <div class="form-group form-check">
-                                    <input type="checkbox" class="form-check-input" value="True" id="user_newsletter" name="user_newsletter" checked>
+                                    <input type="checkbox" class="form-check-input shadow" value="True" id="user_newsletter" name="user_newsletter" checked>
                                 </div>
                                 {% endif %}
                             </div>
                             <label for="user_admin">Wants Newsletter?</label>
                         </div>
-                        <button type="submit" class="btn btn-danger pt-2">Delete</button>
-                        <button type="submit" class="btn btn-primary pt-2">Update</button>
+                        <button onclick="delete_user('current_user.id')" class="btn btn-danger pt-2 shadow">Delete</button>
+                        <button type="submit" class="btn btn-primary pt-2 shadow">Update</button>
                     </form>
                 </div>
             </div>
         </div>
+
         {% if messages %} {% for message in messages %} {% if message.tags == 'error' %}
-        <div class="alert toast ml-auto">
+        <div class="alert toast ml-auto shadow">
             <div class="toast-header">
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">×</button>
             </div>

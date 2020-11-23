@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<table class="table">
+    <thead>
+        <tr>
+            <th class="dark_text" scope="col">Name</th>
+            <th class="dark_text" scope="col">Category</th>
+            <th class="dark_text" scope="col">Brand</th>
+            <th class="dark_text" scope="col">Price</th>
+            <th class="dark_text" scope="col">Inventory</th>
+            <th class="dark_text" scope="col">Sale</th>
+            <th class="dark_text" scope="col">Image</th>
+            <th class="dark_text" scope="col">Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in all_products %}
+        <tr>
+            <!-- This a-tag needs to send product.id to feed modal below ; need url -->
+            <th scope="row"><a href="/product/admin_product_detail/{{product.id}}" class="dark_text">{{product.name}}</a></th>
+            <td class="dark_text">{{product.category.name}}</td>
+            <td class="dark_text">{{product.brand.name}}</td>
+            <td class="dark_text">{{product.price}}</td>
+            <td class="dark_text">{{product.inventory}}</td>
+            <td>
+                <form action="/products/{{product.id}}/assign_to_sale" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group my-3 d-inline-block">
+                        <select class="form-control dark_text" name="assign_sale_list" id="assign_sale_list" aria-label="sale_list">
+                                {% if product.sale is not null %}
+                                <option value="{{product.sale.id}}" selected>{{product.sale.sale_list}}</option>
+                                {% endif %}
+                                <option value="" selected>None</option>
+                                <option value="1">1 - Right Top</option>
+                                <option value="2">2 - Right Middle</option>
+                                <option value="3">3 - Right Bottom</option>
+                                <option value="4">4 - Jumbotron</option>
+                            </select>
+                    </div>
+                </form>
+            </td>
+            <td>
+                <img src="{{product.image.url}}" alt="product_image" width="50px" />
+            </td>
+            <td><button class="btn-danger" onclick="delete_product('{{product.id}}')">Remove</button></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</html>

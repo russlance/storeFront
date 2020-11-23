@@ -1,3 +1,4 @@
+from typing import ContextManager
 from django.shortcuts import render, redirect
 from .models import Category, Brand, Product, Order, Article, User, Sale, OrderItem
 from django.contrib import messages
@@ -49,8 +50,13 @@ def navbar(request):
         curr_user = None
     else:
         curr_user = User.objects.get(id=request.session['current_user'])
+    cart_quantity = 0
+    if "current_order" in request.session:
+        curr_order = Order.objects.get(id=request.session["current_order"])
+        cart_quantity += curr_order.order_items.count()
     context = {
         "current_user": curr_user,
+        "cart_quantity": cart_quantity,
     }
     return render(request, "navbar.html", context)
 
@@ -137,6 +143,10 @@ def admin_update_user(request):
             this_user.first_name = request.POST['user_first_name']
             this_user.last_name = request.POST['user_last_name']
             this_user.email = request.POST['user_email']
+            this_user.address = request.POST['user_adress']
+            this_user.city = request.POST['user_city']
+            this_user.state = request.POST['user_state']
+            this_user.zip_code = request.POST['user_zip_code']
             if 'user_admin' in request.POST:
                 this_user.admin = True
             else:
@@ -147,6 +157,15 @@ def admin_update_user(request):
                 this_user.wants_newsletter = False
             this_user.save()
     return redirect('/admin/user_manager')
+
+def delete_user(request, user_id):
+    if 'current_user' not in request.session:
+        return redirect ('/')
+    else:
+        if request.method == "POST":
+            user_to_delete = User.objects.filter(id=user_id)[0]
+            user_to_delete.delete()
+            return redirect('/admin/user_manager')
 
 def admin_news(request):
     if 'current_user' not in request.session:
@@ -192,6 +211,47 @@ def create_product(request):
             brand_to_add.categories.add(category_to_add)
         return redirect('/admin/home')
 
+def edit_product(request, product_id):
+    if request.method == "POST":
+        errors = Product.objects.create_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/admin/home')
+        else:
+            product_to_update = Product.objects.filter(id=product_id)[0]
+            product_to_update.name = request.POST['product_name']
+            product_to_update.description = request.POST['product_description']
+            product_to_update.image = request.FILES['product_image']
+            product_to_update.price = request.POST['product_price']
+            product_to_update.inventory = request.POST['product_inventory']
+            product_to_update.category = request.POST['product_category']
+            product_to_update.brand = request.POST['product_brand']
+            Product.objects.save()
+        return redirect('/admin/home')
+
+def delete_product(request, id):
+    if request.method == "POST":
+        product_to_delete = Product.objects.filter(id=id)[0]
+        product_to_delete.delete()
+        return redirect('/products/edit_product_table')
+
+def edit_product_table(request):
+    context={
+        "all_products": Product.objects.all()
+    }
+    return render(request, 'product_table.html', context)
+
+def admin_product_detail(request, product_id):
+    this_product = Product.objects.filter(id=product_id)
+    if len(this_product) > 0:
+        this_product = this_product[0]
+        context = {
+            'this_product': this_product,
+        }
+        return render(request, "admin_product_detail.html", context)
+    return redirect('/')
+
 def product_detail(request, product_id):
     this_product = Product.objects.filter(id=product_id)
     if len(this_product) > 0:
@@ -201,7 +261,6 @@ def product_detail(request, product_id):
         }
         return render(request, "product_detail.html", context)
     return redirect('/')
-
 
 def create_category(request):
     if request.method == "POST":
@@ -245,9 +304,9 @@ def create_sale(request):
             return redirect('/admin/home')
     return redirect('/admin/home')
 
-def assign_to_sale(request, product_id):
+def assign_to_sale(request):
     if request.method == "POST":
-        this_product = Product.objects.filter(id=product_id)
+        this_product = Product.objects.filter(id=request.POST['sale_item'])
         if len(this_product) > 0:
             this_product = this_product[0]
             this_sale = Sale.objects.filter(id=request.POST['assign_sale_list'])
@@ -257,6 +316,13 @@ def assign_to_sale(request, product_id):
                 this_product.save()
                 return redirect('/admin/home')
     return redirect('/admin/home')
+
+def update_order_total(order):
+    total = 0
+    for i in order.order_items.all():
+        total += (i.quantity * i.product.price)
+    order.total = total
+    order.save()
 
 def add_to_cart(request):
     if request.method == "POST":
@@ -274,12 +340,55 @@ def add_to_cart(request):
         if len(this_product) > 0:
             this_product = this_product[0]
             new_order_item = OrderItem.objects.create(product=this_product, quantity=request.POST['product_quantity'], order=curr_order)
-            total_price = new_order_item.quantity * new_order_item.product.price
-            curr_order.total += total_price
-            curr_order.save()
+            update_order_total(curr_order)
             print(curr_order, curr_order.total)
             print(new_order_item)
-    return redirect(f'/products/{this_product.id}')
+    return redirect('/cart')
+
+def update_quantity(request, id):
+    if request.method == "POST":
+        this_order_item = OrderItem.objects.filter(id=id)
+        if len(this_order_item) > 0:
+            this_order_item = this_order_item[0]
+            this_order_item.quantity = request.POST['item_quantity']
+            this_order_item.save()
+            update_order_total(this_order_item.order)
+            return redirect('/cart')
+    return redirect('/cart')
+
+def remove_order_item(request, id):
+    if request.method == "POST":
+        this_order_item = OrderItem.objects.filter(id=id)
+        if len(this_order_item) > 0:
+            this_order_item = this_order_item[0]
+            this_order = Order.objects.get(id=this_order_item.order.id)
+            this_order_item.delete()
+            update_order_total(this_order)
+            print(f'new total: {this_order.total}')
+            return redirect('/cart')
+    return redirect('/cart')
+
+def empty_cart(request):
+    if request.method == "POST":
+        if 'current_order' in request.session:
+            curr_order = Order.objects.get(id=request.session['current_order'])
+            for item in curr_order.order_items.all():
+                item.delete()
+            update_order_total(curr_order)
+            return redirect('/home')
+    return redirect('/')
+
+def checkout(request):
+    if 'current_user' not in request.session:
+        curr_user = None
+    else:
+        curr_user = User.objects.get(id=request.session['current_user'])
+    curr_order = Order.objects.get(id=request.session["current_order"])
+    context = {
+        "user": curr_user,
+        "order": curr_order,
+    }
+    return render(request, 'checkout.html', context)
 
 # ----------  USER FUNCTIONS ----------
 
@@ -299,10 +408,10 @@ def register_user(request):
 
 def log_in(request):
     if request.method =="POST":
-        login_user = User.objects.filter(email=request.POST['user_email'])
+        login_user = User.objects.filter(email=request.POST['login_email'])
         if len(login_user) > 0:
             login_user = login_user[0]
-            if bcrypt.checkpw(request.POST['user_password'].encode(), login_user.password.encode()):
+            if bcrypt.checkpw(request.POST['login_password'].encode(), login_user.password.encode()):
                 request.session["current_user"] = login_user.id
                 return redirect('/navbar')
         messages.error(request, "Email or password is incorrect.")
@@ -310,5 +419,5 @@ def log_in(request):
     return redirect('/')
 
 def log_out(request):
-    request.session.clear()
+    request.session.pop('current_user')
     return redirect('/')
