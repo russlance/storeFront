@@ -17,10 +17,6 @@ $(document).ready(function() {
             document.getElementById("top_navbar").innerHTML= html_str
         }
     })
-    $('.toast').toast({
-        autohide:false
-    })
-    $(".toast").toast("show")
     $("#AboutUs").click(function() {
         $.ajax({
             url: "/about_us",
@@ -54,7 +50,7 @@ $(document).ready(function() {
         var route = "/users/login"
         $.ajax({
             url:route,
-            type: "post",
+            type: "POST",
             data: data,
             success: function(data){
                 $("#login_modal").modal('hide')
