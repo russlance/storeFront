@@ -250,6 +250,8 @@ def admin_product_detail(request, product_id):
         this_product = this_product[0]
         context = {
             'this_product': this_product,
+            'all_categories': Category.objects.all(),
+            'all_brands': Brand.objects.all(),
             "current_user": curr_user,
         }
         return render(request, "admin_product_detail.html", context)

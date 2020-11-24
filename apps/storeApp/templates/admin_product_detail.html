@@ -88,14 +88,33 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Category</span>
                             </div>
-                            <input class="dark_text shadow form-control" type="text" name="product_category" id="product_category" value="{{this_product.category.id}}">
+                            <select class="dark_text shadow form-control" name="product_category" id="product_category" aria-label="product_category">
+                                {% for category in all_categories %}
+                                    {% if this_product.category.id == category.id %}
+                                    <option value="{{ category.id }}" class="dark_text"selected>{{ category.name }}</option>
+                                    {% else %}
+                                    <option value="{{ category.id }}" class="dark_text">{{ category.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            
+
                         </div>
 
                         <div class="input-group shadow m-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Brand</span>
                             </div>
-                            <input class="dark_text shadow form-control" type="text" name="product_brand" id="product_brand" value="{{this_product.brand.id}}">
+                            <select class="dark_text shadow form-control" name="product_brand" id="product_brand" aria-label="product_brand">
+                                {% for brand in all_brands %}
+                                    {% if this_product.brand.id == brand.id %}
+                                    <option value="{{ brand.id }}" class="dark_text" selected>{{ brand.name }}</option>
+                                    {% else %}
+                                    <option value="{{ brand.id }}" class="dark_text">{{ brand.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            
                         </div>
 
                         <div class="input-group shadow m-3">
