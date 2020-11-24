@@ -213,22 +213,23 @@ def create_product(request):
 
 def edit_product(request, product_id):
     if request.method == "POST":
+        print(request.POST)
         errors = Product.objects.create_validator(request.POST)
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request, value)
-            return redirect('/admin/home')
+            return redirect(f'product/admin_product_detail/{product_id}')
         else:
             product_to_update = Product.objects.filter(id=product_id)[0]
             product_to_update.name = request.POST['product_name']
             product_to_update.description = request.POST['product_description']
-            product_to_update.image = request.FILES['product_image']
+            # product_to_update.image = request.FILES['product_image']
             product_to_update.price = request.POST['product_price']
             product_to_update.inventory = request.POST['product_inventory']
             product_to_update.category = request.POST['product_category']
             product_to_update.brand = request.POST['product_brand']
-            Product.objects.save()
-        return redirect('/admin/home')
+            # Product.objects.save()
+        return redirect(f'product/admin_product_detail/{product_id}')
 
 def delete_product(request, id):
     if request.method == "POST":
@@ -315,6 +316,16 @@ def assign_to_sale(request):
                 this_product.sale = this_sale
                 this_product.save()
                 return redirect('/admin/home')
+    return redirect('/admin/home')
+
+def update_sale(request):
+    if request.method == "POST":
+        this_sale = Sale.objects.filter(id=request.POST['update_sale_list'])
+        if len(this_sale) > 0:
+            this_sale = this_sale[0]
+            this_sale.discount = request.POST['new_sale_discount']
+            this_sale.save()
+            return redirect('/admin/home')
     return redirect('/admin/home')
 
 def update_order_total(order):
