@@ -245,10 +245,12 @@ def edit_product_table(request):
 
 def admin_product_detail(request, product_id):
     this_product = Product.objects.filter(id=product_id)
+    curr_user = User.objects.get(id=request.session['current_user'])
     if len(this_product) > 0:
         this_product = this_product[0]
         context = {
             'this_product': this_product,
+            "current_user": curr_user,
         }
         return render(request, "admin_product_detail.html", context)
     return redirect('/')

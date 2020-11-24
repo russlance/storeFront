@@ -49,7 +49,7 @@
         </ul>
 
         <div class="row justify-content-center">
-            <div class="col-4">
+            <div class="col-4 mr-2">
                 <div class="row justify-content-center">
                     <!-- Add Product -->
                     <div class="col">
@@ -121,35 +121,10 @@
                                 <button type="submit" class="btn btn-sm btn-info shadow">Save</button>
                             </div>
                         </form>
-                    </div>
-                </div>
-
-                <!-- Add items to sale lists -->
-                <div class="row justify-content-center">
-                    <div class="col">
-                        <h5 class="dark_text font-weight-bold d-block mt-4">Add to List</h5>
-                        <form class="mb-4" action="/products/assign_to_sale" method="POST">
-                            {% csrf_token %}
-                            <select class="form-control dark_text" name="assign_sale_list" aria-label="sale_list">
-                                <option value="" selected>Select List</option>
-                                <option value="1">1 - Right Top</option>
-                                <option value="2">2 - Right Middle</option>
-                                <option value="3">3 - Right Bottom</option>
-                                <option value="4">4 - Jumbotron</option>
-                            </select>
-                            <select class="form-control dark_text" name="sale_item" id="sale_item" aria-label="sale_item">
-                                <option value="" selected>Select Product to Add</option>
-                                {% for product in all_products %}
-                                <option value="{{ product.id }}">{{ product.name }}</option>
-                                {% endfor %}
-                            </select>
-                            <button type="submit" class="btn btn-sm btn-info mt-2">Add</button>
-                        </form>
-                    </div>
 
                         <!-- Update discounts for Sale Lists -->
                         <h5 class="dark_text d-block mt-3">Edit Discount</h5>
-                        <form class="mb-4" action="/admin/update_sale" method="POST">
+                        <form class="mb-2" action="/admin/update_sale" method="POST">
                             {% csrf_token %}
                             <select class="form-control dark_text shadow" name="update_sale_list" aria-label="update_sale_list" id="update_sale_list">
                                 <option value="" selected>Select List</option>
@@ -163,11 +138,35 @@
                                 <button type="submit" class="btn btn-sm btn-info mt-2 shadow">Update</button>
                             </div>
                         </form>
+
+                        <!-- Add items to sale lists -->
+                        <div class="row justify-content-center">
+                            <div class="col">
+                                <h5 class="dark_text font-weight-bold d-block mt-4">Add to List</h5>
+                                <form class="mb-4" action="/products/assign_to_sale" method="POST">
+                                    {% csrf_token %}
+                                    <select class="form-control dark_text" name="assign_sale_list" aria-label="sale_list">
+                                <option value="" selected>Select List</option>
+                                <option value="1">1 - Right Top</option>
+                                <option value="2">2 - Right Middle</option>
+                                <option value="3">3 - Right Bottom</option>
+                                <option value="4">4 - Jumbotron</option>
+                            </select>
+                                    <select class="form-control dark_text" name="sale_item" id="sale_item" aria-label="sale_item">
+                                <option value="" selected>Select Product to Add</option>
+                                {% for product in all_products %}
+                                <option value="{{ product.id }}">{{ product.name }}</option>
+                                {% endfor %}
+                            </select>
+                                    <button type="submit" class="btn btn-sm btn-info mt-2">Add</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Error messages -->
                 <div class="row">
-                    <!-- Error messages -->
                     {% if messages %} {% for message in messages %} {% if message.tags == 'error' %}
                     <div class="alert toast float-left shadow">
                         <div class="toast-header">
@@ -181,6 +180,7 @@
                 </div>
 
             </div>
+
 
             <!-- Edit Product Table: selecting item populates form below for editing -->
             <div class="col-7">
@@ -221,6 +221,8 @@
                 </div>
             </div>
         </div>
+
+    </div>
 
     </div>
 
