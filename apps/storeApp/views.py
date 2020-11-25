@@ -229,6 +229,7 @@ def edit_product(request, product_id):
             product_to_update.inventory = request.POST['product_inventory']
             product_to_update.category = new_category
             product_to_update.brand = new_brand
+            product_to_update.sale = request.POST['sale_item']
             if 'product_image' in request.FILES:
                 product_to_update.image = request.FILES['product_image']
             product_to_update.save()
