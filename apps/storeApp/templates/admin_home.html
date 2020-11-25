@@ -53,115 +53,92 @@
                 <div class="row justify-content-center">
                     <!-- Add Product -->
                     <div class="col">
-                        <h5 class="dark_text">Add Product</h5>
-                        <form action="/create_product" method="POST" enctype="multipart/form-data">
+                        <form action="/create_product" method="POST" enctype="multipart/form-data" class="mt-3">
                             {% csrf_token %}
-                            <div class="form-group">
-                                <input class="form-control shadow" type="text" placeholder="Enter a product name" id="product_name" name="product_name" required>
-                                <textarea class="form-control shadow" id="product_description" name="product_description" rows="9" placeholder="Enter a product description"></textarea>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text dark_text">$</span>
-                                    </div>
-                                    <input class="form-control mr-2 shadow" type="number" id="product_price" name="product_price" aria-label="product_price" step="0.01" placeholder="Enter price">
-                                    <input class="form-control shadow" type="number" id="product_inventory" name="product_inventory" aria-label="product_inventory" placeholder="Inventory">
+                            <input class="form-control shadow" type="text" placeholder="Enter a product name" id="product_name" name="product_name" required>
+                            <textarea class="form-control shadow" id="product_description" name="product_description" rows="9" placeholder="Enter a product description"></textarea>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text dark_text">$</span>
                                 </div>
-                                <select class="form-control dark_text shadow" name="product_category" id="product_category" aria-label="product_category">
-                                    <option value="" selected>Choose Category</option>
-                                    {% for category in all_categories %}
-                                    <option value="{{ category.id }}" class="dark_text">{{ category.name }}</option>
-                                    {% endfor %}
-                                </select>
-                                <select class="form-control dark_text shadow" name="product_brand" id="product_brand" aria-label="product_brand">
-                                    <option value="" selected>Choose Brand</option>
-                                    {% for brand in all_brands %}
-                                    <option value="{{ brand.id }}" class="dark_text">{{ brand.name }}</option>
-                                    {% endfor %}
-                                </select>
+                                <input class="form-control mr-2" type="number" id="product_price" name="product_price" aria-label="product_price" step="0.01" placeholder="Enter price">
+                                <input class="form-control" type="number" id="product_inventory" name="product_inventory" aria-label="product_inventory" placeholder="Inventory">
+                            </div>
+                            <select class="form-control dark_text shadow" name="product_category" id="product_category" aria-label="product_category">
+                                <option value="" selected>Choose Category</option>
+                                {% for category in all_categories %}
+                                <option value="{{ category.id }}" class="dark_text">{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <select class="form-control dark_text shadow" name="product_brand" id="product_brand" aria-label="product_brand">
+                                <option value="" selected>Choose Brand</option>
+                                {% for brand in all_brands %}
+                                <option value="{{ brand.id }}" class="dark_text">{{ brand.name }}</option>
+                                {% endfor %}
+                            </select>
 
-                                <div class="input-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input shadow" id="product_image" name="product_image" aria-describedby="inputGroupFile01">
-                                        <label class="custom-file-label dark_text shadow" for="inputGroupFile01">Choose image file</label>
-                                    </div>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input shadow" id="product_image" name="product_image" aria-describedby="inputGroupFile01">
+                                    <label class="custom-file-label dark_text shadow" for="inputGroupFile01">Choose image file</label>
                                 </div>
                             </div>
-                            <div class="justify-content-center">
-                                <button type="submit" class="btn btn-sm btn-info shadow">Save</button>
-                            </div>
+                            <button type="submit" class="btn btn-sm btn-info shadow mt-1 mb-2">Save</button>
                         </form>
                     </div>
 
                     <!-- Add Category and Brand -->
                     <div class="col">
-                        <h5 class="dark_text">Add New Category</h5>
-                        <form action="/create_category" method="POST">
+                        <form action="/create_category" method="POST" class="mt-3 mb-2">
                             {% csrf_token %}
-                            <div class="form-group">
-                                <input class="form-control shadow" type="text" placeholder="Add New Category" id="new_category" name="new_category">
-                            </div>
-                            <div>
-                                <button type="submit" class="btn btn-sm btn-info shadow">Save</button>
-                            </div>
+                            <input class="form-control shadow" type="text" placeholder="Add New Category" id="new_category" name="new_category">
+                            <button type="submit" class="btn btn-sm btn-info shadow mt-1">Save</button>
                         </form>
 
-                        <h5 class="dark_text mt-3">Add New Brand</h5>
-                        <form action="/create_brand" method="POST">
+                        <form action="/create_brand" method="POST" class="mt-3 mb-2">
                             {% csrf_token %}
-                            <div class="form-group">
-                                <input class="form-control shadow" type="text" placeholder="Add New Brand" id="new_brand" name="new_brand">
-                                <select class="form-control dark_text shadow" name="brand_category" id="brand_category" aria-label="brand_category">
+                            <input class="form-control shadow" type="text" placeholder="Add New Brand" id="new_brand" name="new_brand">
+                            <select class="form-control shadow" name="brand_category" id="brand_category" aria-label="brand_category">
                                     <option value="" selected>Choose Category</option>
                                     {% for category in all_categories %}
                                     <option value="{{ category.id }}">{{ category.name }}</option>
                                     {% endfor %}
                                 </select>
-                            </div>
-                            <div>
-                                <button type="submit" class="btn btn-sm btn-info shadow">Save</button>
-                            </div>
+                            <button type="submit" class="btn btn-sm btn-info shadow mt-1">Save</button>
                         </form>
 
                         <!-- Update discounts for Sale Lists -->
-                        <h5 class="dark_text d-block mt-3">Edit Discount</h5>
-                        <form class="mb-2" action="/admin/update_sale" method="POST">
+                        <form action="/admin/update_sale" method="POST" class="mt-3 mb-2">
                             {% csrf_token %}
-                            <select class="form-control dark_text shadow" name="update_sale_list" aria-label="update_sale_list" id="update_sale_list">
-                                <option value="" selected>Select List</option>
+                            <select class="form-control shadow" name="update_sale_list" aria-label="update_sale_list" id="update_sale_list">
+                                <option value="" selected>Edit Discount for List</option>
                                 <option value="1">1 - Right Top</option>
                                 <option value="2">2 - Right Middle</option>
                                 <option value="3">3 - Right Bottom</option>
                                 <option value="4">4 - Jumbotron</option>
                             </select>
                             <input class="form-control shadow" type="number" placeholder="{{sale.discount}}" id="new_sale_discount" name="new_sale_discount" placeholder="Discount for Sale" required>
-                            <div>
-                                <button type="submit" class="btn btn-sm btn-info mt-2 shadow">Update</button>
-                            </div>
+                            <button type="submit" class="btn btn-sm btn-info shadow mt-1">Update</button>
                         </form>
 
                         <!-- Add items to sale lists -->
-                        <div class="row justify-content-center">
-                            <div class="col">
-                                <h5 class="dark_text font-weight-bold d-block mt-4">Add to List</h5>
-                                <form class="mb-4" action="/products/assign_to_sale" method="POST">
-                                    {% csrf_token %}
-                                    <select class="form-control dark_text" name="assign_sale_list" aria-label="sale_list">
-                                <option value="" selected>Select List</option>
+                        <form class="mt-3 mb-2" action="/products/assign_to_sale" method="POST">
+                            {% csrf_token %}
+                            <select class="form-control" name="assign_sale_list" aria-label="sale_list">
+                                <option value="" selected>Select Sale List</option>
                                 <option value="1">1 - Right Top</option>
                                 <option value="2">2 - Right Middle</option>
                                 <option value="3">3 - Right Bottom</option>
                                 <option value="4">4 - Jumbotron</option>
                             </select>
-                                    <select class="form-control dark_text" name="sale_item" id="sale_item" aria-label="sale_item">
+                            <select class="form-control" name="sale_item" id="sale_item" aria-label="sale_item">
                                 <option value="" selected>Select Product to Add</option>
                                 {% for product in all_products %}
                                 <option value="{{ product.id }}">{{ product.name }}</option>
                                 {% endfor %}
                             </select>
-                                    <button type="submit" class="btn btn-sm btn-info mt-2">Add</button>
-                                </form>
-                            </div>
-                        </div>
+                            <button type="submit" class="btn btn-sm btn-info shadow mt-1">Add</button>
+                        </form>
                     </div>
                 </div>
 
@@ -208,7 +185,7 @@
                                 <td class="dark_text">{{product.brand.name}}</td>
                                 <td class="dark_text">{{product.price}}</td>
                                 <td class="dark_text">{{product.inventory}}</td>
-                                <td class="dark_text">{{product.sale.id}}</td>
+                                <td class="dark_text">{{product.sale.sale_list}}</td>
                                 <td class="dark_text">{{product.sale.discount}}%</td>
                                 <td>
                                     <img src="{{product.image.url}}" alt="product_image" width="50px" />

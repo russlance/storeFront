@@ -218,7 +218,7 @@ def edit_product(request, product_id):
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request, value)
-            return redirect(f'product/admin_product_detail/{product_id}')
+            return redirect(f'/product/admin_product_detail/{product_id}')
         else:
             product_to_update = Product.objects.filter(id=product_id)[0]
             product_to_update.name = request.POST['product_name']
@@ -228,8 +228,9 @@ def edit_product(request, product_id):
             product_to_update.inventory = request.POST['product_inventory']
             product_to_update.category = request.POST['product_category']
             product_to_update.brand = request.POST['product_brand']
+            product_to_update.sale = request.POST['sale_item']
             # Product.objects.save()
-        return redirect(f'product/admin_product_detail/{product_id}')
+        return redirect(f'/product/admin_product_detail/{product_id}')
 
 def delete_product(request, id):
     if request.method == "POST":

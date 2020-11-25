@@ -43,7 +43,15 @@
             <form action="/products/edit_product/{{this_product.id}}" method="POST">
                 {% csrf_token %}
                 <div class="row justify-content-center">
-                    <div class="col-8">
+                    <div class="col-4">
+                        <img src="{{this_product.image.url}}" alt="product_image" height="400px" class="shadow m-3" />
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="product_image" aria-describedby="product_image" name="product_image">
+                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
                         <div class="input-group shadow m-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Name</span>
@@ -52,25 +60,9 @@
                         </div>
 
                         <div class="input-group shadow m-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Description</span>
-                            </div>
-                            <textarea class="dark_text shadow form-control" type="text" name="product_description" id="product_description" rows="6" value="{{this_product.description}}">{{this_product.description}}</textarea>
+                            <textarea class="dark_text shadow form-control" type="text" name="product_description" id="product_description" rows="14" value="{{this_product.description}}">{{this_product.description}}</textarea>
                         </div>
 
-                        <div class="row">
-                            <div class="col">
-                                <img src="{{this_product.image.url}}" alt="product_image" height="400px" class="shadow m-3" />
-                            </div>
-                            <div class="col">
-                                <div class="input-group shadow m-3">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="product_image" aria-describedby="product_image" name="product_image">
-                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="col-4">
@@ -105,27 +97,44 @@
                             <input class="dark_text shadow form-control" type="number" name="product_inventory" id="product_inventory" value="{{this_product.inventory}}">
                         </div>
 
-                    </div>
-                    <div class="row justify-content-right">
-                        <button class="btn btn-sm btn-primary text-center shadow" type="submit" ">Update</button>
-                        <button class="btn btn-sm btn-danger text-center shadow " onclick="delete_product( '{{this_product.id}}') ">Delete</button>
-                        <a href="/admin/home " class="btn btn-sm btn-primary text-center shadow " role="button ">Cancel</a>
+                        <div class="input-group shadow m-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Sale List</span>
+                            </div>
+                            </select>
+                            <select class="form-control dark_text" name="sale_item" id="sale_item" aria-label="sale_item" aria-placeholder="{{this_product.sale.sale_list}}">
+                                <option value="">None</option>
+                                <option value="1">1 - Right Top</option>
+                                <option value="2">2 - Right Middle</option>
+                                <option value="3">3 - Right Bottom</option>
+                                <option value="4">4 - Jumbotron</option>
+                            </select>
+                        </div>
+
+                        <div class="row justify-content-right m-5">
+                            <button class="btn btn-sm btn-primary text-center shadow m-2" type="submit">Update</button>
+                            <button class="btn btn-sm btn-danger text-center shadow m-2" onclick="delete_product('{{this_product.id}}')">Delete</button>
+                            <a href="/admin/home" class="btn btn-sm btn-primary text-center shadow m-2" role="button">Cancel</a>
+                        </div>
+
+                        <!-- Error messages -->
+                        {% if messages %} {% for message in messages %} {% if message.tags == 'error' %}
+                        <div class="alert toast float-left shadow">
+                            <div class="toast-header">
+                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">×</button>
+                            </div>
+                            <div class="toast-body text-dark">
+                                {{message}}
+                            </div>
+                        </div>
+                        {% endif %} {% endfor %} {% endif %}
+
                     </div>
                 </div>
             </form>
-            
-                <!-- Error messages -->
-                {% if messages %} {% for message in messages %} {% if message.tags == 'error' %}
-                <div class="alert toast float-left shadow ">
-                    <div class="toast-header ">
-                        <button type="button " class="ml-2 mb-1 close " data-dismiss="toast ">×</button>
-                    </div>
-                    <div class="toast-body text-dark ">
-                        {{message}}
-                    </div>
-                </div>
-                {% endif %} {% endfor %} {% endif %}
         </div>
+    </div>
+
 </body>
 
 </html>
