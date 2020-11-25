@@ -40,10 +40,10 @@
 
         <div class="container">
             <h1 class="dark_text">Product Detail:</h1>
-            <form action="/products/edit_product/{{this_product.id}}" method="POST">
-                {% csrf_token %}
-                <div class="row justify-content-center">
-                    <div class="col-8">
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <form action="/products/edit_product/{{this_product.id}}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div class="input-group shadow m-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Name</span>
@@ -72,7 +72,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-4">
                         <div class="input-group shadow m-3">
                             <div class="input-group-prepend">
@@ -97,8 +96,6 @@
                                     {% endif %}
                                 {% endfor %}
                             </select>
-                            
-
                         </div>
 
                         <div class="input-group shadow m-3">
@@ -114,7 +111,6 @@
                                     {% endif %}
                                 {% endfor %}
                             </select>
-                            
                         </div>
 
                         <div class="input-group shadow m-3">
@@ -125,13 +121,13 @@
                         </div>
 
                     </div>
-                    <div class="row justify-content-right">
-                        <button class="btn btn-sm btn-primary text-center shadow" type="submit" ">Update</button>
-                        <button class="btn btn-sm btn-danger text-center shadow " onclick="delete_product( '{{this_product.id}}') ">Delete</button>
-                        <a href="/admin/home " class="btn btn-sm btn-primary text-center shadow " role="button ">Cancel</a>
-                    </div>
+                        <div>
+                            <button class="btn btn-sm btn-primary text-center shadow" type="submit" ">Update</button>
+                            <button class="btn btn-sm btn-danger text-center shadow " onclick="delete_product( '{{this_product.id}}') ">Delete</button>
+                            <a href="/admin/home " class="btn btn-sm btn-primary text-center shadow " role="button ">Cancel</a>
+                        </div>
+                    </form>
                 </div>
-            </form>
             
                 <!-- Error messages -->
                 {% if messages %} {% for message in messages %} {% if message.tags == 'error' %}
