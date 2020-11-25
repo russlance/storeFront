@@ -40,7 +40,7 @@
 
         <div class="container">
             <h1 class="dark_text">Product Detail:</h1>
-            <form action="/products/edit_product/{{this_product.id}}" method="POST">
+            <form action="/products/edit_product/{{this_product.id}}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row justify-content-center">
                     <div class="col-4">
@@ -64,30 +64,45 @@
                         </div>
 
                     </div>
-
                     <div class="col-4">
                         <div class="input-group shadow m-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Price</span>
                             </div>
-                            <input class="dark_text shadow form-control" type="text" name="product_price" id="product_price" aria-label="product_price" step="0.01" placeholder="New Price">
-                            <div class="input-group-append">
-                                <span class="input-group-text">Current: {{this_product.price}}</span>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">%</span>
                             </div>
+                            <input class="dark_text shadow form-control" type="number" name="product_price" id="product_price" aria-label="product_price" step="0.01" value="{{this_product.price.amount}}">
                         </div>
 
                         <div class="input-group shadow m-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Category</span>
                             </div>
-                            <input class="dark_text shadow form-control" type="text" name="product_category" id="product_category" value="{{this_product.category.id}}">
+                            <select class="dark_text shadow form-control" name="product_category" id="product_category" aria-label="product_category">
+                                {% for category in all_categories %}
+                                    {% if this_product.category.id == category.id %}
+                                    <option value="{{ category.id }}" class="dark_text"selected>{{ category.name }}</option>
+                                    {% else %}
+                                    <option value="{{ category.id }}" class="dark_text">{{ category.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
                         </div>
 
                         <div class="input-group shadow m-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Brand</span>
                             </div>
-                            <input class="dark_text shadow form-control" type="text" name="product_brand" id="product_brand" value="{{this_product.brand.id}}">
+                            <select class="dark_text shadow form-control" name="product_brand" id="product_brand" aria-label="product_brand">
+                                {% for brand in all_brands %}
+                                    {% if this_product.brand.id == brand.id %}
+                                    <option value="{{ brand.id }}" class="dark_text" selected>{{ brand.name }}</option>
+                                    {% else %}
+                                    <option value="{{ brand.id }}" class="dark_text">{{ brand.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
                         </div>
 
                         <div class="input-group shadow m-3">
@@ -103,11 +118,13 @@
                             </div>
                             </select>
                             <select class="form-control dark_text" name="sale_item" id="sale_item" aria-label="sale_item" aria-placeholder="{{this_product.sale.sale_list}}">
-                                <option value="">None</option>
-                                <option value="1">1 - Right Top</option>
-                                <option value="2">2 - Right Middle</option>
-                                <option value="3">3 - Right Bottom</option>
-                                <option value="4">4 - Jumbotron</option>
+                                {% for sale in all_sales %}
+                                    {% if this_product.sale.id == sale.id %}
+                                    <option value="{{ sale.id }}" class="dark_text" selected>{{ sale.sale_list }}</option>
+                                    {% else %}
+                                    <option value="{{ sale.id }}" class="dark_text">{{ sale.sale_list }}</option>
+                                    {% endif %}
+                                {% endfor %}
                             </select>
                         </div>
 

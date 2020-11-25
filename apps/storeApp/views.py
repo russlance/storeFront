@@ -214,23 +214,28 @@ def create_product(request):
 def edit_product(request, product_id):
     if request.method == "POST":
         print(request.POST)
-        errors = Product.objects.create_validator(request.POST)
+        errors = Product.objects.edit_validator(request.POST)
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request, value)
             return redirect(f'/product/admin_product_detail/{product_id}')
         else:
             product_to_update = Product.objects.filter(id=product_id)[0]
+            new_category = Category.objects.filter(id=request.POST['product_category'])[0]
+            new_brand = Brand.objects.filter(id=request.POST['product_brand'])[0]
+            new_sale = Sale.objects.filter(id=request.POST['sale_item'])[0]
             product_to_update.name = request.POST['product_name']
             product_to_update.description = request.POST['product_description']
-            # product_to_update.image = request.FILES['product_image']
             product_to_update.price = request.POST['product_price']
             product_to_update.inventory = request.POST['product_inventory']
-            product_to_update.category = request.POST['product_category']
-            product_to_update.brand = request.POST['product_brand']
-            product_to_update.sale = request.POST['sale_item']
-            # Product.objects.save()
-        return redirect(f'/product/admin_product_detail/{product_id}')
+            product_to_update.category = new_category
+            product_to_update.brand = new_brand
+            product_to_update.sale = new_sale
+            if 'product_image' in request.FILES:
+                product_to_update.image = request.FILES['product_image']
+            product_to_update.save()
+            return redirect(f'/product/admin_product_detail/{product_id}')
+    return redirect(f'/product/admin_product_detail/{product_id}')
 
 def delete_product(request, id):
     if request.method == "POST":
@@ -251,6 +256,9 @@ def admin_product_detail(request, product_id):
         this_product = this_product[0]
         context = {
             'this_product': this_product,
+            'all_categories': Category.objects.all(),
+            'all_brands': Brand.objects.all(),
+            'all_sales': Sale.objects.all(),
             "current_user": curr_user,
         }
         return render(request, "admin_product_detail.html", context)
