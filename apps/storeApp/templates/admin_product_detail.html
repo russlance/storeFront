@@ -78,10 +78,10 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Price</span>
                             </div>
-                            <input class="dark_text shadow form-control" type="text" name="product_price" id="product_price" aria-label="product_price" step="0.01" placeholder="New Price">
-                            <div class="input-group-append">
-                                <span class="input-group-text">Current: {{this_product.price}}</span>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">%</span>
                             </div>
+                            <input class="dark_text shadow form-control" type="number" name="product_price" id="product_price" aria-label="product_price" step="0.01" value="{{this_product.price.amount}}">
                         </div>
 
                         <div class="input-group shadow m-3">
