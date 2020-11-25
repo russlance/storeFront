@@ -193,6 +193,27 @@ def show_category(request, id):   #  This is not right yet - may just want the n
         }
         return render(request, "product_display.html", context)
     return redirect('/')
+
+def sort_category(request, id, sort):
+    this_category = Category.objects.filter(id=id)
+    if len(this_category) > 0:
+        this_category = this_category[0]
+        if sort == "brand":
+            sort_by = "'brand'"
+        elif sort == "name":
+            sort_by = "'name'"
+        elif sort == "high":
+            sort_by = "'-price'"
+        elif sort == "low":
+            sort_by = "'price'"
+        else:
+            return redirect('/')
+        context = {
+            "products_in_category": this_category.order_by(sort_by),
+        }
+        return render(request, "product_display.html", context)
+    return redirect('/')
+
     
 # ---------- PRODUCT FUNCTIONS ----------
 
