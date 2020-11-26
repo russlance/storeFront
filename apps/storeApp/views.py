@@ -214,7 +214,6 @@ def sort_category(request, id, sort):
         return render(request, "product_display.html", context)
     return redirect('/')
 
-    
 # ---------- PRODUCT FUNCTIONS ----------
 
 def create_product(request):
