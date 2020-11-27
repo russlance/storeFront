@@ -61,6 +61,26 @@ class ProductManager(models.Manager):
             errors['brand_not_exist'] = "Add Product: Brand does not exist."
         return errors
 
+    def edit_validator(self, postData):
+        errors = {}
+        if len(postData['product_name']) < 1:
+            errors['no_name'] = "Add Product: Product Name Required."
+        if len(postData['product_description']) < 10 and len(postData['description']) > 0:
+            errors['description'] = "Add Product: If a Description is entered, it must be at least 10 characters."
+        if len(postData['product_price']) == 0:
+            errors['no_price'] = "Add Product: Please enter a Price."
+        if postData['product_category'] == "":
+            errors['no_category'] = "Add Product: Please choose a Category."
+        this_category = Category.objects.filter(id=postData['product_category'])
+        if len(this_category) == 0:
+            errors['category_not_exist'] = "Add Product: Category does not exist."
+        if postData['product_brand'] == "":
+            errors['no_brand'] = "Add Product: Please choose a Brand."
+        this_brand = Brand.objects.filter(id=postData['product_brand'])
+        if len(this_brand) == 0:
+            errors['brand_not_exist'] = "Add Product: Brand does not exist."
+        return errors
+
 class UserManager(models.Manager):
     def reg_validator(self, postData):
         errors = {}

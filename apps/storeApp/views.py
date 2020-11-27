@@ -193,7 +193,27 @@ def show_category(request, id):   #  This is not right yet - may just want the n
         }
         return render(request, "product_display.html", context)
     return redirect('/')
-    
+
+def sort_category(request, id, sort):
+    this_category = Category.objects.filter(id=id)
+    if len(this_category) > 0:
+        this_category = this_category[0]
+        if sort == "brand":
+            sort_by = "'brand'"
+        elif sort == "name":
+            sort_by = "'name'"
+        elif sort == "high":
+            sort_by = "'-price'"
+        elif sort == "low":
+            sort_by = "'price'"
+        else:
+            return redirect('/')
+        context = {
+            "products_in_category": this_category.order_by(sort_by),
+        }
+        return render(request, "product_display.html", context)
+    return redirect('/')
+
 # ---------- PRODUCT FUNCTIONS ----------
 
 def create_product(request):
@@ -214,13 +234,16 @@ def create_product(request):
 def edit_product(request, product_id):
     if request.method == "POST":
         print(request.POST)
-        errors = Product.objects.create_validator(request.POST)
+        errors = Product.objects.edit_validator(request.POST)
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request, value)
             return redirect(f'/product/admin_product_detail/{product_id}')
         else:
             product_to_update = Product.objects.filter(id=product_id)[0]
+            new_category = Category.objects.filter(id=request.POST['product_category'])[0]
+            new_brand = Brand.objects.filter(id=request.POST['product_brand'])[0]
+            new_sale = Sale.objects.filter(id=request.POST['sale_item'])[0]
             product_to_update.name = request.POST['product_name']
             product_to_update.description = request.POST['product_description']
             product_to_update.image = request.FILES['product_image']
@@ -251,6 +274,9 @@ def admin_product_detail(request, product_id):
         this_product = this_product[0]
         context = {
             'this_product': this_product,
+            'all_categories': Category.objects.all(),
+            'all_brands': Brand.objects.all(),
+            'all_sales': Sale.objects.all(),
             "current_user": curr_user,
         }
         return render(request, "admin_product_detail.html", context)
