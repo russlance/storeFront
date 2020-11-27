@@ -43,6 +43,7 @@
             <form action="/products/edit_product/{{this_product.id}}" method="POST">
                 {% csrf_token %}
                 <div class="row justify-content-center">
+
                     <div class="col-4">
                         <img src="{{this_product.image.url}}" alt="product_image" height="400px" class="shadow m-3" />
                         <div class="custom-file">
@@ -62,7 +63,6 @@
                         <div class="input-group shadow m-3">
                             <textarea class="dark_text shadow form-control" type="text" name="product_description" id="product_description" rows="14" value="{{this_product.description}}">{{this_product.description}}</textarea>
                         </div>
-
                     </div>
 
                     <div class="col-4">
@@ -111,12 +111,6 @@
                             </select>
                         </div>
 
-                        <div class="row justify-content-right m-5">
-                            <button class="btn btn-sm btn-primary text-center shadow m-2" type="submit">Update</button>
-                            <button class="btn btn-sm btn-danger text-center shadow m-2" onclick="delete_product('{{this_product.id}}')">Delete</button>
-                            <a href="/admin/home" class="btn btn-sm btn-primary text-center shadow m-2" role="button">Cancel</a>
-                        </div>
-
                         <!-- Error messages -->
                         {% if messages %} {% for message in messages %} {% if message.tags == 'error' %}
                         <div class="alert toast float-left shadow">
@@ -131,10 +125,39 @@
 
                     </div>
                 </div>
+                <div class="row m-5">
+                    <button class="btn btn-sm btn-primary text-center shadow m-2" type="submit">Update</button>
+                    <button class="btn btn-sm btn-danger text-center shadow m-2" data-toggle="modal" data-target="#confirm_delete">Delete</button>
+                    <a href="/admin/home" class="btn btn-sm btn-primary text-center shadow m-2" role="button">Cancel</a>
+                </div>
             </form>
+
         </div>
     </div>
 
+    <!-- Confirm Delte Modal -->
+    <div class="modal" tabindex="-1" id="confirm_delete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title dark_text">Confirm Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                </div>
+                <div class="modal-body">
+                    <p class="dark_text">Are you sure?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <form action="/products/delete_product/{{this_product.id}}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

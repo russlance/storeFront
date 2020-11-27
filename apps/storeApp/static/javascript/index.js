@@ -1,6 +1,29 @@
 $(document).ready(function() {
+    $.ajax({
+        url: "/home",
+        method: 'get',
+        success: function(data) {
+            var html_str = ""
+            html_str += data
+            document.getElementById("content").innerHTML = html_str;
+        }
+    })
+    $.ajax({
+        url: "/navbar",
+        method: "get",
+        success: function(data) {
+            var html_str = ""
+            html_str += data
+            document.getElementById("top_navbar").innerHTML = html_str
+        }
+    })
+    $('.toast').toast({
+        autohide: false
+    })
+    $(".toast").toast("show")
+    $("#AboutUs").click(function() {
         $.ajax({
-            url: "/home",
+            url: "/about_us",
             method: 'get',
             success: function(data) {
                 var html_str = ""
@@ -8,90 +31,67 @@ $(document).ready(function() {
                 document.getElementById("content").innerHTML = html_str;
             }
         })
+    })
+    $("#contactUs").click(function() {
         $.ajax({
-            url: "/navbar",
-            method: "get",
+            url: "/contact_us",
+            method: 'get',
             success: function(data) {
+                var html_str = ""
+                html_str += data
+                document.getElementById("content").innerHTML = html_str;
+            }
+        })
+    })
+
+    $(document).on("submit", '#loginform', function(event) {
+        event.preventDefault();
+        var data = {
+            login_email: $('#login_email').val(),
+            login_password: $("#login_password").val(),
+            csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').attr('value')
+        }
+        var route = "/users/login"
+        $.ajax({
+            url: route,
+            type: "post",
+            data: data,
+            success: function(data) {
+                $("#login_modal").modal('hide')
                 var html_str = ""
                 html_str += data
                 document.getElementById("top_navbar").innerHTML = html_str
             }
         })
-        $('.toast').toast({
-            autohide: false
-        })
-        $(".toast").toast("show")
-        $("#AboutUs").click(function() {
-            $.ajax({
-                url: "/about_us",
-                method: 'get',
-                success: function(data) {
-                    var html_str = ""
-                    html_str += data
-                    document.getElementById("content").innerHTML = html_str;
-                }
-            })
-        })
-        $("#contactUs").click(function() {
-            $.ajax({
-                url: "/contact_us",
-                method: 'get',
-                success: function(data) {
-                    var html_str = ""
-                    html_str += data
-                    document.getElementById("content").innerHTML = html_str;
-                }
-            })
-        })
-
-        $(document).on("submit", '#loginform', function(event) {
-            event.preventDefault();
-            var data = {
-                login_email: $('#login_email').val(),
-                login_password: $("#login_password").val(),
-                csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').attr('value')
-            }
-            var route = "/users/login"
-            $.ajax({
-                url: route,
-                type: "post",
-                data: data,
-                success: function(data) {
-                    $("#login_modal").modal('hide')
-                    var html_str = ""
-                    html_str += data
-                    document.getElementById("top_navbar").innerHTML = html_str
-                }
-            })
-        })
-
     })
-    
-    $(document).on("submit", '#registerform', function(event){
-        event.preventDefault();
-        var data = {
-            user_first_name:$('#user_first_name').val(),
-            user_last_name:$("#user_last_name").val(),
-            user_email: $('#user_email').val(),
-            user_password: $("#user_password").val(),
-            user_password_conf:$("#user_password_conf").val(),
-            csrfmiddlewaretoken:$('input[name="csrfmiddlewaretoken"]').attr('value')
+
+})
+
+$(document).on("submit", '#registerform', function(event) {
+    event.preventDefault();
+    var data = {
+        user_first_name: $('#user_first_name').val(),
+        user_last_name: $("#user_last_name").val(),
+        user_email: $('#user_email').val(),
+        user_password: $("#user_password").val(),
+        user_password_conf: $("#user_password_conf").val(),
+        csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').attr('value')
+    }
+    var route = "/users/register"
+    $.ajax({
+        url: route,
+        type: "post",
+        data: data,
+        success: function(data) {
+            $("#register_modal").modal('hide')
+            var html_str = ""
+            html_str += data
+            document.getElementById("top_navbar").innerHTML = html_str
+
         }
-        var route = "/users/register"
-        $.ajax({
-            url:route,
-            type: "post",
-            data: data,
-            success: function(data){
-                $("#register_modal").modal('hide')
-                var html_str=""
-                html_str+= data
-                document.getElementById("top_navbar").innerHTML= html_str
-
-            }
-        })
     })
-    $(document).on("submit", "#add_product_form", function(event) {
+})
+$(document).on("submit", "#add_product_form", function(event) {
         event.preventDefault();
         var data = {
             product_id: $("input[name='product_id']").val(),
@@ -105,9 +105,9 @@ $(document).ready(function() {
             data: data,
             success: function(data) {
                 $.ajax({
-                    url:"/navbar",
-                    type:"get",
-                    success:function(data) {
+                    url: "/navbar",
+                    type: "get",
+                    success: function(data) {
                         var html_str = ""
                         html_str += data
                         document.getElementById("top_navbar").innerHTML = html_str
@@ -247,9 +247,9 @@ function remove_item(id) {
             html_str += data
             document.getElementById("content").innerHTML = html_str
             $.ajax({
-                url:"/navbar",
-                type:"get",
-                success:function(data) {
+                url: "/navbar",
+                type: "get",
+                success: function(data) {
                     var html_str = ""
                     html_str += data
                     document.getElementById("top_navbar").innerHTML = html_str
@@ -272,9 +272,9 @@ function empty_cart() {
             html_str += data
             document.getElementById("content").innerHTML = html_str
             $.ajax({
-                url:"/navbar",
-                type:"get",
-                success:function(data) {
+                url: "/navbar",
+                type: "get",
+                success: function(data) {
                     var html_str = ""
                     html_str += data
                     document.getElementById("top_navbar").innerHTML = html_str
@@ -293,11 +293,6 @@ function delete_product(id) {
         url: "/products/delete_product/" + id,
         data: data,
         type: "post",
-        success: function(data) {
-            var html_str = ""
-            html_str += data
-            document.getElementById("edit_product_table").innerHTML = html_str
-        }
     })
 }
 

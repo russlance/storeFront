@@ -223,20 +223,20 @@ def edit_product(request, product_id):
             product_to_update = Product.objects.filter(id=product_id)[0]
             product_to_update.name = request.POST['product_name']
             product_to_update.description = request.POST['product_description']
-            # product_to_update.image = request.FILES['product_image']
+            product_to_update.image = request.FILES['product_image']
             product_to_update.price = request.POST['product_price']
             product_to_update.inventory = request.POST['product_inventory']
             product_to_update.category = request.POST['product_category']
             product_to_update.brand = request.POST['product_brand']
             product_to_update.sale = request.POST['sale_item']
-            # Product.objects.save()
+            Product.objects.save()
         return redirect(f'/product/admin_product_detail/{product_id}')
 
 def delete_product(request, id):
     if request.method == "POST":
         product_to_delete = Product.objects.filter(id=id)[0]
         product_to_delete.delete()
-        return redirect('/products/edit_product_table')
+        return redirect('/admin/home')
 
 def edit_product_table(request):
     context={
