@@ -21,11 +21,11 @@
             <p>{{this_product.brand.name}}</p>
         </div>
     </div>
-    <div class="row my-4 justify-content-center">
+    <div class="row my-4 float-right">
         <form action="/products/add_to_cart" method="POST" id="add_product_form">
             {% csrf_token %}
             <input type="hidden" name="product_id" value="{{this_product.id}}">
-            <input type="number" name="product_quantity" value="1">
+            <input class="align-middle" type="number" name="product_quantity" value="1">
             <button class="btn btn-sm btn-primary text-center" type="submit">Add to Cart</button>
         </form>
     </div>

@@ -241,18 +241,28 @@ def edit_product(request, product_id):
             return redirect(f'/product/admin_product_detail/{product_id}')
         else:
             product_to_update = Product.objects.filter(id=product_id)[0]
-            new_category = Category.objects.filter(id=request.POST['product_category'])[0]
-            new_brand = Brand.objects.filter(id=request.POST['product_brand'])[0]
-            new_sale = Sale.objects.filter(id=request.POST['sale_item'])[0]
+            category = Category.objects.filter(id=request.POST['product_category'])[0]
+            brand = Brand.objects.filter(id=request.POST['product_brand'])[0]
+            sale = Sale.objects.filter(id=request.POST['sale_item'])
+            if len(request.POST['product_price'])==0:
+                price = product_to_update.price
+            else:
+                price = request.POST['product_price']
+            if len(request.FILES['product_image'])==0:
+                image = product_to_update.image
+            else:
+                image = request.FILES['product_image']
+            
             product_to_update.name = request.POST['product_name']
             product_to_update.description = request.POST['product_description']
-            product_to_update.image = request.FILES['product_image']
-            product_to_update.price = request.POST['product_price']
+            product_to_update.image = image
+            product_to_update.price = price
             product_to_update.inventory = request.POST['product_inventory']
-            product_to_update.category = request.POST['product_category']
-            product_to_update.brand = request.POST['product_brand']
-            product_to_update.sale = request.POST['sale_item']
+            product_to_update.category = category
+            product_to_update.brand = brand
+            product_to_update.sale = sale
             Product.objects.save()
+            messages.error(request, f"{product_to_update.name} updated")
         return redirect(f'/product/admin_product_detail/{product_id}')
 
 def delete_product(request, id):
