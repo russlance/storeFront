@@ -13,9 +13,9 @@
     <script src="{% static 'javascript/index.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('.toast').toast({
-                autohide:false
+                autohide: false
             })
             $(".toast").toast("show")
         })
@@ -39,7 +39,7 @@
             </li>
         </ul>
 
-        <div class="row justify-content-center">
+        <div class="row justify-content-center mr-0">
             <!-- Vertical navbar -->
             <div class="col-2">
                 <img src="../static/images/gamestore_icon.png" alt="Logo" class="d-block offset-5 mt-1" id="logo">
@@ -55,14 +55,14 @@
             </div>
 
             <div class="col-6">
-                <div class="border main_area p-2 pt-1 shadow" id="content">
+                <div class="border main_area p-2 pt-1 shadow light_background" id="content">
                     <!-- Main Content area loaded by AJAX -->
                 </div>
             </div>
 
             <div class="col-2 align-top">
                 <!-- Right Top Sale -->
-                <div class="row justify-content-center feature_box border shadow align-top p-1">
+                <div class="row justify-content-center feature_box border shadow align-top p-1 top_nav mt-2">
                     <div id="first_featured_item" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             {% if sale_list_1 != None %} {% for item in sale_list_1 %} {% if item == sale_list_1.0 %}
@@ -87,7 +87,7 @@
                     </div>
 
                     <!-- Right Middle Sale -->
-                    <div class="row justify-content-center feature_box border mt-5 shadow align-middle p-1">
+                    <div class="row justify-content-center feature_box border mt-5 shadow align-middle p-1 top_nav">
                         <div id="second_featured_item" class="carousel slide border" data-ride="carousel">
                             <div class="carousel-inner">
                                 {% if sale_list_2 != None %} {% for product in sale_list_2 %} {% if product == sale_list_2.0 %}
@@ -112,7 +112,7 @@
                         </div>
 
                         <!-- Right Bottom Sale -->
-                        <div class="row justify-content-center feature_box border mt-5 shadow align-bottom p-1">
+                        <div class="row justify-content-center feature_box border mt-5 shadow align-bottom p-1 top_nav">
                             <div id="third_featured_item" class="carousel slide" data-ride="carousel">
                                 <div class="carousel-inner">
                                     {% if sale_list_3 != None %} {% for item in sale_list_3 %} {% if item == sale_list_3.0 %}

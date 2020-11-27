@@ -162,7 +162,7 @@
             <!-- Edit Product Table: selecting item populates form below for editing -->
             <div class="col-7">
                 <h5 class="dark_text">All Products</h5>
-                <div class="overflow-auto main_area border shadow" id="edit_product_table">
+                <div class="overflow-auto main_area border shadow light_background" id="edit_product_table">
                     <table class="table">
                         <thead>
                             <tr>
@@ -179,13 +179,13 @@
                         <tbody>
                             {% for product in all_products %}
                             <tr class="border-bottom">
-                                <th scope="row"><a href="/product/admin_product_detail/{{product.id}}" class="dark_text" id="product_name">{{product.name}}</a></th>
-                                <td class="dark_text">{{product.category.name}}</td>
-                                <td class="dark_text">{{product.brand.name}}</td>
-                                <td class="dark_text">{{product.price}}</td>
-                                <td class="dark_text">{{product.inventory}}</td>
-                                <td class="dark_text">{{product.sale.sale_list}}</td>
-                                <td class="dark_text">{{product.sale.discount}}%</td>
+                                <th scope="row" class="align-middle"><a href="/product/admin_product_detail/{{product.id}}" class="dark_text" id="product_name">{{product.name}}</a></th>
+                                <td class="dark_text align-middle">{{product.category.name}}</td>
+                                <td class="dark_text align-middle">{{product.brand.name}}</td>
+                                <td class="dark_text align-middle">{{product.price}}</td>
+                                <td class="dark_text align-middle">{{product.inventory}}</td>
+                                <td class="dark_text align-middle">{{product.sale.sale_list}}</td>
+                                <td class="dark_text align-middle">{{product.sale.discount}}%</td>
                                 <td>
                                     <img src="{{product.image.url}}" alt="product_image" width="75px" class="shadow" />
                                 </td>

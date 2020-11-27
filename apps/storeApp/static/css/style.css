@@ -3,6 +3,10 @@
 }
 
 .container-fluid {
+    background-color: #CCC5B9;
+}
+
+.light_background {
     background-color: #FFFCF2;
 }
 
