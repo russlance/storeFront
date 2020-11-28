@@ -16,7 +16,7 @@
                 <td><img src="{{item.product.image.url}}" alt="{{item.product.name}}" width="50px"></td>
                 <td>{{item.product.name}}</td>
                 <td class="price">{{item.product.price}}</td>
-                <td><input class="quantity number_{{item.id}}" type="number" placeholder="{{item.quantity}}" name="item_quantity"><button class="btn" onclick="update_quantity('{{item.id}}')">Update</button></td> 
+                <td><input class="quantity number_{{item.id}}" type="number" placeholder="{{item.quantity}}" name="item_quantity"><button class="btn" onclick="update_quantity('{{item.id}}')">Update</button></td>
                 <td><button class="btn" onclick="remove_item('{{item.id}}')">Remove</button></td>
                 <td class="total">
                 </td>
@@ -33,8 +33,8 @@
         </tbody>
     </table>
     <div>
-        <button class="btn" onclick="empty_cart()">Empty Cart</button>
-        <button class="btn" onclick="checkout()">Checkout</button>
+        <button class="btn btn-warning" onclick="empty_cart()">Empty Cart</button>
+        <button class="btn btn-info" onclick="checkout()">Checkout</button>
     </div>
 </body>
 

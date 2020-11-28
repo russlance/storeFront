@@ -9,14 +9,14 @@
 </head>
 
 <body>
-    <h5 class="dark_text mb-0 pb-0">Checkout</h5>
+    <h5 class="dark_text mb-0 pb-0 font-weight-bold">Checkout</h5>
     <div class="row ml-2 mr-2 mt-0 mb-2 mt-0 border-bottom content-justify-center">
         <!-- Member Sign in ; if signed in is welcome, if not is form -->
         <div class="col-5 p-2">
             {% if 'current_user' in request.session %}
             <h5 class="dark_text">Welcome back {{user.first_name}}</h5>
             {% else %}
-            <h5 class="dark_text">Member Sign In</h5>
+            <h5 class="dark_text font-weight-bold">Member Sign In</h5>
             <form action="" method="POST">
                 {% csrf_token %}
                 <div class="form-group">
@@ -40,100 +40,108 @@
 
         <!-- Guest sign in ; will add to mailing for newsletter -->
         <div class="col-5 p-2">
-            <h5 class="dark_text">Guest Checkout</h5>
+            <h5 class="dark_text font-weight-bold">Guest Checkout</h5>
             <form action="" method="POST">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="guest_name">Name</label>
-                    <input type="text" class="form-control" id="guest_name">
+                    <input type="text" class="form-control" id="guest_name" placeholder="Name">
                 </div>
                 <div class="form-group">
-                    <label for="guest_email">Email address</label>
-                    <input type="email" class="form-control" id="guest_email" aria-describedby="emailHelp">
+                    <input type="email" class="form-control" id="guest_email" aria-describedby="emailHelp" placeholder="Email Address">
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
-                <button type="submit" class="btn btn-primary">Checkout as Guest</button>
+                <button type="submit" class="btn btn-info font-weight-bold">Checkout as Guest</button>
             </form>
         </div>
     </div>
 
-    <div class="row m-2">
-        <div class="col-7 p-1">
+    <div class="row m-2 mb-0">
+        <div class="col-8 p-1">
             <div id="shipping_info" class="border-bottom">
-                <p class="dark_text">Shipping Address</p>
-                {% if 'current_user' in request.session %}
-                <p class="dark_text ml-1">{{user.first_name}} {{user.last_name}}</p>
-                <p class="dark_text ml-1">{{user.address}}</p>
-                <p class="dark_text ml-1">{{user.city}}, {{user.state}} {{user.zip}}</p>
-                {% else %}
-                <p class="text_dark">Please log in or enter your shipping address</p>
+                <p class="dark_text font-weight-bold mb-1">Shipping Address</p>
                 <form action="" method="POST">
                     {% csrf_token %}
-                    <input type="text" class="form-control" id="guest_first_name" name="guest_name" placeholder="First and Last Name">
-                    <input type="text" class="form-control" id="guest_address" name="guest_address" placeholder="Street Address">
-                    <span>
-                        <input type="text" class="form-control d-inline-block" id="guest_city" name="guest_city" placeholder="City"> 
-                        <input type="text" class="form-control d-inline-block" id="guest_state" name="guest_state" placeholder="State"> 
-                        <input type="number" class="form-control d-inline-block" id="guest_zip" name="guest_zip" placeholder="Zip"> 
-                    </span>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="dark_text input-group-text">First and last name</span>
+                        </div>
+                        <input type="text" aria-label="First name" class="dark_text form-control" name="first_name" placeholder="{{user.first_name}}">
+                        <input type="text" aria-label="Last name" class="form-control dark_text" name="last_name" placeholder="{{user.last_name}}">
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="dark_text input-group-text">Address</span>
+                        </div>
+                        <input type="text" aria-label="Address" class="dark_text form-control" name="address" placeholder="{{user.address}}">
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text dark_text">City, State, Zip</span>
+                        </div>
+                        <input type="text" aria-label="City" class="dark_text form-control" name="city" placeholder="{{user.city}}">
+                        <input type="text" aria-label="State" class="dark_text form-control" name="state" placeholder="{{user.state}}">
+                        <input type="text" aria-label="Zip Code" class="dark_text form-control" name="zip_code" placeholder="{{user.zip_code}}">
+                    </div>
+                    <div>
+                        <input type="checkbox">
+                        <span class="dark_text">Save Shipping Address</span>
+                    </div>
                 </form>
-                {% endif %}
             </div>
 
             <div id="shipping_info" class="border-bottom">
-                <p class="dark_text">Shipping Method</p>
+                <p class="dark_text font-weight-bold">Shipping Method</p>
                 <p>This will be populated with shipping method and/or shipping options stuff</p>
             </div>
         </div>
 
-        <div class="col-4 m-2">
-            <div class="border-left border-bottom">
-                <p class="dark_text font-weight-bold ml-2">Order Summary</p>
+        <div class="col-3 p-0">
+            <div class="border-left">
+                <p class="dark_text font-weight-bold ml-2 font-weight-bold">Order Summary</p>
                 <div class="row ml-3">
-                    <p class="dark_text d-display-inline-block">Your Cart</p>
-                    <p class="dark_text d-display-inline-block">{{order.cart_total}}</p>
+                    <p class="dark_text text-right col">Your Cart</p>
+                    <p class="dark_text text-right col">{{order.total}}</p>
+                </div>
+                <div class="row ml-3 border-bottom">
+                    <p class="dark_text text-right col">Shipping</p>
+                    <p class="dark_text text-right col">{{order.shipping}}</p>
                 </div>
                 <div class="row ml-3">
-                    <p class="dark_text d-display-inline-block">Shipping</p>
-                    <p class="dark_text d-display-inline-block border-bottom w-100">{{order.shipping}}</p>
+                    <p class="dark_text text-right col">Subtotal</p>
+                    <p class="dark_text text-right col">{{order.cart_total}}</p>
                 </div>
                 <div class="row ml-3">
-                    <p class="dark_text d-display-inline-block">Subtotal</p>
-                    <p class="dark_text d-display-inline-block">{{order.cart_total}}</p>
+                    <p class="dark_text text-right col">Est. Tax</p>
+                    <p class="dark_text text-right col">{{order.tax}}</p>
                 </div>
                 <div class="row ml-3">
-                    <p class="dark_text d-display-inline-block">Est. Tax</p>
-                    <p class="dark_text d-display-inline-block">{{order.tax}}</p>
-                </div>
-                <div class="row ml-3">
-                    <p class="dark_text d-display-inline-block font-weight-bold">Total</p>
-                    <p class="dark_text d-display-inline-block">{{order.total}}</p>
+                    <p class="dark_text font-weight-bold text-right col">Total</p>
+                    <p class="dark_text text-right col">{{order.total}}</p>
                 </div>
                 <form action="" method="POST">
                     {% csrf_token %}
-                    <button class="btn" type="submit">Place Order</button>
+                    <button class="btn btn-info float-right" type="submit">Place Order</button>
                 </form>
             </div>
         </div>
-        <div class="row ml-2">
-            <p class="dark_text border-bottom">Your Cart (select item to edit cart)</p>
-            <div class="overflow-auto">
-                <table class="table">
-                    <tbody>
-                        {% for item in order %}
-                        <tr>
-                            <th scope="row">{{item.image}}</th>
-                            <td><button>{{item.name}}</button></td>
-                            <td>{{item.description}}</td>
-                            <td>{{item.price}} x</td>
-                            <td>{{item.quantity}}</td>
-                            <td>{{item.total}}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    </div>
+    <div class="row ml-2">
+        <p class="dark_text mb-0 font-weight-bold">Your Cart (select item to edit cart)</p>
+    </div>
+    <div class="overflow-auto d-block row m-1">
+        <table class="table">
+            <tbody>
+                {% for item in order.order_items.all %}
+                <tr class="border-bottom">
+                    <th scope="row"><img src="{{item.product.image.url}}" alt="{{item.product.name}}" height="100px"></th>
+                    <td class="align-middle"><button class="btn dark_text">{{item.product.name}}</button></td>
+                    <td class="dark_text align-middle">{{item.product.price}} x</td>
+                    <td class="dark_text align-middle">{{item.quantity}}</td>
+                    <td class="dark_text align-middle">{{item.order.total}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
     <!-- Forgot Password Modal -->
