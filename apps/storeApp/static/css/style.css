@@ -43,7 +43,7 @@
 }
 
 .main_area {
-    height: 80vh;
+    height: 85vh;
     overflow-y: auto;
 }
 
@@ -59,10 +59,12 @@
 .feature_box {
     height: 200px;
 }
-.jumbotron{
+
+.jumbotron {
     height: 775px;
     padding: 0%;
 }
+
 .feature_item {
     height: 100%;
     width: 100%;
@@ -77,7 +79,7 @@
 }
 
 .box_background {
-    background-color: #ffffff;
+    background-color: #FFFCF2;
 }
 
 .logo_image {
