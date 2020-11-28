@@ -234,14 +234,15 @@ function update_quantity(id) {
     })
 }
 
-function checkout() {
+
+function checkout(){
     $.ajax({
         url: "/checkout",
-        type: "get",
-        success: function(data) {
-            var html_str = ""
-            html_str += data
-            document.getElementById("content").innerHTML = html_str
+        type:"get",
+        success:function(data){
+            var html_str=""
+            html_str+=data
+            document.getElementById("content").innerHTML=html_str
         }
     })
 }
