@@ -9,57 +9,55 @@
 </head>
 
 <body>
-    <div class="row p-1">
-        <h5 class="dark_text">Checkout</h5>
-        <div class="col border-bottom">
-            <!-- Member Sign in ; if signed in is welcome, if not is form -->
-            <div class="col">
-                {% if 'current_user' in request.session %}
-                <h5 class="dark_text">Welcome back {{user.first_name}}</h5>
-                {% else %}
-                <h5 class="dark_text">Member Sign In</h5>
-                <form action="" method="POST">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="login_email">Email address</label>
-                        <input type="email" class="form-control" id="login_email" aria-describedby="emailHelp">
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="login_password">Password</label>
-                        <input type="password" class="form-control" id="login_password">
-                        <button>forgot password</button>
-                    </div>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="wants_newsletter">
-                        <label class="form-check-label" for="wants_newsletter">Sign me up for the Newsletter</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Log in</button>
-                </form>
-                {% endif %}
-            </div>
+    <h5 class="dark_text mb-0 pb-0">Checkout</h5>
+    <div class="row ml-2 mr-2 mt-0 mb-2 mt-0 border-bottom content-justify-center">
+        <!-- Member Sign in ; if signed in is welcome, if not is form -->
+        <div class="col-5 p-2">
+            {% if 'current_user' in request.session %}
+            <h5 class="dark_text">Welcome back {{user.first_name}}</h5>
+            {% else %}
+            <h5 class="dark_text">Member Sign In</h5>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="login_email">Email address</label>
+                    <input type="email" class="form-control" id="login_email" aria-describedby="emailHelp">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <label for="login_password">Password</label>
+                    <input type="password" class="form-control" id="login_password">
+                    <button>forgot password</button>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="wants_newsletter">
+                    <label class="form-check-label" for="wants_newsletter">Sign me up for the Newsletter</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Log in</button>
+            </form>
+            {% endif %}
+        </div>
 
-            <!-- Guest sign in ; will add to mailing for newsletter -->
-            <div class="col">
-                <h5 class="dark_text">Guest Checkout</h5>
-                <form action="" method="POST">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="guest_name">Name</label>
-                        <input type="text" class="form-control" id="guest_name">
-                    </div>
-                    <div class="form-group">
-                        <label for="guest_email">Email address</label>
-                        <input type="email" class="form-control" id="guest_email" aria-describedby="emailHelp">
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Checkout as Guest</button>
-                </form>
-            </div>
+        <!-- Guest sign in ; will add to mailing for newsletter -->
+        <div class="col-5 p-2">
+            <h5 class="dark_text">Guest Checkout</h5>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="guest_name">Name</label>
+                    <input type="text" class="form-control" id="guest_name">
+                </div>
+                <div class="form-group">
+                    <label for="guest_email">Email address</label>
+                    <input type="email" class="form-control" id="guest_email" aria-describedby="emailHelp">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Checkout as Guest</button>
+            </form>
         </div>
     </div>
 
-    <div class="row">
+    <div class="row m-2">
         <div class="col-7 p-1">
             <div id="shipping_info" class="border-bottom">
                 <p class="dark_text">Shipping Address</p>
@@ -88,42 +86,41 @@
             </div>
         </div>
 
-
-        <div class="col-5 p-1">
-            <div class="border">
-                <p class="dark_text font-weight-bold">Order Summary</p>
-                <div class="row">
+        <div class="col-4 m-2">
+            <div class="border-left border-bottom">
+                <p class="dark_text font-weight-bold ml-2">Order Summary</p>
+                <div class="row ml-3">
                     <p class="dark_text d-display-inline-block">Your Cart</p>
                     <p class="dark_text d-display-inline-block">{{order.cart_total}}</p>
                 </div>
-                <div class="row border-bottom">
+                <div class="row ml-3">
                     <p class="dark_text d-display-inline-block">Shipping</p>
-                    <p class="dark_text d-display-inline-block">{{order.shipping}}</p>
+                    <p class="dark_text d-display-inline-block border-bottom w-100">{{order.shipping}}</p>
                 </div>
-                <div class="row">
+                <div class="row ml-3">
                     <p class="dark_text d-display-inline-block">Subtotal</p>
                     <p class="dark_text d-display-inline-block">{{order.cart_total}}</p>
                 </div>
-                <div class="row">
+                <div class="row ml-3">
                     <p class="dark_text d-display-inline-block">Est. Tax</p>
                     <p class="dark_text d-display-inline-block">{{order.tax}}</p>
                 </div>
-                <div class="row">
+                <div class="row ml-3">
                     <p class="dark_text d-display-inline-block font-weight-bold">Total</p>
                     <p class="dark_text d-display-inline-block">{{order.total}}</p>
                 </div>
                 <form action="" method="POST">
                     {% csrf_token %}
-                    <button class="btn">Place Order</button>
+                    <button class="btn" type="submit">Place Order</button>
                 </form>
             </div>
         </div>
-        <div class="row">
+        <div class="row ml-2">
             <p class="dark_text border-bottom">Your Cart (select item to edit cart)</p>
             <div class="overflow-auto">
                 <table class="table">
                     <tbody>
-                        {% for item in cart %}
+                        {% for item in order %}
                         <tr>
                             <th scope="row">{{item.image}}</th>
                             <td><button>{{item.name}}</button></td>

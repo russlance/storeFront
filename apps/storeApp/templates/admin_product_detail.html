@@ -12,6 +12,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <script src="{% static 'javascript/index.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.toast').toast({
+                autohide: false
+            });
+            $('.toast').toast('show');
+        })
+    </script>
 </head>
 
 <body>
@@ -40,14 +48,13 @@
 
         <div class="container">
             <h1 class="dark_text">Product Detail:</h1>
-            <form action="/products/edit_product/{{this_product.id}}" method="POST" enctype="multipart/form-data" class="mb-2">
+            <form action="/products/edit_product/{{this_product.id}}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row justify-content-center">
-
                     <div class="col-4">
                         <img src="{{this_product.image.url}}" alt="product_image" height="400px" class="shadow m-3" />
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="product_image" aria-describedby="product_image" name="product_image" value="'{{this_product.image.url}}'">
+                            <input type="file" class="custom-file-input" id="product_image" aria-describedby="product_image" name="product_image">
                             <label class="custom-file-label" for="inputGroupFile01">{{this_product.image.url}}</label>
                         </div>
                     </div>
@@ -63,13 +70,17 @@
                         <div class="input-group shadow m-3">
                             <textarea class="dark_text shadow form-control" type="text" name="product_description" id="product_description" rows="14" value="{{this_product.description}}">{{this_product.description}}</textarea>
                         </div>
+
                     </div>
                     <div class="col-4">
                         <div class="input-group shadow m-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Original Price: {{this_product.price}}</span>
+                                <span class="input-group-text">Price</span>
                             </div>
-                            <input class="dark_text shadow form-control" type="number" name="product_price" id="product_price" step="0.01" value="'{{this_product.price}}'">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input class="dark_text shadow form-control" type="number" name="product_price" id="product_price" aria-label="product_price" step="0.01" value="{{this_product.price.amount}}">
                         </div>
 
                         <div class="input-group shadow m-3">
@@ -77,9 +88,12 @@
                                 <span class="input-group-text">Category</span>
                             </div>
                             <select class="dark_text shadow form-control" name="product_category" id="product_category" aria-label="product_category">
-                                <option value="{{ this_product.category.id }}" class="dark_text"selected>{{ this_product.category.name }}</option>
                                 {% for category in all_categories %}
-                                <option value="{{ category.id }}" class="dark_text">{{ category.name }}</option>
+                                    {% if this_product.category.id == category.id %}
+                                    <option value="{{ category.id }}" class="dark_text"selected>{{ category.name }}</option>
+                                    {% else %}
+                                    <option value="{{ category.id }}" class="dark_text">{{ category.name }}</option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </div>
@@ -89,9 +103,12 @@
                                 <span class="input-group-text">Brand</span>
                             </div>
                             <select class="dark_text shadow form-control" name="product_brand" id="product_brand" aria-label="product_brand">
-                                <option value="{{ this_product.brand.id }}" class="dark_text" selected>{{ this_product.brand.name }}</option>
                                 {% for brand in all_brands %}
-                                <option value="{{ brand.id }}" class="dark_text">{{ brand.name }}</option>
+                                    {% if this_product.brand.id == brand.id %}
+                                    <option value="{{ brand.id }}" class="dark_text" selected>{{ brand.name }}</option>
+                                    {% else %}
+                                    <option value="{{ brand.id }}" class="dark_text">{{ brand.name }}</option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </div>
@@ -109,21 +126,26 @@
                             </div>
                             </select>
                             <select class="form-control dark_text" name="sale_item" id="sale_item" aria-label="sale_item" aria-placeholder="{{this_product.sale.sale_list}}">
-                                <option value="{{ this_product.sale.id }}" class="dark_text" selected>{{ this_product.sale.id }}</option>
                                 {% for sale in all_sales %}
-                                <option value="{{ sale.id }}" class="dark_text">{{ sale.id }}</option>
+                                    {% if this_product.sale.id == sale.id %}
+                                    <option value="{{ sale.id }}" class="dark_text" selected>{{ sale.sale_list }}</option>
+                                    {% else %}
+                                    <option value="{{ sale.id }}" class="dark_text">{{ sale.sale_list }}</option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </div>
 
-                        <div class="row m-5 float-right">
+                        <div class="row justify-content-right m-5">
                             <button class="btn btn-sm btn-primary text-center shadow m-2" type="submit">Update</button>
                             <button class="btn btn-sm btn-danger text-center shadow m-2" data-toggle="modal" data-target="#confirm_delete" type="button">Delete</button>
                             <a href="/admin/home" class="btn btn-sm btn-primary text-center shadow m-2" role="button">Cancel</a>
                         </div>
+
                     </div>
                 </div>
             </form>
+
             <!-- Error messages -->
             {% if messages %} {% for message in messages %} {% if message.tags == 'error' %}
             <div class="alert toast float-left shadow">

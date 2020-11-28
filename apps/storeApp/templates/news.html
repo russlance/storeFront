@@ -14,7 +14,7 @@
     {% for article in all_articles %}
     <div class="border-bottom p-4">
         <h1 class="dark_text">{{article.title}}</h1>
-        <p class="text-wrap dark_text">{{article.content}}</p>
+        <p class="text-wrap dark_text text-justify">{{article.content}}</p>
         <p class="dark_text"><em>{{article.created_at}}</em></p>
     </div>
     {% endfor %}
