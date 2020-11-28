@@ -62,15 +62,15 @@
 
             <div class="col-2 align-top">
                 <!-- Right Top Sale -->
-                <div class="row justify-content-center feature_box border shadow align-top p-1 top_nav mt-2">
-                    <div id="first_featured_item" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
+                <div class="row justify-content-center align-top p-1 mt-2 feature_box">
+                    <div id="first_featured_item" class="carousel slide feature_item" data-ride="carousel">
+                        <div class="carousel-inner feature_item">
                             {% if sale_list_1 != None %} {% for item in sale_list_1 %} {% if item == sale_list_1.0 %}
-                            <div class="carousel-item active mx-auto my-auto">
+                            <div class="carousel-item active">
                                 {% else %}
-                                <div class="carousel-item mx-auto my-auto">
+                                <div class="carousel-item">
                                     {% endif %}
-                                    <img src="{{item.image.url}}" alt="product_image" class="feature_item" />
+                                    <img src="{{item.image.url}}" alt="product_image" class="feature_item border shadow" />
                                 </div>
                                 {% endfor %}
                                 <a class="carousel-control-prev" href="#first_featured_item" role="button" data-slide="prev">
@@ -87,15 +87,15 @@
                     </div>
 
                     <!-- Right Middle Sale -->
-                    <div class="row justify-content-center feature_box border mt-5 shadow align-middle p-1 top_nav">
-                        <div id="second_featured_item" class="carousel slide border" data-ride="carousel">
-                            <div class="carousel-inner">
+                    <div class="row justify-content-center mt-5 align-middle p-1 feature_box">
+                        <div id="second_featured_item" class="carousel slide border feature_item" data-ride="carousel">
+                            <div class="carousel-inner feature_item">
                                 {% if sale_list_2 != None %} {% for product in sale_list_2 %} {% if product == sale_list_2.0 %}
-                                <div class="carousel-item active mx-auto my-auto">
+                                <div class="carousel-item active">
                                     {% else %}
-                                    <div class="carousel-item mx-auto my-auto">
+                                    <div class="carousel-item">
                                         {% endif %}
-                                        <img src="{{product.image.url}}" alt="product_image" class="feature_item" />
+                                        <img src="{{product.image.url}}" alt="product_image" class="feature_item border shadow" />
                                     </div>
                                     {% endfor %}
                                     <a class="carousel-control-prev" href="#second_featured_item" role="button" data-slide="prev">
@@ -112,15 +112,15 @@
                         </div>
 
                         <!-- Right Bottom Sale -->
-                        <div class="row justify-content-center feature_box border mt-5 shadow align-bottom p-1 top_nav">
-                            <div id="third_featured_item" class="carousel slide" data-ride="carousel">
-                                <div class="carousel-inner">
+                        <div class="row justify-content-center mt-5 align-middle p-1 feature_box">
+                            <div id="third_featured_item" class="carousel slide feature_item" data-ride="carousel">
+                                <div class="carousel-inner feature_item">
                                     {% if sale_list_3 != None %} {% for item in sale_list_3 %} {% if item == sale_list_3.0 %}
-                                    <div class="carousel-item active mx-auto my-auto">
+                                    <div class="carousel-item active">
                                         {% else %}
-                                        <div class="carousel-item mx-auto my-auto">
+                                        <div class="carousel-item">
                                             {% endif %}
-                                            <img src="{{item.image.url}}" alt="product_image" class="feature_item" />
+                                            <img src="{{item.image.url}}" alt="product_image" class="feature_item border shadow" />
                                         </div>
                                         {% endfor %}
                                         <a class="carousel-control-prev" href="#third_featured_item" role="button" data-slide="prev">

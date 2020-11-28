@@ -234,6 +234,18 @@ function update_quantity(id) {
     })
 }
 
+function checkout(){
+    $.ajax({
+        url: "/checkout",
+        type:"get",
+        success:function(data){
+            var html_str=""
+            html_str+=data
+            document.getElementById("content").innerHTML=html_str
+        }
+    })
+}
+
 function remove_item(id) {
     var data = {
         csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').attr('value')

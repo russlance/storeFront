@@ -59,9 +59,13 @@
 .feature_box {
     height: 200px;
 }
-
+.jumbotron{
+    height: 775px;
+    padding: 0%;
+}
 .feature_item {
-    height: 185px;
+    height: 100%;
+    width: 100%;
 }
 
 .dark_text {
