@@ -67,8 +67,8 @@ class ProductManager(models.Manager):
             errors['no_name'] = "Edit Product: Product Name Required."
         if len(postData['product_description']) < 10 and len(postData['description']) > 0:
             errors['description'] = "Edit Product: If a Description is entered, it must be at least 10 characters."
-        # if len(postData['product_price']) == 0:
-        #     errors['no_price'] = "Edit Product: Please enter a Price."
+        if len(postData['product_price']) == 0:
+            errors['no_price'] = "Edit Product: Please enter a Price."
         if postData['product_category'] == "":
             errors['no_category'] = "Edit Product: Please choose a Category."
         if postData['product_brand'] == "":

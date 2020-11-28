@@ -2,23 +2,23 @@
 <html lang="en">
 {% load static %}
 <div class="col-8 mx-auto">
-    <h3>Product Detail:</h3>
-    <h5>Name:</h5>
-    <p>{{this_product.name}}</p>
-    <h5>Description:</h5>
-    <p>{{this_product.description}}</p>
-    <h5>Image:</h5>
+    <h3 class="dark_text">Product Detail:</h3>
+    <h5 class="dark_text">Name:</h5>
+    <p class="dark_text">{{this_product.name}}</p>
+    <h5 class="dark_text">Description:</h5>
+    <p class="dark_text text-justify">{{this_product.description}}</p>
+    <h5 class="dark_text">Image:</h5>
     <div class="row">
         <div class="col-6">
             <img src="{{this_product.image.url}}" alt="product_image" height="300px" />
         </div>
         <div class="col-5 ml-4">
-            <h5>Price:</h5>
-            <p>{{this_product.price}}</p>
-            <h5>Category</h5>
-            <p>{{this_product.category.name}}</p>
-            <h5>Brand</h5>
-            <p>{{this_product.brand.name}}</p>
+            <h5 class="dark_text">Price:</h5>
+            <p class="dark_text">{{this_product.price}}</p>
+            <h5 class="dark_text">Category</h5>
+            <p class="dark_text">{{this_product.category.name}}</p>
+            <h5 class="dark_text">Brand</h5>
+            <p class="dark_text">{{this_product.brand.name}}</p>
         </div>
     </div>
     <div class="row my-4 float-right">

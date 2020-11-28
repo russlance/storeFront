@@ -43,7 +43,7 @@
 }
 
 .main_area {
-    height: 820px;
+    height: 80vh;
     overflow-y: auto;
 }
 
@@ -81,7 +81,7 @@
 }
 
 .logo_image {
-    width: 80%;
+    width: 95%;
 }
 
 .product_button {

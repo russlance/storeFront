@@ -234,6 +234,7 @@ function update_quantity(id) {
     })
 }
 
+
 function checkout(){
     $.ajax({
         url: "/checkout",

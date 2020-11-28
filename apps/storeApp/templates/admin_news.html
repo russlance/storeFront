@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <div class="container-fluid min-vh-100">
+    <div class="container-fluid vh-100">
         <!-- Navbar -->
         <ul class="nav top_nav justify-content-center row myTab mb-2" role="tablist">
             <li class="nav-item">
@@ -57,7 +57,7 @@
 
                 <div class="col-6">
                     <h5 class="dark_text">History</h5>
-                    <div class="overflow-auto main_area border p-2 shadow">
+                    <div class="overflow-auto main_area border p-2 shadow light_background">
                         {% for article in all_articles %}
                         <div class="border-bottom p-3">
                             <h3 class="dark_text">{{article.title}}</h3>
