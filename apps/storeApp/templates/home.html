@@ -1,60 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
-<div class="container-fluid">
-    <div id="first_load" class="row">
-        <div id="carouselExampleCaptions" class="carousel slide mx-auto w-100 top_nav" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-            </ol>
+<div class="container-fluid p-0 m-0">
+    <div id="carouselExampleCaptions" class="carousel slide w-100 jumbotron m-0 p-0" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+        </ol>
 
-            <!-- Jumbotron Sale -->
-            <div class="carousel-inner shadow mb-2">
-                {% if sale_list_4 != None %} {% for item in sale_list_4 %} {% if item == sale_list_4.0 %}
-                <div class="carousel-item active">
-                    {% else %}
-                    <div class="carousel-item">
-                        {% endif %}
-                        <button href="/products/{{item.id}}" class="d-block w-100"><img src="{{item.image.url}}" alt="product_image" height="200px" />
-                        </button>
-                    </div>
-                    {% endfor %}
-                    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+        <!-- Jumbotron Sale -->
+        <div class="carousel-inner jumbotron shadow  m-0 p-0">
+            {% if sale_list_4 != None %} {% for item in sale_list_4 %} {% if item == sale_list_4.0 %}
+            <div class="carousel-item active">
+                {% else %}
+                <div class="carousel-item">
                     {% endif %}
+                    <a href="/products/{{item.id}}" class="w-100 feature_item"><img src="{{item.image.url}}" alt="product_image" class="feature_item border shadow" />
+                    </a>
                 </div>
+                {% endfor %}
+                <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+                {% endif %}
             </div>
+        </div>
 
-        </div>
     </div>
-
-    <!-- display brands -->
-    <div class="interior overflow-auto">
-        <div id="feature_item" class="row justify-content-center">
-            <button class="btn col-4 p-0" data-target="#"><img class="logo_image" src="https://cdn.paizo.com/d960ad1b-9967-00f9-1158-72274b18312d/8c6e5432-6200-4955-b3b2-9912e5b06346/2E-Logo.png" alt="pathfinder logo"></button>
-            <button class="btn col-4 p-0" data-target="#"><img class="logo_image" src="https://upload.wikimedia.org/wikipedia/en/thumb/9/90/Wizards_of_the_Coast_logo.svg/200px-Wizards_of_the_Coast_logo.svg.png" alt="wizards of the coast"></button>
-            <button class="btn col-4 p-0" data-target="#"><img class="logo_image" src="https://www.games-workshop.com/resources/static/header-2017/gw-logo-default-stacked.svg" alt="games workshop"></button>
-        </div>
-        <div id="feature_item" class="row">
-            <button class="btn col-4 p-0" data-target="#"><img class="logo_image" src="https://tse1.mm.bing.net/th?id=OIP.T8KczEH9iB6lDhz-eIX1nAHaCl&pid=Api&rs=1&c=1&qlt=95&w=305&h=106" alt="magic the gathering"></button>
-            <button class="btn col-4 p-0" data-target="#"><img class="logo_image" src="http://vignette4.wikia.nocookie.net/logopedia/images/3/3b/Wizardsofthecoast_dungeonsanddragons_logo.jpg/revision/latest?cb=20140529192539" alt="dungeons and dragons"></button>
-            <button class="btn col-4 p-0" data-target="#"><img class="logo_image" src="https://tse1.mm.bing.net/th?id=OIP.FmeXlZcg3ZhoK1TjgaAeXQHaCC&pid=Api&rs=1&c=1&qlt=95&w=301&h=82" alt="warhammer 40k"></button>
-        </div>
-        <div id="feature_item" class="row">
-            <button class="btn col-4 p-0" data-target="#"><img class="logo_image" src="https://tse1.mm.bing.net/th?id=OIP.Bi3XTDADwSiyyuE7xN5XNQHaBt&pid=Api&rs=1&c=1&qlt=95&w=368&h=84" alt="warhammer age of sigmar"></button>
-            <button class="btn col-4 p-0" data-target="#"><img class="logo_image" src="http://www.multiversecg.com/wp-content/uploads/2015/02/wizkids-heroclix-logo.jpg" alt="wizkids-heroclix-logo"></button>
-            <button class="btn col-4 p-0" data-target="#"><img class="logo_image" src="https://clipground.com/images/pokemon-logo-png-5.png" alt="pokemon"></button>
-        </div>
-    </div>
-</div>
 </div>
 
 </html>
