@@ -10,10 +10,10 @@
         <div class="collapse" id="navbarToggleExternalContent">
             <div class="p-4">
                 <p class="navbar-brand" disabled>Sort by:</p>
-                <button class="btn myTab" data-toggle="modal" data-target="#sort_by_brand">Brand</button>
-                <button class="btn myTab" data-toggle="modal" data-target="#sort_by_name">Name</button>
-                <button class="btn myTab" data-toggle="modal" data-target="#sort_price_high">Price - High</button>
-                <button class="btn myTab" data-toggle="modal" data-target="#sort_price_low">Price - Low</button>
+                <button class="btn myTab" onclick="sort_category('{{category.id}}', 'brand')">Brand</button>
+                <button class="btn myTab" onclick="sort_category('{{category.id}}', 'name')">Name</button>
+                <button class="btn myTab" onclick="sort_category('{{category.id}}','high')">Price - High</button>
+                <button class="btn myTab" onclick="sort_category('{{category.id}}','low')">Price - Low</button>
             </div>
         </div>
     </div>
@@ -21,7 +21,7 @@
     <!-- Main product display area -->
     <div class="overflow-auto interior row">
         <ul class="list-group w-100">
-            {% for product in products_in_category.products.all %}
+            {% for product in products_in_category %}
             <li class="list-group-item">
                 <button type="button" class="list-group-item list-group-item-action row p-2 m-0 product_button" onclick="show_product('{{product.id}}')">
                     <div class="row w-100">

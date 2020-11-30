@@ -16,8 +16,8 @@
                 {% else %}
                 <div class="carousel-item">
                     {% endif %}
-                    <a href="/products/{{item.id}}" class="w-100 feature_item"><img src="{{item.image.url}}" alt="product_image" class="feature_item border shadow" />
-                    </a>
+                    <button class="p-0 m-0 btn btn-link w-100 feature_item" onclick="show_product('{{item.id}}')"><img src="{{item.image.url}}" alt="product_image" class="feature_item border shadow" />
+                    </button>
                 </div>
                 {% endfor %}
                 <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">

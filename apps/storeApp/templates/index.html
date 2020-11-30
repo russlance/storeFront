@@ -70,7 +70,7 @@
                                 {% else %}
                                 <div class="carousel-item">
                                     {% endif %}
-                                    <img src="{{item.image.url}}" alt="product_image" class="feature_item border shadow" />
+                                    <button class="p-0 m-0 btn btn-link" onclick="show_product('{{item.id}}')"><img src="{{item.image.url}}" alt="product_image" class="feature_item border shadow" /></button>
                                 </div>
                                 {% endfor %}
                                 <a class="carousel-control-prev" href="#first_featured_item" role="button" data-slide="prev">
@@ -95,7 +95,7 @@
                                     {% else %}
                                     <div class="carousel-item">
                                         {% endif %}
-                                        <img src="{{product.image.url}}" alt="product_image" class="feature_item border shadow" />
+                                        <button class="p-0 m-0 btn btn-link" onclick="show_product('{{product.id}}')"><img src="{{product.image.url}}" alt="product_image" class="feature_item border shadow" /></button>
                                     </div>
                                     {% endfor %}
                                     <a class="carousel-control-prev" href="#second_featured_item" role="button" data-slide="prev">
@@ -120,7 +120,7 @@
                                         {% else %}
                                         <div class="carousel-item">
                                             {% endif %}
-                                            <img src="{{item.image.url}}" alt="product_image" class="feature_item border shadow" />
+                                        <button class="p-0 m-0 btn btn-link" onclick="show_product('{{item.id}}')"><img src="{{item.image.url}}" alt="product_image" class="feature_item border shadow" /></button>
                                         </div>
                                         {% endfor %}
                                         <a class="carousel-control-prev" href="#third_featured_item" role="button" data-slide="prev">
@@ -243,7 +243,7 @@
         </div>
 
         {% if messages %} {% for message in messages %} {% if message.tags == 'error' %}
-        <div class="alert toast ml-auto">
+        <div class="alert toast float-left">
             <div class="toast-header">
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">×</button>
             </div>

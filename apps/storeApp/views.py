@@ -189,7 +189,8 @@ def show_category(request, id):   #  This is not right yet - may just want the n
     if len(this_category) > 0:
         this_category = this_category[0]
         context = {
-            "products_in_category": this_category,
+            "category": this_category,
+            "products_in_category": this_category.products.all(),
         }
         return render(request, "product_display.html", context)
     return redirect('/')
@@ -199,17 +200,24 @@ def sort_category(request, id, sort):
     if len(this_category) > 0:
         this_category = this_category[0]
         if sort == "brand":
-            sort_by = "'brand'"
+            sort_by = "brand"
+            is_sorted = True
         elif sort == "name":
-            sort_by = "'name'"
+            sort_by = "name"
+            is_sorted = True
         elif sort == "high":
-            sort_by = "'-price'"
+            sort_by = "-price"
+            is_sorted = True
         elif sort == "low":
-            sort_by = "'price'"
+            sort_by = "price"
+            is_sorted = True
         else:
-            return redirect('/')
+            is_sorted = False
+            sort_by = None
         context = {
-            "products_in_category": this_category.order_by(sort_by),
+            "category":this_category,
+            "products_in_category": this_category.products.order_by(sort_by),
+            "sorted": is_sorted
         }
         return render(request, "product_display.html", context)
     return redirect('/')
@@ -386,7 +394,7 @@ def add_to_cart(request):
             update_order_total(curr_order)
             print(curr_order, curr_order.total)
             print(new_order_item)
-    return redirect('/cart')
+    return redirect('/')
 
 def update_quantity(request, id):
     if request.method == "POST":
@@ -397,7 +405,7 @@ def update_quantity(request, id):
             this_order_item.save()
             update_order_total(this_order_item.order)
             return redirect('/cart')
-    return redirect('/cart')
+    return redirect('/')
 
 def remove_order_item(request, id):
     if request.method == "POST":
@@ -409,7 +417,7 @@ def remove_order_item(request, id):
             update_order_total(this_order)
             print(f'new total: {this_order.total}')
             return redirect('/cart')
-    return redirect('/cart')
+    return redirect('/')
 
 def empty_cart(request):
     if request.method == "POST":
@@ -441,7 +449,7 @@ def register_user(request):
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request, value)
-            return redirect('/')
+            return redirect('/navbar')
         else:
             hashed_pw = bcrypt.hashpw(request.POST['user_password'].encode(), bcrypt.gensalt()).decode()
             new_user = User.objects.create(first_name=request.POST['user_first_name'], last_name=request.POST['user_last_name'], email=request.POST['user_email'], password=hashed_pw)
@@ -458,8 +466,8 @@ def log_in(request):
                 request.session["current_user"] = login_user.id
                 return redirect('/navbar')
         messages.error(request, "Email or password is incorrect.")
-        return redirect('/')
-    return redirect('/')
+        return redirect('/navbar')
+    return redirect('/navbar')
 
 def log_out(request):
     request.session.pop('current_user')
