@@ -14,11 +14,10 @@ def index (request):
     else:
         curr_user = User.objects.get(id=request.session['current_user'])
     sale_list = {'sale1':None, 'sale2':None, 'sale3':None,'sale4':None}
-    for i in range(1,4):
+    for i in range(1,5):
         sale_finder = Sale.objects.filter(sale_list=i)
         if sale_finder:
             sale_list[f"sale{i}"] = sale_finder[0]
-    # print(sale_list['sale1'], sale_list['sale2'], sale_list['sale3'])
     cart_quantity = 0
     if "current_order" in request.session:
         curr_order = Order.objects.get(id=request.session["current_order"])
@@ -27,21 +26,21 @@ def index (request):
         "cart_quantity": cart_quantity,
         "all_categories": Category.objects.all(),
         "current_user": curr_user,
-        "sale_list_1": Product.objects.filter(sale=sale_list['sale1']),
-        "sale_list_2": Product.objects.filter(sale=sale_list['sale2']),
-        "sale_list_3": Product.objects.filter(sale=sale_list['sale3']),
-        "sale_list_4": Product.objects.filter(sale=sale_list['sale4'])
+        "sale_list_1": sale_list['sale1'],
+        "sale_list_2": sale_list['sale2'],
+        "sale_list_3": sale_list['sale3'],
+        "sale_list_4": sale_list['sale4']
     }
     return render(request,'index.html', context)
 
 def home(request):
-    sale4 = Sale.objects.filter(sale_list=3)
+    sale4 = Sale.objects.filter(sale_list=4)
     if sale4:
         sale4=sale4[0]
     else:
         sale4= None
     context = {
-        "sale_list_4": Product.objects.filter(sale=sale4)
+        "sale_list_4": sale4
     }
     return render(request, "home.html", context)
 
@@ -251,13 +250,20 @@ def edit_product(request, product_id):
             product_to_update = Product.objects.filter(id=product_id)[0]
             new_category = Category.objects.filter(id=request.POST['product_category'])[0]
             new_brand = Brand.objects.filter(id=request.POST['product_brand'])[0]
-            new_sale = Sale.objects.filter(id=request.POST['sale_item'])[0]
+            if(request.POST['sale_item']!= ""):
+                if(Sale.objects.filter(id=request.POST['sale_item'])):
+                    new_sale = Sale.objects.filter(id=request.POST['sale_item'])[0]
+                else:
+                    new_sale = None
+            else:
+                new_sale = None
             product_to_update.name = request.POST['product_name']
             product_to_update.description = request.POST['product_description']
             product_to_update.price = request.POST['product_price']
             product_to_update.inventory = request.POST['product_inventory']
             product_to_update.category = new_category
             product_to_update.brand = new_brand
+            print(new_sale)
             product_to_update.sale = new_sale
             if 'product_image' in request.FILES:
                 product_to_update.image = request.FILES['product_image']
