@@ -42,13 +42,15 @@
         <div class="row justify-content-center mr-0">
             <!-- Vertical navbar -->
             <div class="col-2">
-                <img src="../static/images/gamestore_icon.png" alt="Logo" class="d-block offset-5 mt-1" id="logo">
+                <img src="{% static '/images/gamestore_icon.png' %}" alt="Logo" class="d-block offset-5 mt-1" id="logo">
                 <div class="btn-group offset-5 shadow mt-2">
                     <ul class="nav flex-column">
                         {% for categories in all_categories %}
+                        {% if categories.products.all %}
                         <li class="nav flex-column dropright">
                             <button onclick="loadCategory('{{categories.id}}')" type="button" class="category btn btn-secondary rounded-0 text-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ categories.name }}</button>
                         </li>
+                        {% endif %}
                         {% endfor %}
                     </ul>
                 </div>
@@ -65,12 +67,12 @@
                 <div class="row justify-content-center align-top p-1 mt-2 feature_box">
                     <div id="first_featured_item" class="carousel slide feature_item" data-ride="carousel">
                         <div class="carousel-inner feature_item">
-                            {% if sale_list_1 != None %} {% for item in sale_list_1 %} {% if item == sale_list_1.0 %}
+                            {% if sale_list_1 != None %} {% for item in sale_list_1.sale_products.all %} {% if item == sale_list_1.sale_products.all.0 %}
                             <div class="carousel-item active">
                                 {% else %}
                                 <div class="carousel-item">
                                     {% endif %}
-                                    <img src="{{item.image.url}}" alt="product_image" class="feature_item border shadow" />
+                                    <button class="p-0 m-0 btn btn-link" onclick="show_product('{{item.id}}')"><img src="{{item.image.url}}" alt="product_image" class="feature_item border shadow" /></button>
                                 </div>
                                 {% endfor %}
                                 <a class="carousel-control-prev" href="#first_featured_item" role="button" data-slide="prev">
@@ -90,12 +92,12 @@
                     <div class="row justify-content-center mt-5 align-middle p-1 feature_box">
                         <div id="second_featured_item" class="carousel slide border feature_item" data-ride="carousel">
                             <div class="carousel-inner feature_item">
-                                {% if sale_list_2 != None %} {% for product in sale_list_2 %} {% if product == sale_list_2.0 %}
+                                {% if sale_list_2 != None %} {% for product in sale_list_2.sale_products.all %} {% if product == sale_list_2.sale_products.all.0 %}
                                 <div class="carousel-item active">
                                     {% else %}
                                     <div class="carousel-item">
                                         {% endif %}
-                                        <img src="{{product.image.url}}" alt="product_image" class="feature_item border shadow" />
+                                        <button class="p-0 m-0 btn btn-link" onclick="show_product('{{product.id}}')"><img src="{{product.image.url}}" alt="product_image" class="feature_item border shadow" /></button>
                                     </div>
                                     {% endfor %}
                                     <a class="carousel-control-prev" href="#second_featured_item" role="button" data-slide="prev">
@@ -115,12 +117,12 @@
                         <div class="row justify-content-center mt-5 align-middle p-1 feature_box">
                             <div id="third_featured_item" class="carousel slide feature_item" data-ride="carousel">
                                 <div class="carousel-inner feature_item">
-                                    {% if sale_list_3 != None %} {% for item in sale_list_3 %} {% if item == sale_list_3.0 %}
+                                    {% if sale_list_3 != None %} {% for item in sale_list_3.sale_products.all %} {% if item == sale_list_3.sale_products.all.0 %}
                                     <div class="carousel-item active">
                                         {% else %}
                                         <div class="carousel-item">
                                             {% endif %}
-                                            <img src="{{item.image.url}}" alt="product_image" class="feature_item border shadow" />
+                                        <button class="p-0 m-0 btn btn-link" onclick="show_product('{{item.id}}')"><img src="{{item.image.url}}" alt="product_image" class="feature_item border shadow" /></button>
                                         </div>
                                         {% endfor %}
                                         <a class="carousel-control-prev" href="#third_featured_item" role="button" data-slide="prev">
@@ -243,7 +245,7 @@
         </div>
 
         {% if messages %} {% for message in messages %} {% if message.tags == 'error' %}
-        <div class="alert toast ml-auto">
+        <div class="alert toast float-left">
             <div class="toast-header">
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">×</button>
             </div>

@@ -27,14 +27,14 @@
                 <div class="form-group">
                     <label for="login_password">Password</label>
                     <input type="password" class="form-control" id="login_password">
-                    <button>forgot password</button>
+                    <button class="btn btn-info mt-1">forgot password</button>
                 </div>
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" id="wants_newsletter">
                     <label class="form-check-label" for="wants_newsletter">Sign me up for the Newsletter</label>
                 </div>
-                <button type="submit" class="btn btn-primary">Log in</button>
             </form>
+            <button class="btn btn-primary" role="button" data-toggle="modal" data-target="#login_modal">Log in</button>
             {% endif %}
         </div>
 
@@ -118,10 +118,7 @@
                     <p class="dark_text font-weight-bold text-right col">Total</p>
                     <p class="dark_text text-right col">{{order.total}}</p>
                 </div>
-                <form action="" method="POST">
-                    {% csrf_token %}
-                    <button class="btn btn-info float-right" type="submit">Place Order</button>
-                </form>
+                <button class="btn btn-info float-right" role="button" data-toggle="modal" data-target="#checkout_modal">Place Order</button>
             </div>
         </div>
     </div>
@@ -142,6 +139,22 @@
                 {% endfor %}
             </tbody>
         </table>
+    </div>
+
+    <div class="modal" id="checkout_modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thank You For Visiting!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <p>Thank you for shopping at our FAKE store! None of your financial data will be saved. Have a nice day!</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Forgot Password Modal -->

@@ -201,6 +201,18 @@ function loadCategory(id) {
     })
 }
 
+function sort_category(id, sort){
+    $.ajax({
+        url:"/category/"+id+"/"+sort,
+        method:"get",
+        success:function(data){
+            var html_str =""
+            html_str += data
+            document.getElementById("content").innerHTML =html_str
+        }
+    })
+}
+
 function show_product(id) {
     $.ajax({
         url: "/products/" + id,
@@ -296,6 +308,10 @@ function empty_cart() {
         }
     })
 }
+
+$(document).on('hide.bs.modal', "#checkout_modal", function(){
+    empty_cart()
+})
 
 // admin methods
 function delete_product(id) {

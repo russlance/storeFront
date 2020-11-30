@@ -126,6 +126,11 @@
                             </div>
                             </select>
                             <select class="form-control dark_text" name="sale_item" id="sale_item" aria-label="sale_item" aria-placeholder="{{this_product.sale.sale_list}}">
+                                {% if this_product.sale.id == None %}
+                                <option value="" selected>None</option>
+                                {% else %}
+                                <option value="">None</option>
+                                {% endif %}
                                 {% for sale in all_sales %}
                                     {% if this_product.sale.id == sale.id %}
                                     <option value="{{ sale.id }}" class="dark_text" selected>{{ sale.sale_list }}</option>
@@ -133,6 +138,7 @@
                                     <option value="{{ sale.id }}" class="dark_text">{{ sale.sale_list }}</option>
                                     {% endif %}
                                 {% endfor %}
+
                             </select>
                         </div>
 

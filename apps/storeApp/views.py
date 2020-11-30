@@ -14,11 +14,10 @@ def index (request):
     else:
         curr_user = User.objects.get(id=request.session['current_user'])
     sale_list = {'sale1':None, 'sale2':None, 'sale3':None,'sale4':None}
-    for i in range(1,4):
+    for i in range(1,5):
         sale_finder = Sale.objects.filter(sale_list=i)
         if sale_finder:
             sale_list[f"sale{i}"] = sale_finder[0]
-    # print(sale_list['sale1'], sale_list['sale2'], sale_list['sale3'])
     cart_quantity = 0
     if "current_order" in request.session:
         curr_order = Order.objects.get(id=request.session["current_order"])
@@ -27,21 +26,21 @@ def index (request):
         "cart_quantity": cart_quantity,
         "all_categories": Category.objects.all(),
         "current_user": curr_user,
-        "sale_list_1": Product.objects.filter(sale=sale_list['sale1']),
-        "sale_list_2": Product.objects.filter(sale=sale_list['sale2']),
-        "sale_list_3": Product.objects.filter(sale=sale_list['sale3']),
-        "sale_list_4": Product.objects.filter(sale=sale_list['sale4'])
+        "sale_list_1": sale_list['sale1'],
+        "sale_list_2": sale_list['sale2'],
+        "sale_list_3": sale_list['sale3'],
+        "sale_list_4": sale_list['sale4']
     }
     return render(request,'index.html', context)
 
 def home(request):
-    sale4 = Sale.objects.filter(sale_list=3)
+    sale4 = Sale.objects.filter(sale_list=4)
     if sale4:
         sale4=sale4[0]
     else:
         sale4= None
     context = {
-        "sale_list_4": Product.objects.filter(sale=sale4)
+        "sale_list_4": sale4
     }
     return render(request, "home.html", context)
 
@@ -189,7 +188,8 @@ def show_category(request, id):   #  This is not right yet - may just want the n
     if len(this_category) > 0:
         this_category = this_category[0]
         context = {
-            "products_in_category": this_category,
+            "category": this_category,
+            "products_in_category": this_category.products.all(),
         }
         return render(request, "product_display.html", context)
     return redirect('/')
@@ -199,17 +199,24 @@ def sort_category(request, id, sort):
     if len(this_category) > 0:
         this_category = this_category[0]
         if sort == "brand":
-            sort_by = "'brand'"
+            sort_by = "brand"
+            is_sorted = True
         elif sort == "name":
-            sort_by = "'name'"
+            sort_by = "name"
+            is_sorted = True
         elif sort == "high":
-            sort_by = "'-price'"
+            sort_by = "-price"
+            is_sorted = True
         elif sort == "low":
-            sort_by = "'price'"
+            sort_by = "price"
+            is_sorted = True
         else:
-            return redirect('/')
+            is_sorted = False
+            sort_by = None
         context = {
-            "products_in_category": this_category.order_by(sort_by),
+            "category":this_category,
+            "products_in_category": this_category.products.order_by(sort_by),
+            "sorted": is_sorted
         }
         return render(request, "product_display.html", context)
     return redirect('/')
@@ -243,13 +250,20 @@ def edit_product(request, product_id):
             product_to_update = Product.objects.filter(id=product_id)[0]
             new_category = Category.objects.filter(id=request.POST['product_category'])[0]
             new_brand = Brand.objects.filter(id=request.POST['product_brand'])[0]
-            new_sale = Sale.objects.filter(id=request.POST['sale_item'])[0]
+            if(request.POST['sale_item']!= ""):
+                if(Sale.objects.filter(id=request.POST['sale_item'])):
+                    new_sale = Sale.objects.filter(id=request.POST['sale_item'])[0]
+                else:
+                    new_sale = None
+            else:
+                new_sale = None
             product_to_update.name = request.POST['product_name']
             product_to_update.description = request.POST['product_description']
             product_to_update.price = request.POST['product_price']
             product_to_update.inventory = request.POST['product_inventory']
             product_to_update.category = new_category
             product_to_update.brand = new_brand
+            print(new_sale)
             product_to_update.sale = new_sale
             if 'product_image' in request.FILES:
                 product_to_update.image = request.FILES['product_image']
@@ -386,7 +400,7 @@ def add_to_cart(request):
             update_order_total(curr_order)
             print(curr_order, curr_order.total)
             print(new_order_item)
-    return redirect('/cart')
+    return redirect('/')
 
 def update_quantity(request, id):
     if request.method == "POST":
@@ -397,7 +411,7 @@ def update_quantity(request, id):
             this_order_item.save()
             update_order_total(this_order_item.order)
             return redirect('/cart')
-    return redirect('/cart')
+    return redirect('/')
 
 def remove_order_item(request, id):
     if request.method == "POST":
@@ -409,7 +423,7 @@ def remove_order_item(request, id):
             update_order_total(this_order)
             print(f'new total: {this_order.total}')
             return redirect('/cart')
-    return redirect('/cart')
+    return redirect('/')
 
 def empty_cart(request):
     if request.method == "POST":
@@ -441,7 +455,7 @@ def register_user(request):
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request, value)
-            return redirect('/')
+            return redirect('/navbar')
         else:
             hashed_pw = bcrypt.hashpw(request.POST['user_password'].encode(), bcrypt.gensalt()).decode()
             new_user = User.objects.create(first_name=request.POST['user_first_name'], last_name=request.POST['user_last_name'], email=request.POST['user_email'], password=hashed_pw)
@@ -458,8 +472,8 @@ def log_in(request):
                 request.session["current_user"] = login_user.id
                 return redirect('/navbar')
         messages.error(request, "Email or password is incorrect.")
-        return redirect('/')
-    return redirect('/')
+        return redirect('/navbar')
+    return redirect('/navbar')
 
 def log_out(request):
     request.session.pop('current_user')
