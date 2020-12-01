@@ -42,7 +42,7 @@
         <div class="row justify-content-center mr-0">
             <!-- Vertical navbar -->
             <div class="col-2">
-                <img src="{% static '/images/gamestore_icon.png' %}" alt="Logo" class="d-block offset-5 mt-1" id="logo">
+                <button onclick="display_home()" class="btn btn-link d-block offset-5 mt-1"><img src="{% static '/images/gamestore_icon.png' %}" alt="Logo" id="logo"></button>
                 <div class="btn-group offset-5 shadow mt-2">
                     <ul class="nav flex-column">
                         {% for categories in all_categories %}

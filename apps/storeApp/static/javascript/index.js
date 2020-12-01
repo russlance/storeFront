@@ -145,6 +145,17 @@ function display_directions() {
     })
 }
 
+function update_cart_display(){
+    var slicey = document.getElementsByClassName("price")
+    var quantums = document.getElementsByClassName("quantity")
+    var totos = document.getElementsByClassName("total")
+    for (var i = 0; i < slicey.length; i++) {
+        var price = Number.parseFloat(slicey[i].innerHTML.slice(1))
+        var quantity = Number.parseFloat(quantums[i].placeholder)
+        totos[i].innerHTML = "$" + price * quantity
+    }
+}
+
 function display_cart() {
     $.ajax({
         url: "/cart",
@@ -153,14 +164,7 @@ function display_cart() {
             var html_str = ""
             html_str += data
             document.getElementById("content").innerHTML = html_str;
-            var slicey = document.getElementsByClassName("price")
-            var quantums = document.getElementsByClassName("quantity")
-            var totos = document.getElementsByClassName("total")
-            for (var i = 0; i < slicey.length; i++) {
-                var price = Number.parseFloat(slicey[i].innerHTML.slice(1))
-                var quantity = Number.parseFloat(quantums[i].placeholder)
-                totos[i].innerHTML = "$" + price * quantity
-            }
+            update_cart_display()
         }
     })
 }
@@ -242,6 +246,7 @@ function update_quantity(id) {
             var html_str = ""
             html_str += data
             document.getElementById("content").innerHTML = html_str
+            update_cart_display()
         }
     })
 }
@@ -280,6 +285,7 @@ function remove_item(id) {
                     document.getElementById("top_navbar").innerHTML = html_str
                 }
             })
+            update_cart_display()
         }
     })
 }
@@ -326,11 +332,12 @@ function delete_product(id) {
 }
 
 function delete_user(id) {
+    console.log("Sanity Check!")
     data = {
         csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').attr('value'),
     }
     $.ajax({
-        url: 'users/delete_user/' + id,
+        url: '/users/delete_user/' + id,
         data: data,
         type: "post",
     })

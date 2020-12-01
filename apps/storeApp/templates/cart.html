@@ -10,15 +10,25 @@
 <body>
     <h5 class="dark_text">{% if current_user != None %}{{current_user.first_name}}'s{% else %}Your{% endif %} Cart</h5>
     <table class="table">
+        <thead>
+            <tr>
+                <th class="col"></th>
+                <th class="col"></th>
+                <th class="col"></th>
+                <th class="col"></th>
+                <th class="col"></th>
+                <th class="col"></th>
+            </tr>
+        </thead>
         <tbody>
             {% for item in current_order.order_items.all %}
             <tr class="row">
-                <td><img src="{{item.product.image.url}}" alt="{{item.product.name}}" width="50px"></td>
-                <td>{{item.product.name}}</td>
-                <td class="price">{{item.product.price}}</td>
-                <td><input class="quantity number_{{item.id}}" type="number" placeholder="{{item.quantity}}" name="item_quantity"><button class="btn" onclick="update_quantity('{{item.id}}')">Update</button></td>
-                <td><button class="btn" onclick="remove_item('{{item.id}}')">Remove</button></td>
-                <td class="total">
+                <td class="col"><img src="{{item.product.image.url}}" alt="{{item.product.name}}" width="50px"></td>
+                <td class="col">{{item.product.name}}</td>
+                <td class="col price">{{item.product.price}}</td>
+                <td class="col"><input class="quantity number_{{item.id}} w-25" type="number" placeholder="{{item.quantity}}" name="item_quantity"><button class="btn btn-info ml-3" onclick="update_quantity('{{item.id}}')">Update</button></td>
+                <td class="col"><button class="btn btn-warning" onclick="remove_item('{{item.id}}')">Remove</button></td>
+                <td class="total col">
                 </td>
             </tr>
             {% endfor %}

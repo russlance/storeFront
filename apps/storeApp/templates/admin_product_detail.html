@@ -39,7 +39,7 @@
                 <a class="nav-link light_text" href="/admin/news">News</a>
             </li>
             <li class="nav-item">
-                <a href="/admin/user_manager" class="nav-link light_text">Users</a>
+                <a href="/admin/user_manager/{{current_user.id}}" class="nav-link light_text">Users</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link light_text" href="/users/logout">Log Out</a>
@@ -52,7 +52,7 @@
                 {% csrf_token %}
                 <div class="row justify-content-center">
                     <div class="col-4">
-                        <img src="{{this_product.image.url}}" alt="product_image" height="400px" class="shadow m-3" />
+                        <img src="{{this_product.image.url}}" alt="product_image" height="300px" class="shadow m-3" />
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="product_image" aria-describedby="product_image" name="product_image">
                             <label class="custom-file-label" for="inputGroupFile01">{{this_product.image.url}}</label>
@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="input-group shadow m-3">
-                            <textarea class="dark_text shadow form-control" type="text" name="product_description" id="product_description" rows="14" value="{{this_product.description}}">{{this_product.description}}</textarea>
+                            <textarea class="dark_text shadow form-control text-justify" type="text" name="product_description" id="product_description" rows="14" value="{{this_product.description}}">{{this_product.description}}</textarea>
                         </div>
 
                     </div>

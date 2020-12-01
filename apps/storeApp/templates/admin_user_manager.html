@@ -56,7 +56,7 @@
                                 {% for user in all_users %}
                                 <tr class="border-bottom">
                                     <!-- This a-tag needs to send product.id to feed modal below ; need url -->
-                                    <th class="dark_text" scope="row"><a href="#">{{user.first_name}} {{user.last_name}}</a></th>
+                                    <th class="dark_text" scope="row"><a href="/admin/user_manager/{{user.id}}">{{user.first_name}} {{user.last_name}}</a></th>
                                     <td class="dark_text">{{user.admin}}</td>
                                     <td class="dark_text">{{user.wants_newsletter}}</td>
                                 </tr>
@@ -66,40 +66,40 @@
                     </div>
                 </div>
 
-                <div class="col-5">
-                    <form action="/admin/update_user" method="POST">
+                <div class="col-5 mt-4">
+                    <form action="/admin/update_user/{{selected_user.id}}" method="POST">
                         {% csrf_token %}
                         <div class="input-group pb-1">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">First and Last Name</span>
                             </div>
-                            <input type="text" name="user_first_name" id="user_first_name" value="{{current_user.first_name}}" placeholder="{{current_user.first_name}}" aria-label="First name" class="form-control shadow">
-                            <input type="text" name="user_last_name" id="user_last_name" value="{{current_user.last_name}}" placeholder="{{current_user.last_name}}" aria-label="Last name" class="form-control shadow">
+                            <input type="text" name="user_first_name" id="user_first_name" value="{{selected_user.first_name}}" placeholder="{{selected_user.first_name}}" aria-label="First name" class="form-control shadow">
+                            <input type="text" name="user_last_name" id="user_last_name" value="{{selected_user.last_name}}" placeholder="{{selected_user.last_name}}" aria-label="Last name" class="form-control shadow">
                         </div>
 
                         <div class="form-group pb-1">
-                            <input type="email" class="form-control shadow" id="user_email" name="user_email" value="{{current_user.email}}" placeholder="{{current_user.email}}">
+                            <input type="email" class="form-control shadow" id="user_email" name="user_email" value="{{selected_user.email}}" placeholder="{{selected_user.email}}">
                         </div>
 
                         <div class="input-group pb-1">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Address</span>
                             </div>
-                            <input type="text" name="user_adress" id="user_adress" value="{{current_user.address}}" placeholder="{{current_user.address}}" aria-label="Address" class="form-control shadow">
+                            <input type="text" name="user_adress" id="user_adress" value="{{selected_user.address}}" placeholder="{{selected_user.address}}" aria-label="Address" class="form-control shadow">
                         </div>
 
                         <div class="input-group pb-1">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">City, State and Zip</span>
+                                <span class="input-group-text">City, State, Zip</span>
                             </div>
-                            <input type="text" name="user_city" id="user_city" value="{{current_user.city}}" placeholder="{{current_user.city}}" aria-label="City" class="form-control shadow">
-                            <input type="text" name="user_state" id="user_state" value="{{current_user.state}}" placeholder="{{current_user.state}}" aria-label="User State" class="form-control shadow">
-                            <input type="number" name="user_zip_code" id="user_zip_code" value="{{current_user.zip_code}}" placeholder="{{current_user.zip_code}}" aria-label="User Zip Code" class="form-control shadow">
+                            <input type="text" name="user_city" id="user_city" value="{{selected_user.city}}" placeholder="{{selected_user.city}}" aria-label="City" class="form-control shadow">
+                            <input type="text" name="user_state" id="user_state" value="{{selected_user.state}}" placeholder="{{selected_user.state}}" aria-label="User State" class="form-control shadow">
+                            <input type="number" name="user_zip_code" id="user_zip_code" value="{{selected_user.zip_code}}" placeholder="{{selected_user.zip_code}}" aria-label="User Zip Code" class="form-control shadow">
                         </div>
 
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                {% if current_user.admin == False %}
+                                {% if selected_user.admin == False %}
                                 <div class="form-group form-check">
                                     <input type="checkbox" class="form-check-input shadow" value="True" id="user_admin" name="user_admin">
                                 </div>
@@ -113,7 +113,7 @@
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                {% if current_user.wants_newsletter == False %}
+                                {% if selected_user.wants_newsletter == False %}
                                 <div class="form-group form-check">
                                     <input type="checkbox" class="form-check-input shadow" value="True" id="user_newsletter" name="user_newsletter">
                                 </div>
@@ -125,8 +125,11 @@
                             </div>
                             <label for="user_admin">Wants Newsletter?</label>
                         </div>
-                        <button onclick="delete_user('current_user.id')" class="btn btn-danger pt-2 shadow">Delete</button>
                         <button type="submit" class="btn btn-primary pt-2 shadow">Update</button>
+                    </form>
+                    <form action="/users/delete_user/{{selected_user.id}}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger pt-2 shadow">Delete</button>
                     </form>
                 </div>
             </div>

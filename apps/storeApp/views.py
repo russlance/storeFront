@@ -121,21 +121,23 @@ def admin_home(request):
     }
     return render(request, 'admin_home.html', context)
 
-def admin_user_manager(request):
+def admin_user_manager(request, id):
     if 'current_user' not in request.session:
         curr_user = None
     else:
-        curr_user = User.objects.get(id=request.session['current_user'])
+        curr_user = User.objects.filter(id=request.session['current_user'])[0]
+    user = User.objects.filter(id=id)[0]
     context = {
         "current_user": curr_user,
         "all_users": User.objects.all(),
+        "selected_user": user,
     }
     return render(request, 'admin_user_manager.html', context)
 
-def admin_update_user(request):
+def admin_update_user(request, id):
     if request.method == "POST":
         print(request.POST)
-        this_user = User.objects.filter(id=request.session['current_user'])
+        this_user = User.objects.filter(id=id)
         if len(this_user) > 0:
             this_user = this_user[0]
             print(this_user)
@@ -145,7 +147,8 @@ def admin_update_user(request):
             this_user.address = request.POST['user_adress']
             this_user.city = request.POST['user_city']
             this_user.state = request.POST['user_state']
-            this_user.zip_code = request.POST['user_zip_code']
+            if (request.POST['user_zip_code'] != ''):
+                this_user.zip_code = request.POST['user_zip_code']
             if 'user_admin' in request.POST:
                 this_user.admin = True
             else:
@@ -155,16 +158,18 @@ def admin_update_user(request):
             else:
                 this_user.wants_newsletter = False
             this_user.save()
-    return redirect('/admin/user_manager')
+        return redirect(f'/admin/user_manager/{this_user.id}')
+    return redirect("/")
 
 def delete_user(request, user_id):
     if 'current_user' not in request.session:
         return redirect ('/')
     else:
         if request.method == "POST":
+            current_user = request.session['current_user']
             user_to_delete = User.objects.filter(id=user_id)[0]
             user_to_delete.delete()
-            return redirect('/admin/user_manager')
+            return redirect(f'/admin/user_manager/{current_user.id}')
 
 def admin_news(request):
     if 'current_user' not in request.session:
@@ -398,8 +403,7 @@ def add_to_cart(request):
             this_product = this_product[0]
             new_order_item = OrderItem.objects.create(product=this_product, quantity=request.POST['product_quantity'], order=curr_order)
             update_order_total(curr_order)
-            print(curr_order, curr_order.total)
-            print(new_order_item)
+        return redirect(f'/products/{request.POST["product_id"]}')
     return redirect('/')
 
 def update_quantity(request, id):
