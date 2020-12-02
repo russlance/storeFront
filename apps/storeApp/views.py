@@ -68,7 +68,7 @@ def directions(request):
     return render(request, "directions.html")
 
 def cart(request):
-    if "current_order" not in request.session:
+    if "current_order" not in request.session or request.session['current_order'] == None:
         curr_order = None
     else:
         curr_order = Order.objects.get(id=request.session["current_order"])
@@ -87,7 +87,7 @@ def login(request):
 
 def news(request):
     context = {
-        'all_articles': Article.objects.all(),
+        'all_articles': Article.objects.all().order_by('-created_at'),
     }
     return render(request, 'news.html', context)
 
