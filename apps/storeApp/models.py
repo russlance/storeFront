@@ -175,7 +175,7 @@ class Product(models.Model):
     # order_items = List of OrderItems containing this product.
 
 class Order(models.Model):
-    user = models.ForeignKey(User, related_name="orders", on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, related_name="orders", on_delete=models.SET_NULL, null=True, blank=True)
     total = MoneyField(default=0, max_digits=14, decimal_places=2, default_currency='USD')
     completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
