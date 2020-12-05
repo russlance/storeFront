@@ -9,6 +9,7 @@ from .contact_info import contact_recipients
 
 # Create your views here.
 def index (request):
+    print(dict(request.session))
     if 'current_user' not in request.session:
         curr_user = None
     else:
@@ -19,8 +20,10 @@ def index (request):
         if sale_finder:
             sale_list[f"sale{i}"] = sale_finder[0]
     cart_quantity = 0
-    if "current_order" in request.session:
-        curr_order = Order.objects.get(id=request.session["current_order"])
+    if "current_order" not in request.session:
+        curr_order = None
+    elif request.session["current_order"] != None:
+        curr_order = Order.objects.filter(id=request.session["current_order"])[0]
         cart_quantity += curr_order.order_items.count()
     context = {
         "cart_quantity": cart_quantity,
@@ -50,7 +53,9 @@ def navbar(request):
     else:
         curr_user = User.objects.get(id=request.session['current_user'])
     cart_quantity = 0
-    if "current_order" in request.session:
+    if "current_order" not in request.session:
+        curr_order = None
+    elif request.session["current_order"] != None:
         curr_order = Order.objects.get(id=request.session["current_order"])
         cart_quantity += curr_order.order_items.count()
     context = {
@@ -63,7 +68,7 @@ def directions(request):
     return render(request, "directions.html")
 
 def cart(request):
-    if "current_order" not in request.session:
+    if "current_order" not in request.session or request.session['current_order'] == None:
         curr_order = None
     else:
         curr_order = Order.objects.get(id=request.session["current_order"])
@@ -82,7 +87,7 @@ def login(request):
 
 def news(request):
     context = {
-        'all_articles': Article.objects.all(),
+        'all_articles': Article.objects.all().order_by('-created_at'),
     }
     return render(request, 'news.html', context)
 
@@ -383,7 +388,7 @@ def update_order_total(order):
 
 def add_to_cart(request):
     if request.method == "POST":
-        if 'current_order' not in request.session:
+        if ('current_order' not in request.session) or (request.session["current_order"] == None):
             curr_order = Order.objects.create()
             request.session["current_order"] = curr_order.id
             if "current_user" in request.session:
@@ -400,7 +405,7 @@ def add_to_cart(request):
             update_order_total(curr_order)
             print(curr_order, curr_order.total)
             print(new_order_item)
-    return redirect('/')
+    return redirect('/cart')
 
 def update_quantity(request, id):
     if request.method == "POST":
@@ -470,11 +475,19 @@ def log_in(request):
             login_user = login_user[0]
             if bcrypt.checkpw(request.POST['login_password'].encode(), login_user.password.encode()):
                 request.session["current_user"] = login_user.id
+                last_order = login_user.orders.all().last()
+                if last_order:
+                    request.session["current_order"] = last_order.id
+                else:
+                    request.session["current_order"] = None
                 return redirect('/navbar')
         messages.error(request, "Email or password is incorrect.")
         return redirect('/navbar')
     return redirect('/navbar')
 
 def log_out(request):
+    print(dict(request.session))
     request.session.pop('current_user')
+    if "current_order" in request.session:
+        request.session.pop('current_order')
     return redirect('/')
